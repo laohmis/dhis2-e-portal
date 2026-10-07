@@ -11,7 +11,7 @@ A static learning portal prototype with step-by-step DHIS2 guidance, available i
 | Program | Learning area | Status |
 |---|---|---|
 | Surveillance 2.0 | Data Entry — Communicable Disease Case Report (codes 1–18) | Available |
-| Surveillance 2.0 | Data Entry — Malaria Case Report (code 19) | To develop |
+| Surveillance 2.0 | Data Entry — Malaria Case Report (code 19) | Available |
 | Surveillance 2.0 | Data Entry — Zero Case Report (diseases 1–19) | To develop |
 | Surveillance 2.0 | Data Entry — Completeness Report (weekly reporting rate) | To develop |
 | Surveillance 2.0 | Data Analysis | Available |
@@ -33,7 +33,8 @@ dhis2-e-portal/
 ├── README.md
 └── assets/
     ├── data-entry/
-    │   └── communicable Disease(codes 1–18)/ # Communicable Disease Case Report
+    │   ├── communicable Disease(codes 1–18)/ # Communicable Disease Case Report
+    │   └── malaria Case Report(code 19)/ # Malaria Case Report
     ├── data-analysis/
     │   └── communicable Disease(codes 1–18)/ # Data Analysis screenshots
     └── standard-report/
@@ -47,6 +48,7 @@ Screenshots are separate image files, not embedded in `index.html`. This keeps t
 Each lesson step looks for an image named after its step ID. Names are **case-sensitive** and must match exactly, including the file extension.
 
 - Data Entry: `assets/data-entry/communicable Disease(codes 1–18)/SUR-DE-001.png`, `SUR-DE-010A-01.png`, `SUR-DE-014-02.png`, and so on
+- Malaria Case Report: `assets/data-entry/malaria Case Report(code 19)/SUR-DE-MAL-001.png`, `SUR-DE-MAL-010A-01.png`, and so on
 - Data Analysis: `assets/data-analysis/communicable Disease(codes 1–18)/SUR-DA-001.png`, `SUR-DA-008-01.png`, and so on
 - Standard Report: `assets/standard-report/communicable Disease(codes 1–18)/SUR-SR-001.png`, `SUR-SR-009-01.png`, and so on
 
