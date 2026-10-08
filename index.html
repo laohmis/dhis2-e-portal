@@ -160,8 +160,43 @@ header::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;back
 @media(max-width:1050px){.program-grid,.area-grid,.annex-grid,.handbook-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr;padding:34px 30px}.hero-art{display:none}
  .lesson-layout{grid-template-columns:1fr}.sidebar{position:relative;top:0;height:auto;max-height:360px;border-right:0;border-bottom:1px solid var(--border)}.lesson-main,.page{padding:20px;height:auto;overflow-y:visible}
  header{height:auto;display:flex;position:relative;flex-wrap:wrap;padding:12px 16px;gap:10px}.brand{min-width:0;flex:1 1 auto}.topnav{order:3;flex:1 1 100%;width:100%;overflow-x:auto;padding-bottom:2px;justify-content:center}.topnav button{white-space:nowrap}.branch-options{grid-template-columns:1fr}}
-@media(max-width:700px){.topnav{justify-content:flex-start}.brand span{display:none}.brand strong{font-size:15px}.cards,.program-grid,.area-grid,.annex-grid,.handbook-grid{grid-template-columns:1fr}.hero h1{font-size:32px}.hero p{font-size:16px}.subhead{flex-direction:column;align-items:flex-start}.subhead h1{font-size:28px}.footer{flex-direction:column}}
+@media(max-width:700px){.brand span{display:none}.brand strong{font-size:15px}.cards,.program-grid,.area-grid,.annex-grid,.handbook-grid{grid-template-columns:1fr}.hero h1{font-size:32px}.hero p{font-size:16px}.subhead{flex-direction:column;align-items:flex-start}.subhead h1{font-size:28px}.footer{flex-direction:column}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Keep each desktop lesson step within the visible workspace. */
+@media(min-width:1051px){
+ .lesson-layout{height:calc(100vh - 76px);min-height:0;overflow:hidden}
+ .sidebar{top:76px;height:calc(100vh - 76px);min-height:0;overflow-y:auto}
+ .lesson-main{height:calc(100vh - 76px);min-height:0;padding:16px 24px;overflow:hidden;display:flex;flex-direction:column;gap:12px}
+ .lesson-hero{flex:0 0 auto;margin:0;padding:16px 22px}
+ .lesson-hero h1{font-size:22px;margin-bottom:4px}
+ .lesson-hero p{font-size:13.5px;line-height:1.45}
+ .toolbar{flex:0 0 auto;margin:0}
+ .content{display:flex;flex:1 1 auto;min-height:0;flex-direction:column;overflow:hidden}
+ .content-head{flex:0 0 auto;padding:14px 22px 12px}
+ .content-head h2{font-size:20px;margin-bottom:5px}
+ .content-head p{font-size:14px;line-height:1.45}
+ .image-wrap{flex:1 1 auto;min-height:0;padding:10px;overflow:hidden}
+ .image-wrap img{max-width:100%;max-height:100%;object-fit:contain}
+ .actionbar{position:relative;bottom:auto;flex:0 0 auto;padding:10px 16px;box-shadow:none}
+}
+@media(min-width:1051px) and (max-height:720px){
+ .lesson-main{padding-top:10px;padding-bottom:10px;gap:8px}
+ .lesson-hero{padding:11px 18px}
+ .lesson-hero h1{font-size:20px}
+ .content-head{padding:10px 18px 8px}
+ .actionbar{padding:7px 12px}
+}
+@media(max-width:1050px){
+ .lesson-layout{height:auto;min-height:calc(100vh - 76px);overflow:visible}
+ .lesson-main{display:block;min-height:0}
+ .content{display:block;overflow:visible}
+ .image-wrap{min-height:260px;overflow:visible}
+ .image-wrap img{max-height:640px}
+ .actionbar{position:sticky;bottom:0}
+}
+@media(max-width:700px){.topnav{justify-content:flex-start}}
+
 </style>
 </head>
 <body>
