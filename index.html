@@ -365,6 +365,33 @@ body{background:var(--bg)}
   .hero-search{margin-top:auto;padding-top:22px}
 }
 
+
+
+/* Allow homepage search suggestions to overflow the hero instead of being clipped by its rounded frame. */
+.hero{
+  overflow:visible;
+  z-index:20;
+}
+/* Keep the photo/gradient contained within the hero's rounded corners even though the hero itself allows overflow. */
+.hero::after{
+  border-radius:inherit;
+}
+.hero-copy{
+  position:relative;
+  z-index:2;
+}
+.hero-search{
+  position:relative;
+  z-index:30;
+}
+.search-results{
+  z-index:40;
+  max-height:min(320px, calc(100vh - 180px));
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+}
+
 </style>
 </head>
 <body>
