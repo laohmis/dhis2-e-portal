@@ -357,6 +357,14 @@ body{background:var(--bg)}
 .hero{--hero-blue:20,42,95}
 .hero p{color:#DCE7F6}
 .hero-search-box{box-shadow:0 10px 24px rgba(5,16,35,.25)}
+
+/* Desktop homepage: keep the title in place and anchor the search field near the hero's bottom edge. */
+@media(min-width:1051px){
+  .hero{padding-bottom:24px}
+  .hero-copy{align-self:stretch;display:flex;flex-direction:column;padding-top:44px}
+  .hero-search{margin-top:auto;padding-top:22px}
+}
+
 </style>
 </head>
 <body>
