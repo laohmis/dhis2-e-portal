@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Noto+Sans+Lao:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#093371;--blue:#147CD7;--blue2:#E3F2FD;--teal:#00695C;--bg:#F6F8FA;--card:#FFFFFF;--text:#212934;--muted:#4A5768;--border:#E3E9F0;--success:#2E7D32;--warn:#BB460D;
---amber:#C2922E;--amber-tint:#F5EBD1;--shadow:0 10px 24px rgba(9,51,113,.08);--flag-red:#CE1126;--flag-blue:#002868}
+:root{--navy:#0C4A82;--blue:#1275CF;--blue2:#E4F3FD;--teal:#00695C;--bg:#F1F8FE;--card:#FFFFFF;--text:#1B2B3C;--muted:#4B6178;--border:#D8E9F6;--success:#2E7D32;--warn:#BB460D;
+--amber:#F2A33A;--amber-tint:#FFF1D4;--shadow:0 10px 24px rgba(18,100,170,.10);--flag-red:#CE1126;--flag-blue:#002868;--sky:#38B6FF}
 *{box-sizing:border-box}html,body{margin:0;padding:0;font-family:"Public Sans","Noto Sans Lao","Phetsarath OT","Saysettha OT",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--text);background:var(--bg);font-size:15px;line-height:1.55}
 body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
 :focus-visible{outline:3px solid var(--amber);outline-offset:2px}
@@ -106,7 +106,7 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;align-items:stretch}
 .program-grid,.area-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.data-entry-modules{grid-template-columns:repeat(2,minmax(0,1fr))}.data-entry-modules .area{min-height:240px}
 .card,.program,.area{--c:#147CD7;--ct:#E3F2FD;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;box-shadow:none;display:flex;flex-direction:column;align-items:flex-start}
-.c-blue{--c:#147CD7;--ct:#E3F2FD}.c-teal{--c:#00796B;--ct:#E0F2F1}.c-amber{--c:#C2922E;--ct:#F5EBD1}.c-coral{--c:#BB460D;--ct:#FBE4D6}
+.c-blue{--c:#1275CF;--ct:#E4F3FD}.c-teal{--c:#00796B;--ct:#E0F2F1}.c-amber{--c:#9E6A0A;--ct:#FFF1D4}.c-coral{--c:#BB460D;--ct:#FBE4D6}
 .program>div:first-child{flex:1;width:100%}
 .card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px;width:100%}
 .icon{width:46px;height:46px;border-radius:10px;background:var(--ct);display:grid;place-items:center;font-size:22px;margin-bottom:16px}
@@ -194,7 +194,7 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
 .resource-card p{margin:14px 0 24px;color:var(--muted);font-size:15.5px;line-height:1.6;max-width:650px}
 .resource-folder-name{font-weight:700;color:var(--text)}
 .resource-open{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:8px;padding:13px 18px;background:var(--navy);color:#fff;font-size:15px;font-weight:600;cursor:pointer;box-shadow:none}
-.resource-open:hover{background:#0E241F}
+.resource-open:hover{background:var(--blue)}
 .resource-open svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .resources-page .footer{max-width:none;margin-top:38px}
 
@@ -240,64 +240,116 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
 @media(max-width:1050px){.lesson-layout{height:auto;min-height:100vh;overflow:visible}.lesson-main{display:block;min-height:0}.content{display:block;overflow:visible}.image-wrap{min-height:260px;overflow:visible}.image-wrap img{max-height:640px}.actionbar{position:sticky;bottom:0}}
 
 
-/* Homepage hero: match the marked reference with a solid navy text field and a clear right-side photo. */
+/* Homepage hero: clear sky-blue text area on the left, training photo blended in on the right */
 .hero{
-  --hero-blue:9,51,113;
+  --hero-blue:12,104,190;
   position:relative;
   isolation:isolate;
   overflow:hidden;
   display:grid;
-  grid-template-columns:minmax(0,1.08fr) minmax(280px,.92fr);
+  grid-template-columns:minmax(0,1.12fr) minmax(260px,.88fr);
   gap:clamp(22px,3vw,38px);
   align-items:center;
   padding:clamp(36px,3.3vw,48px);
-  min-height:380px;
-  background:rgb(var(--hero-blue));
+  min-height:383px;
+  background:
+    radial-gradient(ellipse 38% 85% at 10% 0%,rgba(255,255,255,.16),rgba(255,255,255,0) 100%),
+    rgb(var(--hero-blue));
 }
-/* The image occupies the right side; its natural detail stays sharp and its framing stays consistent. */
-.hero > .hero-bg{
-  position:absolute;
-  inset:0 0 0 auto;
-  width:64%;
-  z-index:0;
-  pointer-events:none;
-  background:url("assets/images/background-image/dhis2-training.jpeg") center 54%/cover no-repeat;
-  filter:saturate(1.04) contrast(1.02) brightness(1.02);
-}
-/* Keep the left text/search area fully navy, then blend smoothly into the photograph. */
+/* Photo: its width follows the hero height, so the whole scene stays visible; the sky blue fades into it on the left */
 .hero::after{
   content:"";
   position:absolute;
-  inset:0;
+  top:0;bottom:0;right:0;
+  aspect-ratio:1.45/1;
+  max-width:64%;
   z-index:0;
   pointer-events:none;
-  background:linear-gradient(90deg,
-    rgba(var(--hero-blue),1) 0%,
-    rgba(var(--hero-blue),1) 38%,
-    rgba(var(--hero-blue),.96) 46%,
-    rgba(var(--hero-blue),.82) 53%,
-    rgba(var(--hero-blue),.58) 60%,
-    rgba(var(--hero-blue),.28) 68%,
-    rgba(var(--hero-blue),.08) 75%,
-    rgba(var(--hero-blue),0) 82%);
+  background:
+    linear-gradient(90deg,
+      rgba(var(--hero-blue),1) 0%,
+      rgba(var(--hero-blue),.9) 5%,
+      rgba(var(--hero-blue),.66) 12%,
+      rgba(var(--hero-blue),.4) 20%,
+      rgba(var(--hero-blue),.18) 28%,
+      rgba(var(--hero-blue),.05) 36%,
+      rgba(var(--hero-blue),0) 44%),
+    url("assets/images/background-image/dhis2-training.jpeg") center 25%/cover no-repeat;
 }
 .hero > *{position:relative;z-index:1}
-.hero > .hero-bg{position:absolute;z-index:0}
 .hero-copy{grid-column:1;min-width:0;max-width:660px}
+.hero h1{color:#fff}
+.hero p{color:#EAF5FF}
+.hero-search-box{box-shadow:0 10px 24px rgba(6,60,115,.28)}
+/* The old separate photo frames stay hidden. */
 .hero-photo,.hero-art{display:none!important}
-@media(min-width:1051px){.hero{min-height:380px}.hero h1{font-size:clamp(32px,2.9vw,40px)}html[lang="lo"] .hero h1{font-size:clamp(30px,2.4vw,36px)}}
 @media(max-width:1050px){
-  .hero{grid-template-columns:minmax(0,1fr);min-height:350px;padding:30px;}
-  .hero-copy{max-width:62%}
-  .hero > .hero-bg{width:70%;background-position:56% 54%}
-  .hero::after{background:linear-gradient(90deg,rgba(var(--hero-blue),1) 0%,rgba(var(--hero-blue),.98) 34%,rgba(var(--hero-blue),.88) 46%,rgba(var(--hero-blue),.63) 59%,rgba(var(--hero-blue),.24) 72%,rgba(var(--hero-blue),0) 88%)}
+  .hero::after{max-width:68%}
+}
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:minmax(0,1fr);
+    padding:30px;
+    min-height:320px;
+  }
+  .hero-copy{max-width:58%}
+  .hero::after{
+    max-width:78%;
+    background:
+      linear-gradient(90deg,
+        rgba(var(--hero-blue),1) 0%,
+        rgba(var(--hero-blue),.86) 14%,
+        rgba(var(--hero-blue),.52) 32%,
+        rgba(var(--hero-blue),.2) 56%,
+        rgba(var(--hero-blue),.05) 100%),
+      url("assets/images/background-image/dhis2-training.jpeg") center 25%/cover no-repeat;
+  }
 }
 @media(max-width:700px){
-  .hero{padding:26px 22px;min-height:0;border-radius:14px}
+  .hero{
+    padding:26px 22px;
+    min-height:0;
+  }
   .hero-copy{max-width:100%}
-  .hero > .hero-bg{inset:0;width:100%;background-position:58% center}
-  .hero::after{background:linear-gradient(90deg,rgba(var(--hero-blue),.98) 0%,rgba(var(--hero-blue),.92) 55%,rgba(var(--hero-blue),.76) 100%)}
+  /* On phones the text sits over the photo, so keep a stronger blue overlay for readability */
+  .hero::after{
+    left:0;
+    aspect-ratio:auto;
+    max-width:none;
+    background:
+      linear-gradient(90deg,
+        rgba(var(--hero-blue),.94) 0%,
+        rgba(var(--hero-blue),.84) 50%,
+        rgba(var(--hero-blue),.6) 100%),
+      url("assets/images/background-image/dhis2-training.jpeg") 62% center/cover no-repeat;
+  }
 }
+
+/* ===== Sky theme: light, fresh sidebar and accents ===== */
+.gsb{background:linear-gradient(180deg,#F8FCFF 0%,#EAF5FE 60%,#DCEEFB 100%);border-right:1px solid #D0E4F4;box-shadow:0 12px 32px rgba(18,100,170,.12);color:var(--navy)}
+.ghead{border-bottom:1px solid #D0E4F4}
+.gbrandtext strong{color:var(--navy)}
+.gbrandtext span{color:#5B7A97}
+.logo{background:linear-gradient(135deg,#38B6FF,#1275CF);box-shadow:0 4px 10px rgba(18,117,207,.28)}
+.logo::after{background:#F5B031;border-color:#F3F9FE}
+.gcollapse{color:#4A7CA6}
+.gcollapse:hover{background:rgba(18,117,207,.1);color:var(--navy)}
+.gitem{color:#2B5D88}
+.gitem:hover{background:rgba(18,117,207,.09);color:var(--navy)}
+.gitem svg{color:#5B93C0}
+.gitem:hover svg{color:var(--blue)}
+.gitem.active{background:linear-gradient(90deg,#2AA3F0,#1275CF);color:#fff;box-shadow:0 8px 18px rgba(18,117,207,.28)}
+.gitem.active svg{color:#fff}
+.gitem .gdot{background:#FFC928}
+.gfoot{border-top:1px solid #D0E4F4}
+.glang{background:#fff;border:1px solid #CBE1F2}
+.glang button{color:#3F6D96}
+.glang button:hover{color:var(--navy)}
+.glang button.active{background:#FFC928;color:#0C3B66}
+.gburger{background:var(--blue);box-shadow:0 6px 16px rgba(18,117,207,.35)}
+.about-intro{background:linear-gradient(135deg,#0C68BE,#2A9DE8);border-left-color:#FFC928}
+.about-intro p{color:#EAF5FF}
+.btn.accent:hover{background:#B9780F}
 </style>
 </head>
 <body>
@@ -1344,7 +1396,7 @@ function heroArt(){return `<svg class="hero-svg hero-svg-full" viewBox="0 0 500 
 <text x="103" y="49" font-family="Arial,sans-serif" font-size="7.2" font-weight="700" fill="#10396F">Explore programmes</text><g><rect x="103" y="56" width="87" height="28" rx="4" fill="#E8F3FD" stroke="#D3E7F8"/><rect x="108" y="61" width="13" height="13" rx="3" fill="#167BD2"/><path d="M114.5 63.5v8M110.5 67.5h8" stroke="#FFFFFF" stroke-width="1"/><text x="125" y="64.5" font-family="Arial,sans-serif" font-size="5.3" font-weight="700" fill="#123B70">Surveillance</text><text x="125" y="72" font-family="Arial,sans-serif" font-size="4.6" fill="#5B7089">Step-by-step guides</text><rect x="197" y="56" width="91" height="28" rx="4" fill="#E5F5F1" stroke="#CEEAE3"/><rect x="202" y="61" width="13" height="13" rx="3" fill="#168776"/><path d="M208.5 63.5v8M204.5 67.5h8" stroke="#FFFFFF" stroke-width="1"/><text x="219" y="64.5" font-family="Arial,sans-serif" font-size="5.3" font-weight="700" fill="#123B70">HIV, TB &amp; MCH</text><text x="219" y="72" font-family="Arial,sans-serif" font-size="4.6" fill="#5B7089">Programme guides</text><rect x="103" y="89" width="87" height="28" rx="4" fill="#FFF4D9" stroke="#F0E2BA"/><rect x="108" y="94" width="13" height="13" rx="3" fill="#C2922E"/><path d="M111 98h7M111 101h7M111 104h5" stroke="#FFFFFF" stroke-width=".9"/><text x="125" y="97.5" font-family="Arial,sans-serif" font-size="5.3" font-weight="700" fill="#123B70">Data Analysis</text><text x="125" y="105" font-family="Arial,sans-serif" font-size="4.6" fill="#5B7089">Charts and maps</text><rect x="197" y="89" width="91" height="28" rx="4" fill="#F0EAFE" stroke="#E0D7F8"/><rect x="202" y="94" width="13" height="13" rx="3" fill="#7056C9"/><path d="M205 97h7v7h-7zM206 99h5M206 101h5" fill="none" stroke="#FFFFFF" stroke-width=".8"/><text x="219" y="97.5" font-family="Arial,sans-serif" font-size="5.3" font-weight="700" fill="#123B70">Reports &amp; more</text><text x="219" y="105" font-family="Arial,sans-serif" font-size="4.6" fill="#5B7089">Reusable learning paths</text></g></g>
 <g class="hero-chip" style="animation-delay:1.3s" filter="url(#compactShadow)"><rect x="3" y="105" width="71" height="26" rx="7" fill="#FFFFFF"/><circle cx="15" cy="118" r="7" fill="#DDF3EA"/><path d="M11 121v-4h3v4M16 121v-7h3v7" fill="none" stroke="#168776" stroke-width="1"/><text x="26" y="116" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" fill="#123B70">Data</text><text x="26" y="123" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" fill="#123B70">Analysis</text></g><g class="hero-chip" style="animation-delay:2s" filter="url(#compactShadow)"><rect x="265" y="6" width="70" height="24" rx="7" fill="#FFFFFF"/><circle cx="278" cy="18" r="7" fill="#F0EAFE"/><path d="M275 14h6v8h-6zM276 16h4M276 18h4" fill="none" stroke="#7056C9" stroke-width=".9"/><text x="289" y="16.5" font-family="Arial,sans-serif" font-size="5.3" font-weight="700" fill="#123B70">Standard</text><text x="289" y="22.5" font-family="Arial,sans-serif" font-size="5.3" font-weight="700" fill="#123B70">Reports</text></g>
 </svg>`}
-function showHome(){window.currentView='home';navActive('navHome');document.getElementById('app').innerHTML=`<div class="page"><section class="hero"><div class="hero-bg" aria-hidden="true"></div><div class="hero-copy"><h1>${t('heroTitle')}</h1><p>${t('heroText')}</p><div class="hero-search" id="homeSearchWrap"><div class="hero-search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="homeSearch" type="text" placeholder="${t('searchPlaceholder')}" oninput="onHomeSearchInput(this.value)" onkeydown="onHomeSearchKey(event)" aria-label="${t('searchPlaceholder')}"></div><div id="homeSearchResults" class="search-results hidden"></div></div></div></section><h2 class="section-title">${t('explore')}</h2><div class="cards"><div class="card home-card c-blue"><div class="icon">🎓</div><h3>${t('programCardTitle')}</h3><p>${t('programCardText')}</p><button class="btn primary" onclick="showPrograms()">${t('explorePrograms')}</button></div><div class="card home-card c-teal"><div class="icon">🧭</div><h3>${t('developerCardTitle')}</h3><p>${t('developerCardText')}</p><button class="btn primary" onclick="showDevelopments()">${t('exploreDeveloper')}</button></div><div class="card home-card c-amber"><div class="icon">📣</div><h3>${t('updates')}</h3><p>${t('updatesText')}</p><button class="btn disabled" onclick="showPlaceholder('updates')">${t('comingSoon')}</button></div><div class="card home-card c-coral"><div class="icon">📁</div><h3>${t('resources')}</h3><p>${t('resourcesText')}</p><button class="btn primary" onclick="showResources()">${t('openResources')}</button></div></div><div class="notice"><strong>${t('versionFocus')}</strong> ${t('versionFocusText')}</div><div class="footer"><span>${t('pilotFooter')}</span><span>${t('footerTag')}</span></div></div>`}
+function showHome(){window.currentView='home';navActive('navHome');document.getElementById('app').innerHTML=`<div class="page"><section class="hero"><div class="hero-copy"><h1>${t('heroTitle')}</h1><p>${t('heroText')}</p><div class="hero-search" id="homeSearchWrap"><div class="hero-search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="homeSearch" type="text" placeholder="${t('searchPlaceholder')}" oninput="onHomeSearchInput(this.value)" onkeydown="onHomeSearchKey(event)" aria-label="${t('searchPlaceholder')}"></div><div id="homeSearchResults" class="search-results hidden"></div></div></div></section><h2 class="section-title">${t('explore')}</h2><div class="cards"><div class="card home-card c-blue"><div class="icon">🎓</div><h3>${t('programCardTitle')}</h3><p>${t('programCardText')}</p><button class="btn primary" onclick="showPrograms()">${t('explorePrograms')}</button></div><div class="card home-card c-teal"><div class="icon">🧭</div><h3>${t('developerCardTitle')}</h3><p>${t('developerCardText')}</p><button class="btn primary" onclick="showDevelopments()">${t('exploreDeveloper')}</button></div><div class="card home-card c-amber"><div class="icon">📣</div><h3>${t('updates')}</h3><p>${t('updatesText')}</p><button class="btn disabled" onclick="showPlaceholder('updates')">${t('comingSoon')}</button></div><div class="card home-card c-coral"><div class="icon">📁</div><h3>${t('resources')}</h3><p>${t('resourcesText')}</p><button class="btn primary" onclick="showResources()">${t('openResources')}</button></div></div><div class="notice"><strong>${t('versionFocus')}</strong> ${t('versionFocusText')}</div><div class="footer"><span>${t('pilotFooter')}</span><span>${t('footerTag')}</span></div></div>`}
 function showPrograms(){window.currentView='programs';navActive('navPrograms');document.getElementById('app').innerHTML=`<div class="page"><div class="breadcrumb">${t('home')} / ${t('programGuidance')}</div><div class="subhead"><div><h1>${t('programGuidanceTitle')}</h1><p>${t('selectProgram')}</p></div><button class="btn" onclick="showHome()">${t('homeBtn')}</button></div><div class="program-grid"><div class="program c-blue"><div><div class="card-top"><div class="icon">🔎</div><div class="status">${t('available')}</div></div><h3>${t('surveillanceTitle')}</h3><p>${t('surveillanceDesc')}</p></div><button class="btn primary" onclick="showAreas()">${t('openProgram')}</button></div><div class="program c-coral"><div><div class="card-top"><div class="icon">👶</div><div class="status">${t('available')}</div></div><h3>${t('mchTitle')}</h3><p>${t('mchDesc')}</p></div><button class="btn primary" onclick="showMchAreas()">${t('openProgram')}</button></div><div class="program soon c-amber"><div><div class="card-top"><div class="icon">🎗️</div><div class="status">${t('notAvailable')}</div></div><h3>${t('hivTitle')}</h3><p>${t('hivDesc')}</p></div><button class="btn disabled" disabled aria-disabled="true">${t('openProgram')}</button></div><div class="program soon c-teal"><div><div class="card-top"><div class="icon">🩺</div><div class="status">${t('notAvailable')}</div></div><h3>${t('tbTitle')}</h3><p>${t('tbDesc')}</p></div><button class="btn disabled" disabled aria-disabled="true">${t('openProgram')}</button></div></div></div>`}
 function showAreas(){window.currentView='areas';navActive('navPrograms');document.getElementById('app').innerHTML=`<div class="page"><div class="breadcrumb">${t('home')} / ${t('programGuidance')} / ${t('surveillanceTitle')}</div><div class="subhead"><div><h1>${t('surveillanceTitle')}</h1><p>${t('chooseArea')}</p></div><button class="btn" onclick="showPrograms()">${t('programsBtn')}</button></div><div class="area-grid"><div class="area c-blue"><div class="card-top"><div class="icon">ℹ️</div><div class="status">${t('availableNow')}</div></div><h3>${t('aboutProgram')}</h3><p>${t('diseaseSurveillanceShort')}</p><button class="btn primary" onclick="showProgramAbout('diseaseSurveillance')">${t('openProgram')}</button></div><div class="area c-blue"><div class="card-top"><div class="icon">📝</div><div class="status">${t('availableNow')}</div></div><h3>${t('dataEntry')}</h3><p>${t('dataEntryDesc')}</p><button class="btn primary" onclick="showDataEntryModules()">${t('startLearning')}</button></div><div class="area c-teal"><div class="card-top"><div class="icon">📊</div><div class="status">${t('availableNow')}</div></div><h3>${t('dataAnalysis')}</h3><p>${t('dataAnalysisDesc')}</p><button class="btn primary" onclick="startAnalysisLesson()">${t('startLearning')}</button></div><div class="area c-amber"><div class="card-top"><div class="icon">📄</div><div class="status">${t('availableNow')}</div></div><h3>${t('standardReports')}</h3><p>${t('srCardDesc')}</p><button class="btn primary" onclick="startReportLesson()">${t('startLearning')}</button></div><div class="area soon c-coral"><div class="card-top"><div class="icon">✅</div><div class="status">${t('notAvailable')}</div></div><h3>${t('dataQualityTitle')}</h3><p>${t('dataQualityDesc')}</p><button class="btn disabled">${t('comingSoon')}</button></div></div></div>`}
 function showDataEntryModules(){window.currentView='dataEntryModules';navActive('navPrograms');document.getElementById('app').innerHTML=`<div class="page"><div class="breadcrumb">${t('home')} / ${t('programGuidance')} / ${t('surveillanceTitle')} / ${t('dataEntry')}</div><div class="subhead"><div><h1>${t('dataEntryModulesTitle')}</h1><p>${t('dataEntryModulesIntro')}</p></div><button class="btn" onclick="showAreas()">${t('backDataEntry')}</button></div><div class="area-grid data-entry-modules"><div class="area c-blue"><div class="card-top"><div class="icon">📝</div><div class="status">${t('availableNow')}</div></div><h3>${t('communicableCaseTitle')}</h3><p>${t('communicableCaseDesc')}</p><button class="btn primary" onclick="startLesson()">${t('startLearning')}</button></div><div class="area c-teal"><div class="card-top"><div class="icon">🦟</div><div class="status">${t('availableNow')}</div></div><h3>${t('malariaCaseTitle')}</h3><p>${t('malariaCaseDesc')}</p><button class="btn primary" onclick="startMalariaLesson()">${t('startLearning')}</button></div><div class="area c-amber"><div class="card-top"><div class="icon">0️⃣</div><div class="status">${t('availableNow')}</div></div><h3>${t('zeroCaseTitle')}</h3><p>${t('zeroCaseDesc')}</p><button class="btn primary" onclick="startZeroCaseLesson()">${t('startLearning')}</button></div><div class="area c-coral"><div class="card-top"><div class="icon">📅</div><div class="status">${t('availableNow')}</div></div><h3>${t('completenessTitle')}</h3><p>${t('completenessDesc')}</p><button class="btn primary" onclick="startWeeklyReportLesson()">${t('startLearning')}</button></div></div><div class="footer"><span>${t('pilotFooter')}</span><span>${t('footerTag')}</span></div></div>`}
