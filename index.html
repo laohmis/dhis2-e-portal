@@ -212,7 +212,7 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
   .resource-open{font-size:14px}
 }
 
-@media(max-width:1650px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1250px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:1050px){.program-grid,.area-grid,.annex-grid,.handbook-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr;padding:30px 30px 26px;gap:20px}.hero-art{display:flex;height:230px;max-width:760px;width:100%;margin:0 auto}
  .lesson-layout{grid-template-columns:1fr}.sidebar{position:relative;top:0;height:auto;max-height:360px;border-right:0;border-bottom:1px solid var(--border)}.lesson-main,.page{padding:20px;height:auto;overflow-y:visible}
 .branch-options{grid-template-columns:1fr}}
@@ -390,6 +390,31 @@ body{background:var(--bg)}
   overflow-x:hidden;
   overflow-y:auto;
   overscroll-behavior:contain;
+}
+
+
+/* Expanded workspace: use the available browser width instead of centering content in a narrow max-width column. */
+@media(min-width:1051px){
+  .page{
+    max-width:none;
+    width:100%;
+    margin:0;
+    padding:28px clamp(20px,2.1vw,36px) 52px;
+  }
+  .resources-page{
+    max-width:none;
+    width:100%;
+    margin:0;
+    padding:28px clamp(20px,2.1vw,36px) 44px;
+  }
+}
+@media(max-width:1050px){
+  .page{max-width:none;width:100%;margin:0;padding:20px;}
+  .resources-page{max-width:none;width:100%;margin:0;padding:20px 20px 36px;}
+}
+@media(max-width:700px){
+  .page{padding:18px 14px 36px;}
+  .resources-page{padding:18px 14px 32px;}
 }
 
 </style>
