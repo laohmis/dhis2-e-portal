@@ -417,6 +417,64 @@ body{background:var(--bg)}
   .resources-page{padding:18px 14px 32px;}
 }
 
+
+
+/* Clean DHIS2 hero artwork: the background image contains only the navy/photograph design.
+   Headline, description and search field remain live HTML above it. */
+.hero {
+  --hero-blue: 20,42,95;
+  background-color: rgb(var(--hero-blue));
+  background-image: url("assets/images/background-image/dhis2-training-banner-background.jpeg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* Fit the entire prepared banner into the hero frame without cropping the photo. */
+  background-size: 100% 100%;
+  aspect-ratio: 1936 / 634;
+  min-height: 360px;
+}
+/* Disable the previous CSS photo/gradient layer; the new artwork already includes the blend. */
+.hero::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+.hero::before { content: none !important; display: none !important; }
+.hero-copy { position: relative; z-index: 2; }
+.hero-search { position: relative; z-index: 30; }
+.search-results { z-index: 40; }
+
+/* On medium screens, retain the full background image and allow the banner to grow with the content. */
+@media (max-width: 1350px) {
+  .hero {
+    aspect-ratio: auto;
+    min-height: 360px;
+    background-size: 100% 100%;
+  }
+}
+
+/* On phones, put a darker readable wash over the artwork as the live text stacks. */
+@media (max-width: 700px) {
+  .hero {
+    min-height: 390px;
+    background-size: cover;
+    background-position: 72% center;
+  }
+  .hero::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(90deg,
+      rgba(var(--hero-blue), .97) 0%,
+      rgba(var(--hero-blue), .91) 52%,
+      rgba(var(--hero-blue), .74) 100%);
+  }
+  .hero-copy { max-width: 100%; padding-top: 0; }
+}
+
 </style>
 </head>
 <body>
