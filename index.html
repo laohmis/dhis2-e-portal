@@ -240,7 +240,7 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
 @media(max-width:1050px){.lesson-layout{height:auto;min-height:100vh;overflow:visible}.lesson-main{display:block;min-height:0}.content{display:block;overflow:visible}.image-wrap{min-height:260px;overflow:visible}.image-wrap img{max-height:640px}.actionbar{position:sticky;bottom:0}}
 
 
-/* Homepage hero: solid navy text area on the left, training photo blended on the right */
+/* Homepage hero: solid navy text area on the left, training photo blended in on the right */
 .hero{
   position:relative;
   isolation:isolate;
@@ -250,49 +250,56 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
   gap:clamp(22px,3vw,38px);
   align-items:center;
   padding:clamp(36px,3.3vw,48px);
-  min-height:318px;
+  min-height:360px;
   background:var(--navy);
 }
 .hero::after{
   content:"";
   position:absolute;
   inset:0 0 0 auto;
-  width:61%;
+  width:54%;
   z-index:0;
   pointer-events:none;
+  /* Navy stays solid on the left edge, then fades out quickly so the photo is shown bright and clear */
   background-image:
     linear-gradient(90deg,
       rgba(9,51,113,1) 0%,
-      rgba(9,51,113,.88) 17%,
-      rgba(9,51,113,.55) 42%,
-      rgba(9,51,113,.22) 72%,
-      rgba(9,51,113,.16) 100%),
+      rgba(9,51,113,.9) 9%,
+      rgba(9,51,113,.62) 20%,
+      rgba(9,51,113,.28) 34%,
+      rgba(9,51,113,.06) 50%,
+      rgba(9,51,113,0) 62%),
     url("assets/images/background-image/dhis2-training.jpeg");
-  background-position:left center, center 47%;
+  background-position:left center, center 40%;
   background-size:100% 100%, cover;
   background-repeat:no-repeat, no-repeat;
 }
 .hero > *{position:relative;z-index:1}
 .hero-copy{grid-column:1;min-width:0;max-width:660px}
-/* The image is now rendered as the hero's right-side background, not as a separate frame. */
+/* The image is rendered as the hero's right-side background, not as a separate frame. */
 .hero-photo,.hero-art{display:none!important}
+@media(max-width:1050px){
+  .hero{min-height:340px}
+  .hero::after{width:58%}
+}
 @media(max-width:900px){
   .hero{
     grid-template-columns:minmax(0,1fr);
     padding:30px;
-    min-height:300px;
+    min-height:320px;
   }
-  .hero-copy{max-width:64%}
+  .hero-copy{max-width:62%}
   .hero::after{
-    width:73%;
+    width:64%;
     background-image:
       linear-gradient(90deg,
         rgba(9,51,113,1) 0%,
-        rgba(9,51,113,.93) 24%,
-        rgba(9,51,113,.72) 60%,
-        rgba(9,51,113,.56) 100%),
+        rgba(9,51,113,.88) 14%,
+        rgba(9,51,113,.55) 32%,
+        rgba(9,51,113,.22) 58%,
+        rgba(9,51,113,.08) 100%),
       url("assets/images/background-image/dhis2-training.jpeg");
-    background-position:left center, 57% center;
+    background-position:left center, 60% center;
   }
 }
 @media(max-width:700px){
@@ -301,18 +308,18 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
     min-height:0;
   }
   .hero-copy{max-width:100%}
+  /* On phones the text sits over the photo, so keep a stronger navy overlay for readability */
   .hero::after{
     width:100%;
     background-image:
       linear-gradient(90deg,
-        rgba(9,51,113,.97) 0%,
-        rgba(9,51,113,.91) 48%,
-        rgba(9,51,113,.70) 100%),
+        rgba(9,51,113,.96) 0%,
+        rgba(9,51,113,.88) 50%,
+        rgba(9,51,113,.66) 100%),
       url("assets/images/background-image/dhis2-training.jpeg");
-    background-position:left center, 60% center;
+    background-position:left center, 62% center;
   }
 }
-
 
 </style>
 </head>
