@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Noto+Sans+Lao:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0C4A82;--blue:#1275CF;--blue2:#E4F3FD;--teal:#00695C;--bg:#F1F8FE;--card:#FFFFFF;--text:#1B2B3C;--muted:#4B6178;--border:#D8E9F6;--success:#2E7D32;--warn:#BB460D;
---amber:#F2A33A;--amber-tint:#FFF1D4;--shadow:0 10px 24px rgba(18,100,170,.10);--flag-red:#CE1126;--flag-blue:#002868;--sky:#38B6FF}
+:root{--navy:#10356F;--blue:#147CD7;--blue2:#E3F2FD;--teal:#00796B;--bg:#F6F8FA;--card:#FFFFFF;--text:#212934;--muted:#4A5768;--border:#E3E9F0;--success:#2E7D32;--warn:#BB460D;
+--amber:#FFC928;--amber-tint:#F5EBD1;--shadow:0 10px 24px rgba(9,51,113,.08);--flag-red:#CE1126;--flag-blue:#002868;--sky:#38B6FF}
 *{box-sizing:border-box}html,body{margin:0;padding:0;font-family:"Public Sans","Noto Sans Lao","Phetsarath OT","Saysettha OT",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--text);background:var(--bg);font-size:15px;line-height:1.55}
 body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
 :focus-visible{outline:3px solid var(--amber);outline-offset:2px}
@@ -240,9 +240,9 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
 @media(max-width:1050px){.lesson-layout{height:auto;min-height:100vh;overflow:visible}.lesson-main{display:block;min-height:0}.content{display:block;overflow:visible}.image-wrap{min-height:260px;overflow:visible}.image-wrap img{max-height:640px}.actionbar{position:sticky;bottom:0}}
 
 
-/* Homepage hero: clear sky-blue text area on the left, training photo blended in on the right */
+/* Homepage hero: deep navy text area on the left, training photo blended in on the right */
 .hero{
-  --hero-blue:12,104,190;
+  --hero-blue:20,42,95;
   position:relative;
   isolation:isolate;
   overflow:hidden;
@@ -252,11 +252,9 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
   align-items:center;
   padding:clamp(36px,3.3vw,48px);
   min-height:383px;
-  background:
-    radial-gradient(ellipse 38% 85% at 10% 0%,rgba(255,255,255,.16),rgba(255,255,255,0) 100%),
-    rgb(var(--hero-blue));
+  background:rgb(var(--hero-blue));
 }
-/* Photo: its width follows the hero height, so the whole scene stays visible; the sky blue fades into it on the left */
+/* Photo: its width follows the hero height; deep navy fades into it from the left */
 .hero::after{
   content:"";
   position:absolute;
@@ -325,31 +323,40 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
   }
 }
 
-/* ===== Sky theme: light, fresh sidebar and accents ===== */
-.gsb{background:linear-gradient(180deg,#F8FCFF 0%,#EAF5FE 60%,#DCEEFB 100%);border-right:1px solid #D0E4F4;box-shadow:0 12px 32px rgba(18,100,170,.12);color:var(--navy)}
-.ghead{border-bottom:1px solid #D0E4F4}
-.gbrandtext strong{color:var(--navy)}
-.gbrandtext span{color:#5B7A97}
-.logo{background:linear-gradient(135deg,#38B6FF,#1275CF);box-shadow:0 4px 10px rgba(18,117,207,.28)}
-.logo::after{background:#F5B031;border-color:#F3F9FE}
-.gcollapse{color:#4A7CA6}
-.gcollapse:hover{background:rgba(18,117,207,.1);color:var(--navy)}
-.gitem{color:#2B5D88}
-.gitem:hover{background:rgba(18,117,207,.09);color:var(--navy)}
-.gitem svg{color:#5B93C0}
-.gitem:hover svg{color:var(--blue)}
-.gitem.active{background:linear-gradient(90deg,#2AA3F0,#1275CF);color:#fff;box-shadow:0 8px 18px rgba(18,117,207,.28)}
+/* ===== Unified navy, blue, teal and warm-accent theme ===== */
+.gsb{background:linear-gradient(180deg,#142D61 0%,#102958 58%,#0D244F 100%);border-right:1px solid rgba(255,255,255,.10);box-shadow:0 12px 32px rgba(7,24,55,.22);color:#fff}
+.ghead{border-bottom:1px solid rgba(255,255,255,.12)}
+.gbrandtext strong{color:#fff}
+.gbrandtext span{color:#C6D6EE}
+.logo{background:linear-gradient(135deg,#147CD7,#10356F);box-shadow:0 4px 10px rgba(0,0,0,.18)}
+.logo::after{background:#FFC928;border-color:#142D61}
+.gcollapse{color:#C6D6EE}
+.gcollapse:hover{background:rgba(255,255,255,.12);color:#fff}
+.gitem{color:#D3DEEF}
+.gitem:hover{background:rgba(255,255,255,.10);color:#fff}
+.gitem svg{color:#A7BEDF}
+.gitem:hover svg{color:#fff}
+.gitem.active{background:linear-gradient(90deg,#197ED7,#1B5FB8);color:#fff;box-shadow:0 7px 16px rgba(0,0,0,.20),inset 0 0 0 1px rgba(255,201,40,.42)}
 .gitem.active svg{color:#fff}
 .gitem .gdot{background:#FFC928}
-.gfoot{border-top:1px solid #D0E4F4}
-.glang{background:#fff;border:1px solid #CBE1F2}
-.glang button{color:#3F6D96}
-.glang button:hover{color:var(--navy)}
-.glang button.active{background:#FFC928;color:#0C3B66}
-.gburger{background:var(--blue);box-shadow:0 6px 16px rgba(18,117,207,.35)}
-.about-intro{background:linear-gradient(135deg,#0C68BE,#2A9DE8);border-left-color:#FFC928}
-.about-intro p{color:#EAF5FF}
-.btn.accent:hover{background:#B9780F}
+.gfoot{border-top:1px solid rgba(255,255,255,.12)}
+.glang{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18)}
+.glang button{color:#D3DEEF}
+.glang button:hover{color:#fff}
+.glang button.active{background:#FFC928;color:#10356F}
+.gburger{background:var(--navy);box-shadow:0 6px 16px rgba(9,51,113,.35)}
+.about-intro{background:var(--navy);border-left-color:var(--amber)}
+.about-intro p{color:#E2EBF8}
+.btn.accent:hover{background:#A47B26}
+/* Reuse the reference screenshot's clean page surface and subtle borders across all sections. */
+body{background:var(--bg)}
+.card,.program,.area,.resource-card,.handbook-content,.content,.about-card{background:var(--card);border-color:var(--border)}
+.section-title,.card h3,.program h3,.area h3,.subhead h1,.resources-heading h1,.resource-card h2,.handbook-content h2,.handbook-content h3,.handbook-content h4,.handbook-content h5{color:var(--navy)}
+.btn.primary{background:var(--c,var(--blue));border-color:var(--c,var(--blue));color:#fff}
+.notice{background:var(--amber-tint);color:#6E5212}
+.hero{--hero-blue:20,42,95}
+.hero p{color:#DCE7F6}
+.hero-search-box{box-shadow:0 10px 24px rgba(5,16,35,.25)}
 </style>
 </head>
 <body>
