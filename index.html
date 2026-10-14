@@ -475,6 +475,35 @@ body{background:var(--bg)}
   .hero-copy { max-width: 100%; padding-top: 0; }
 }
 
+/* ===== Compact hero banner (reduced height, matches reference screenshot) =====
+   Title sits near the top, search box near the bottom; photo is cropped, never stretched. */
+@media (min-width: 701px) {
+  .hero {
+    background-size: cover;
+    background-position: right center;
+  }
+}
+@media (min-width: 1051px) {
+  .hero {
+    min-height: 300px;
+    padding: 22px clamp(36px, 3.3vw, 48px) 12px;
+  }
+  .hero-copy { padding-top: 0; }
+  .hero-search { padding-top: 0; }
+}
+@media (min-width: 1351px) {
+  .hero {
+    aspect-ratio: 1577 / 431;   /* ~3.66:1, same proportions as the screenshot */
+    min-height: 300px;
+  }
+}
+@media (max-width: 1050px) {
+  .hero { min-height: 260px; padding: 24px 24px 20px; }
+}
+@media (max-width: 700px) {
+  .hero { min-height: 0; padding: 22px 18px 18px; }
+}
+
 </style>
 </head>
 <body>
