@@ -240,119 +240,64 @@ body{min-height:100vh}button{font:inherit}.hidden{display:none!important}
 @media(max-width:1050px){.lesson-layout{height:auto;min-height:100vh;overflow:visible}.lesson-main{display:block;min-height:0}.content{display:block;overflow:visible}.image-wrap{min-height:260px;overflow:visible}.image-wrap img{max-height:640px}.actionbar{position:sticky;bottom:0}}
 
 
-/* Homepage hero: clear deep-blue text area on the left, large crisp training photo blended in on the right */
+/* Homepage hero: match the marked reference with a solid navy text field and a clear right-side photo. */
 .hero{
-  --hero-blue:22,42,94;
+  --hero-blue:9,51,113;
   position:relative;
   isolation:isolate;
   overflow:hidden;
   display:grid;
-  grid-template-columns:minmax(0,1.12fr) minmax(260px,.88fr);
+  grid-template-columns:minmax(0,1.08fr) minmax(280px,.92fr);
   gap:clamp(22px,3vw,38px);
   align-items:center;
   padding:clamp(36px,3.3vw,48px);
-  min-height:383px;
+  min-height:380px;
   background:rgb(var(--hero-blue));
 }
-/* Layer 1: soft, blurred copy of the photo that extends the scene to the left of the sharp photo */
-.hero::before{
-  content:"";
-  position:absolute;
-  top:-24px;bottom:-24px;right:-24px;
-  width:calc(58% + 24px);
-  z-index:0;
-  pointer-events:none;
-  background:url("assets/images/background-image/dhis2-training.jpeg") center 30%/cover no-repeat;
-  filter:blur(5px) saturate(1.1) brightness(1.03);
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 22%);
-}
-/* Layer 2: the sharp photo. Its size follows the hero height, so the whole scene (people, laptop, presenter) stays visible. */
+/* The image occupies the right side; its natural detail stays sharp and its framing stays consistent. */
 .hero > .hero-bg{
   position:absolute;
-  top:0;bottom:0;right:0;
-  aspect-ratio:1.39/1;
-  max-width:62%;
+  inset:0 0 0 auto;
+  width:64%;
   z-index:0;
   pointer-events:none;
-  background:url("assets/images/background-image/dhis2-training.jpeg") center top/cover no-repeat;
-  filter:saturate(1.08) contrast(1.04) brightness(1.03);
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 22%);
+  background:url("assets/images/background-image/dhis2-training.jpeg") center 54%/cover no-repeat;
+  filter:saturate(1.04) contrast(1.02) brightness(1.02);
 }
-/* Layer 3: clear blue fades into the photo on the left; the rest of the photo stays untouched */
+/* Keep the left text/search area fully navy, then blend smoothly into the photograph. */
 .hero::after{
   content:"";
   position:absolute;
-  top:0;bottom:0;right:0;
-  width:58%;
+  inset:0;
   z-index:0;
   pointer-events:none;
   background:linear-gradient(90deg,
     rgba(var(--hero-blue),1) 0%,
-    rgba(var(--hero-blue),.9) 6%,
-    rgba(var(--hero-blue),.72) 12%,
-    rgba(var(--hero-blue),.54) 19%,
-    rgba(var(--hero-blue),.34) 28%,
-    rgba(var(--hero-blue),.14) 38%,
-    rgba(var(--hero-blue),.03) 48%,
-    rgba(var(--hero-blue),0) 56%);
+    rgba(var(--hero-blue),1) 38%,
+    rgba(var(--hero-blue),.96) 46%,
+    rgba(var(--hero-blue),.82) 53%,
+    rgba(var(--hero-blue),.58) 60%,
+    rgba(var(--hero-blue),.28) 68%,
+    rgba(var(--hero-blue),.08) 75%,
+    rgba(var(--hero-blue),0) 82%);
 }
 .hero > *{position:relative;z-index:1}
 .hero > .hero-bg{position:absolute;z-index:0}
 .hero-copy{grid-column:1;min-width:0;max-width:660px}
-/* The old separate photo frames stay hidden. */
 .hero-photo,.hero-art{display:none!important}
+@media(min-width:1051px){.hero{min-height:380px}.hero h1{font-size:clamp(32px,2.9vw,40px)}html[lang="lo"] .hero h1{font-size:clamp(30px,2.4vw,36px)}}
 @media(max-width:1050px){
-  .hero::before{width:calc(66% + 24px)}
-  .hero::after{width:66%}
-  .hero > .hero-bg{max-width:68%}
-}
-@media(max-width:900px){
-  .hero{
-    grid-template-columns:minmax(0,1fr);
-    padding:30px;
-    min-height:320px;
-  }
-  .hero-copy{max-width:58%}
-  .hero::before{width:calc(78% + 24px)}
-  .hero::after{
-    width:78%;
-    background:linear-gradient(90deg,
-      rgba(var(--hero-blue),1) 0%,
-      rgba(var(--hero-blue),.88) 14%,
-      rgba(var(--hero-blue),.55) 32%,
-      rgba(var(--hero-blue),.2) 56%,
-      rgba(var(--hero-blue),.05) 100%);
-  }
-  .hero > .hero-bg{max-width:78%}
+  .hero{grid-template-columns:minmax(0,1fr);min-height:350px;padding:30px;}
+  .hero-copy{max-width:62%}
+  .hero > .hero-bg{width:70%;background-position:56% 54%}
+  .hero::after{background:linear-gradient(90deg,rgba(var(--hero-blue),1) 0%,rgba(var(--hero-blue),.98) 34%,rgba(var(--hero-blue),.88) 46%,rgba(var(--hero-blue),.63) 59%,rgba(var(--hero-blue),.24) 72%,rgba(var(--hero-blue),0) 88%)}
 }
 @media(max-width:700px){
-  .hero{
-    padding:26px 22px;
-    min-height:0;
-  }
+  .hero{padding:26px 22px;min-height:0;border-radius:14px}
   .hero-copy{max-width:100%}
-  /* On phones the text sits over the photo, so keep a stronger blue overlay for readability */
-  .hero::before{display:none}
-  .hero > .hero-bg{
-    left:0;
-    aspect-ratio:auto;
-    max-width:none;
-    background-position:62% center;
-    -webkit-mask-image:none;
-    mask-image:none;
-  }
-  .hero::after{
-    left:0;
-    width:auto;
-    background:linear-gradient(90deg,
-      rgba(var(--hero-blue),.96) 0%,
-      rgba(var(--hero-blue),.88) 50%,
-      rgba(var(--hero-blue),.66) 100%);
-  }
+  .hero > .hero-bg{inset:0;width:100%;background-position:58% center}
+  .hero::after{background:linear-gradient(90deg,rgba(var(--hero-blue),.98) 0%,rgba(var(--hero-blue),.92) 55%,rgba(var(--hero-blue),.76) 100%)}
 }
-
 </style>
 </head>
 <body>
