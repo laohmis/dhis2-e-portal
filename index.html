@@ -1856,6 +1856,144 @@ body { background: var(--bg); }
   .cards > .home-card:hover, .home-card .btn.primary:hover { transform: none; }
 }
 
+/* ==========================================================================
+   LESSON STEP PANEL — compact number rail (all lesson types, English & Lao)
+   ========================================================================== */
+.lesson-layout {
+  transition: grid-template-columns .23s ease;
+}
+.lesson-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.lesson-panel-meta { min-width: 0; flex: 1; }
+.lesson-panel-meta .crumb { overflow-wrap: anywhere; }
+.lesson-panel-toggle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #DCE5F1;
+  border-radius: 9px;
+  background: #F4F8FD;
+  color: var(--navy);
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+.lesson-panel-toggle svg { width: 18px; height: 18px; }
+.lesson-panel-toggle:hover { background: #E5EFFC; border-color: #B5CBE6; }
+.lesson-layout .sidebar .step .step-label { min-width: 0; }
+
+@media (min-width:1051px) {
+  .lesson-layout.steps-collapsed {
+    grid-template-columns: 78px minmax(0,1fr);
+  }
+  .lesson-layout.steps-collapsed .sidebar {
+    padding: 13px 8px 18px;
+    overflow-x: hidden;
+  }
+}
+.lesson-layout.steps-collapsed .lesson-panel-meta,
+.lesson-layout.steps-collapsed .sidebar > .progress,
+.lesson-layout.steps-collapsed .sidebar .group-title,
+.lesson-layout.steps-collapsed .sidebar .step-label,
+.lesson-layout.steps-collapsed .sidebar > .footer-note {
+  display: none;
+}
+.lesson-layout.steps-collapsed .lesson-panel-head {
+  justify-content: center;
+  margin-bottom: 13px;
+}
+.lesson-layout.steps-collapsed .lesson-panel-toggle {
+  width: 42px;
+  height: 36px;
+}
+.lesson-layout.steps-collapsed .lesson-panel-toggle svg {
+  transform: rotate(180deg);
+}
+.lesson-layout.steps-collapsed .sidebar .step,
+.lesson-layout.steps-collapsed .sidebar .step.branch {
+  width: 100%;
+  min-height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 2px;
+  margin: 3px 0;
+  border-radius: 10px;
+  border-left: 0;
+}
+.lesson-layout.steps-collapsed .sidebar .step .num,
+.lesson-layout.steps-collapsed .sidebar .step.branch .num {
+  width: auto;
+  height: 34px;
+  min-width: 35px;
+  padding: 0 5px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: -.02em;
+}
+.lesson-layout.steps-collapsed .sidebar .step.active {
+  background: #E5F0FE;
+  box-shadow: inset 3px 0 var(--amber);
+}
+.lesson-layout.steps-collapsed .sidebar .step:focus-visible {
+  outline-offset: -3px;
+}
+@media (max-width:1050px) {
+  /* On tablet/phone the lesson panel sits above the content. Compact mode
+     turns it into a horizontally-scrollable strip of numbered steps. */
+  .lesson-layout.steps-collapsed {
+    grid-template-columns: minmax(0,1fr);
+    width: 100%;
+  }
+  .lesson-layout.steps-collapsed .sidebar {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    max-height: none;
+    height: auto;
+    padding: 9px 14px 10px;
+    overflow: hidden;
+  }
+  .lesson-layout.steps-collapsed .lesson-panel-head {
+    justify-content: flex-start;
+    margin-bottom: 6px;
+  }
+  .lesson-layout.steps-collapsed #stepList {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    padding: 2px 1px 8px;
+  }
+  .lesson-layout.steps-collapsed .sidebar .step,
+  .lesson-layout.steps-collapsed .sidebar .step.branch {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 49px;
+    margin: 0;
+    padding: 3px 7px;
+  }
+  .lesson-layout.steps-collapsed .sidebar .step.active {
+    box-shadow: inset 0 -3px var(--amber);
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .lesson-layout { transition: none; }
+}
+
 </style>
 </head>
 <body>
@@ -3189,6 +3327,32 @@ function shortNo(id) { if (id.startsWith('MCH-DR-IF-')) { const m=id.match(/^MCH
     const m = id.match(/^SUR-DA-(\d{3})(?:-(\d{2}))?$/);
     return m ? `${Number(m[1])}${m[2] ? `-${Number(m[2])}` : ''}` : id.replace('SUR-DA-', '');
 } const m = { 'SUR-DE-010A-01': '10A.1', 'SUR-DE-010A-02': '10A.2', 'SUR-DE-010A-03': '10A.3', 'SUR-DE-010A-04': '10A.4', 'SUR-DE-010A-05': '10A.5', 'SUR-DE-010B-01': '10B.1', 'SUR-DE-010B-02': '10B.2', 'SUR-DE-014-01': '14.1', 'SUR-DE-014-02': '14.2', 'SUR-DE-014-03': '14.3', 'SUR-DE-014-04': '14.4' }; return m[id] || id.replace('SUR-DE-', ''); }
+/* The lesson panel starts expanded. Keep the user's choice while moving
+   between steps or switching languages. This is separate from the global nav. */
+let lessonStepsCollapsed = false;
+function toggleLessonSteps() {
+  lessonStepsCollapsed = !lessonStepsCollapsed;
+  const layout = document.querySelector('.lesson-layout');
+  if (!layout) return;
+  layout.classList.toggle('steps-collapsed', lessonStepsCollapsed);
+  const button = document.getElementById('lessonPanelToggle');
+  if (button) {
+    const action = lang === 'lo'
+      ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ')
+      : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers');
+    button.setAttribute('aria-label', action);
+    button.setAttribute('title', action);
+    button.setAttribute('aria-expanded', String(!lessonStepsCollapsed));
+  }
+  // Keep the selected number visible in the new compact/expanded layout.
+  const selected = document.querySelector('#stepList .step.active');
+  if (selected && window.innerWidth <= 1050 && lessonStepsCollapsed)
+    selected.scrollIntoView({block:'nearest', inline:'nearest'});
+}
+function lessonStepAria(s, id) {
+  return (shortNo(id) + ' — ' + title(s)).replace(/&/g,'&amp;')
+    .replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 function renderSidebar() { const malariaOrder = ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'Enter Surveillance 2.0 Data', 'Stage 1: Notification', 'Stage 2: Investigation & Classification', 'Stage 3: Follow-up', 'Stage 4: HH & Neighbourhood Response', 'Finish']; const ancOrder = ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'ANC Enrollment', 'Data entry form', 'Finish']; const deliveryMotherOrder = ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'Delivery enrollment', 'Delivery details', 'Infant form', 'Finish']; const deliveryInfantOrder = ['Main workflow', 'Infant form', 'Optional functions', 'Finish']; const entryOrder = activeEntryType === 'deliveryMother' ? deliveryMotherOrder : activeEntryType === 'deliveryInfant' ? deliveryInfantOrder : activeEntryType === 'anc' ? ancOrder : activeEntryType === 'malaria' ? malariaOrder : activeEntryType === 'zero' || activeEntryType === 'weekly' ? ['Main workflow', 'Finish'] : ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'Enter Surveillance 2.0 Data', 'Data entry form', 'Finish']; const order = activeLesson === 'analysis' ? ['Data Visualiser', 'Select Visualization Type', 'Determine Data', 'Determine Period', 'Determine Organisation Units', 'Finish'] : activeLesson === 'report' ? ['Reports App', 'Select Standard Report', 'Configure Report Parameters', 'Generate Report', 'Finish'] : entryOrder; const groups = Object.fromEntries(order.map(g => [g, []])); for (const s of lessonSteps()) {
     if (activeLesson === 'entry' && s.group === 'Patient Not Found' && activePath !== 'A')
         continue;
@@ -3204,18 +3368,21 @@ function renderSidebar() { const malariaOrder = ['Main workflow', 'Decision poin
     for (const id of ids) {
         const s = stepById(id);
         const branch = activeLesson === 'entry' && (s.group === 'Patient Not Found' || s.group === 'Patient Found');
-        host += `<button class="step ${id === current ? 'active ' : ''}${branch ? 'branch' : ''}" onclick="selectStep('${id}')"><span class="num">${shortNo(id)}</span><span>${title(s)}</span></button>`;
+        host += `<button class="step ${id === current ? 'active ' : ''}${branch ? 'branch' : ''}" type="button" onclick="selectStep('${id}')" aria-label="${lessonStepAria(s,id)}" title="${lessonStepAria(s,id)}" ${id === current ? 'aria-current="step"' : ''}><span class="num">${shortNo(id)}</span><span class="step-label">${title(s)}</span></button>`;
     }
 } document.getElementById('stepList').innerHTML = host; const sb = document.querySelector('.sidebar'), act = document.querySelector('.step.active'); if (sb && act) {
-    const item = act.getBoundingClientRect(), box = sb.getBoundingClientRect();
-    if (item.top < box.top)
-        sb.scrollTop -= box.top - item.top;
-    else if (item.bottom > box.bottom)
-        sb.scrollTop += item.bottom - box.bottom;
+    if (lessonStepsCollapsed && window.innerWidth <= 1050) {
+        const list = document.getElementById('stepList');
+        if (list) list.scrollLeft = Math.max(0, act.offsetLeft - list.offsetLeft - list.clientWidth / 2 + act.clientWidth / 2);
+    } else {
+        const item = act.getBoundingClientRect(), box = sb.getBoundingClientRect();
+        if (item.top < box.top) sb.scrollTop -= box.top - item.top;
+        else if (item.bottom > box.bottom) sb.scrollTop += item.bottom - box.bottom;
+    }
 } }
 function renderLesson() {
     const isAnalysis = activeLesson === 'analysis', isReport = activeLesson === 'report', isEntry = activeLesson === 'entry', isAnc = isEntry && activeEntryType === 'anc', isDeliveryMother = isEntry && activeEntryType === 'deliveryMother', isDeliveryInfant = isEntry && activeEntryType === 'deliveryInfant', isAncDA = isAnalysis && activeAnalysisType === 'anc', isMalaria = isEntry && activeEntryType === 'malaria', isZero = isEntry && activeEntryType === 'zero', isWeekly = isEntry && activeEntryType === 'weekly', lessonName = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonTitle' : isDeliveryInfant ? 'mchInfantLessonTitle' : isAnc ? 'ancLessonTitle' : isWeekly ? 'weeklyLessonTitle' : isZero ? 'zeroLessonTitle' : isMalaria ? 'malariaLessonTitle' : 'communicableLessonTitle') : t(isAncDA ? 'ancDaTitle' : isAnalysis ? 'dataAnalysis' : 'standardReports'), lessonSubtitle = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonSub' : isDeliveryInfant ? 'mchInfantLessonSub' : isAnc ? 'ancLessonSub' : isWeekly ? 'weeklyLessonSub' : isZero ? 'zeroLessonSub' : isMalaria ? 'malariaLessonSub' : 'communicableLessonSub') : t(isAncDA ? 'ancDaSub' : 'lessonSub'), lessonIntro = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonIntro' : isDeliveryInfant ? 'mchInfantLessonIntro' : isAnc ? 'ancLessonIntro' : isWeekly ? 'weeklyLessonIntro' : isZero ? 'zeroLessonIntro' : isMalaria ? 'malariaLessonIntro' : 'communicableLessonIntro') : t(isAncDA ? 'ancDaIntro' : 'lessonIntro'), s = stepById(current), seq = visibleSequence(), idx = seq.indexOf(current), isComplete = current === (isAnalysis ? (isAncDA ? 'MCH-ANC-DA-011' : 'SUR-DA-011') : isReport ? 'SUR-SR-012' : isDeliveryMother ? 'MCH-DR-MT-018' : isDeliveryInfant ? 'MCH-DR-IF-023' : isAnc ? 'MCH-ANC-020' : isMalaria ? 'SUR-DE-MAL-039' : isZero ? 'SUR-DE-ZCR-013' : isWeekly ? 'SUR-DE-WR-013' : 'SUR-DE-016');
-    document.getElementById('app').innerHTML = `<div class="lesson-layout"><aside class="sidebar"><div class="crumb">${isAncDA ? DA_T[lang].ancDaCrumb : isAnalysis ? DA_T[lang].lessonCrumb : isReport ? SR_T[lang].lessonCrumb : isDeliveryMother ? t('mchDeliveryLessonCrumb') : isDeliveryInfant ? t('mchInfantLessonCrumb') : isAnc ? t('mchLessonCrumb') : t('lessonCrumb')}</div><div class="lesson-title">${lessonName}</div><div class="lesson-sub">${lessonSubtitle}</div><div class="progress"><i id="progressBar"></i></div><div id="stepList"></div><div class="footer-note">${isAnalysis ? DA_T[lang].versionPilot : isReport ? SR_T[lang].versionPilot : t('versionPilot')}</div></aside><main class="lesson-main"><section class="lesson-hero"><h1>${lessonName}</h1><p>${lessonIntro}</p></section><div class="toolbar"><span class="badge">${groupKey[s.group] ? t(groupKey[s.group]) : s.group}</span><span class="counter">${isComplete ? t('lessonCompleted') : t('stepCounter').replace('{n}', Math.max(1, idx + 1)).replace('{total}', seq.length - 1)}</span></div><section class="content" id="lessonContent"></section></main></div>`;
+    document.getElementById('app').innerHTML = `<div class="lesson-layout ${lessonStepsCollapsed ? 'steps-collapsed' : ''}"><aside class="sidebar"><div class="lesson-panel-head"><div class="lesson-panel-meta"><div class="crumb">${isAncDA ? DA_T[lang].ancDaCrumb : isAnalysis ? DA_T[lang].lessonCrumb : isReport ? SR_T[lang].lessonCrumb : isDeliveryMother ? t('mchDeliveryLessonCrumb') : isDeliveryInfant ? t('mchInfantLessonCrumb') : isAnc ? t('mchLessonCrumb') : t('lessonCrumb')}</div><div class="lesson-title">${lessonName}</div><div class="lesson-sub">${lessonSubtitle}</div></div><button class="lesson-panel-toggle" type="button" id="lessonPanelToggle" onclick="toggleLessonSteps()" aria-controls="stepList" aria-expanded="${!lessonStepsCollapsed}" aria-label="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}" title="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button></div><div class="progress"><i id="progressBar"></i></div><nav id="stepList" aria-label="${lang === 'lo' ? 'ຂັ້ນຕອນບົດຮຽນ' : 'Lesson steps'}"></nav><div class="footer-note">${isAnalysis ? DA_T[lang].versionPilot : isReport ? SR_T[lang].versionPilot : t('versionPilot')}</div></aside><main class="lesson-main"><section class="lesson-hero"><h1>${lessonName}</h1><p>${lessonIntro}</p></section><div class="toolbar"><span class="badge">${groupKey[s.group] ? t(groupKey[s.group]) : s.group}</span><span class="counter">${isComplete ? t('lessonCompleted') : t('stepCounter').replace('{n}', Math.max(1, idx + 1)).replace('{total}', seq.length - 1)}</span></div><section class="content" id="lessonContent"></section></main></div>`;
     const c = document.getElementById('lessonContent');
     if (isComplete) {
         const summary = isAnalysis || isReport || isAnc || isDeliveryMother || isDeliveryInfant || isMalaria || isZero || isWeekly ? '' : `<div class="summary-list"><ul>${['SUR-DE-002', 'SUR-DE-005', 'SUR-DE-006', 'SUR-DE-007', 'SUR-DE-008', 'SUR-DE-010A-01', 'SUR-DE-010B-01', 'SUR-DE-011', 'SUR-DE-012', 'SUR-DE-015'].map(id => `<li>${title(byId[id])}</li>`).join('')}</ul></div>`;
