@@ -4,7 +4,7 @@
 <!-- Lao translations synchronized from user's provided translation workbook. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DHIS2 eResources Learning - DHIS2 Developments</title>
+<title>DHIS2 eResources Learning | Learning &amp; Support Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Noto+Sans+Lao:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1603,6 +1603,238 @@ body.sb-open .gburger .im { display: none; }
 @media(max-width:480px) {
   .portal-help { display: none; }
   .portal-brand strong { font-size: 15px; }
+}
+
+
+/* ==========================================================================
+   OPTION 1 — MODERN & CLEAN PORTAL (October 2026)
+   Visual improvements are deliberately scoped to the portal shell and home page.
+   Existing lesson data, English/Lao translations, routes and search stay intact.
+   Only the top-bar search is displayed; the banner has no search field.
+   ========================================================================== */
+:root {
+  --navy: #17376D;
+  --blue: #17376D;
+  --blue2: #E8F2FE;
+  --teal: #087D72;
+  --bg: #F5F8FC;
+  --muted: #52627A;
+  --border: #E2EAF3;
+  --shadow: 0 10px 28px rgba(23,55,109,.075);
+  --portal-topbar-height: 80px;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); }
+
+/* Sidebar: calm navy, high-contrast navigation and a clear active state. */
+.gsb {
+  background: linear-gradient(165deg,#19396F 0%,#102E60 58%,#102750 100%);
+  box-shadow: 6px 0 24px rgba(13,34,71,.09);
+}
+.ghead { min-height: var(--portal-topbar-height); }
+.gnav { padding: 18px 13px; gap: 7px; }
+.gitem {
+  border-radius: 11px;
+  padding: 12px 14px;
+  color: #E2EAF8;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.gitem svg { color: #B9D0F5; }
+.gitem:hover { background: rgba(255,255,255,.115); }
+.gitem.active {
+  background: linear-gradient(110deg,#2865BC,#1D55A6);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12),0 7px 16px rgba(9,30,64,.2);
+}
+.gitem.active .gdot { display: none; }
+.gbrandtext strong { letter-spacing: -.015em; }
+
+/* Header: one accessible, prominent search box for the entire portal. */
+.portal-topbar {
+  grid-template-columns: minmax(230px,1fr) minmax(260px,1.2fr) auto;
+  gap: clamp(14px,2vw,30px);
+  padding-inline: clamp(20px,2.3vw,38px);
+  box-shadow: 0 2px 10px rgba(20,48,92,.035);
+}
+.portal-brand-mark {
+  background: linear-gradient(145deg,#0C9187,#087166);
+  box-shadow: 0 6px 15px rgba(8,125,114,.16);
+}
+.portal-brand strong { font-weight: 800; letter-spacing: -.025em; }
+.portal-search-box {
+  min-height: 46px;
+  background: #F3F6FA;
+  border: 1px solid #E0E8F1;
+  border-radius: 12px;
+}
+.portal-search-box:focus-within { background: #fff; box-shadow: 0 0 0 3px rgba(16,113,194,.11); border-color: #5A9CDE; }
+.portal-search .search-results { border-radius: 12px; }
+.portal-language { border-color: #E1E8F1; }
+.portal-help { color: #1A3B72; }
+
+/* Home banner: clean, light blue gradient over the existing training image.
+   Keep the original GitHub image URL — only index.html needs replacement. */
+.hero {
+  --hero-blue: 224,242,255;
+  position: relative;
+  min-height: clamp(270px,21vw,332px);
+  aspect-ratio: auto;
+  padding: clamp(30px,4vw,55px) clamp(30px,3.5vw,54px);
+  border-radius: 17px;
+  overflow: hidden;
+  gap: 0;
+  align-items: center;
+  background-color: #E1F2FE;
+  background-image:
+    linear-gradient(90deg,
+      #E7F5FE 0%,
+      #E4F3FD 32%,
+      rgba(228,244,254,.99) 41%,
+      rgba(227,243,254,.95) 51%,
+      rgba(225,243,253,.73) 61%,
+      rgba(222,243,254,.16) 76%,
+      rgba(222,243,254,0) 100%),
+    url("assets/images/background-image/dhis2-training-banner-background.jpeg");
+  background-position: center, right center;
+  background-size: cover, cover;
+  box-shadow: 0 8px 26px rgba(20,53,105,.055);
+}
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  grid-column: 1;
+  max-width: 620px;
+  padding-bottom: 10px;
+}
+.hero h1 {
+  color: #15396F;
+  font-size: clamp(31px,3vw,44px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.038em;
+  max-width: 570px;
+}
+.hero p {
+  color: #3F5875;
+  font-size: clamp(15px,1.25vw,18px);
+  line-height: 1.55;
+  margin-top: 16px;
+  max-width: 480px;
+}
+
+/* Friendly, restrained feature cards with strong visual hierarchy. */
+.page { padding-top: 26px; }
+.section-title { margin: 32px 0 18px; font-size: 22px; font-weight: 800; letter-spacing: -.025em; }
+.cards { gap: 18px; }
+.cards > .home-card {
+  min-height: 262px;
+  padding: 22px 23px 21px;
+  background: #fff;
+  border: 1px solid #E3EAF3;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(18,54,107,.045);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.cards > .home-card:hover {
+  transform: translateY(-3px);
+  border-color: #D0DFEF;
+  box-shadow: 0 14px 30px rgba(18,54,107,.105);
+}
+.home-card .icon {
+  width: 54px;
+  height: 54px;
+  min-height: 54px;
+  border-radius: 15px;
+  margin-bottom: 17px;
+  background: linear-gradient(145deg,#069687,#08776E);
+  color: #fff;
+  box-shadow: 0 7px 15px rgba(8,125,114,.16);
+}
+.home-card .icon svg { width: 27px; height: 27px; stroke-width: 1.9; }
+.home-card:nth-child(2) .icon {
+  background: linear-gradient(145deg,#9071F1,#6851CC);
+  box-shadow: 0 7px 15px rgba(104,81,204,.16);
+}
+.home-card:nth-child(3) .icon {
+  background: linear-gradient(145deg,#FFB448,#EC8716);
+  box-shadow: 0 7px 15px rgba(230,139,22,.16);
+}
+.home-card:nth-child(4) .icon {
+  background: linear-gradient(145deg,#489CF9,#236ECF);
+  box-shadow: 0 7px 15px rgba(38,110,207,.16);
+}
+.home-card h3 { margin-bottom: 9px; color: #183665; font-weight: 800; font-size: 16.5px; letter-spacing: -.015em; }
+.home-card p { color: #586980; font-size: 13.5px; line-height: 1.6; margin-bottom: 19px; }
+.home-card .btn {
+  margin-top: auto;
+  min-height: 40px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+}
+.home-card .btn.primary, .home-card:nth-child(1) .btn.primary {
+  --c: #1E3F7E;
+  background: #1E3F7E;
+  border-color: #1E3F7E;
+  color: #fff;
+}
+.home-card:nth-child(2) .btn.primary { --c: #7652D1; background: #7652D1; border-color: #7652D1; }
+.home-card:nth-child(4) .btn.primary { --c: #2777D8; background: #2777D8; border-color: #2777D8; }
+.home-card .btn.primary:hover { filter: brightness(1.06); box-shadow: 0 4px 12px rgba(29,65,130,.16); transform: translateY(-1px); }
+.home-card .btn.disabled, .home-card .btn.disabled:hover { background: #F2F0E8; border-color: #E4E0D4; color: #817C71; box-shadow: none; transform: none; }
+.notice {
+  margin-top: 20px;
+  background: #FFF4DC;
+  border: 1px solid #F3E7CB;
+  border-radius: 11px;
+  color: #73581F;
+  padding: 14px 18px;
+  font-size: 12.5px;
+}
+.notice strong { color: #604514; }
+.footer { margin-top: 27px; padding-top: 16px; font-size: 12px; }
+
+/* Tablet and phone readability including longer Lao labels. */
+@media (min-width:1351px) { .hero { aspect-ratio: auto; } }
+@media (max-width:1200px) and (min-width:1051px) {
+  .portal-topbar { grid-template-columns: minmax(205px,1fr) minmax(180px,1.1fr) auto; }
+}
+@media (max-width:1050px) {
+  .portal-topbar { grid-template-columns: minmax(190px,1fr) minmax(170px,1fr) auto; }
+  .hero { min-height: 276px; }
+  .page { padding-top: 24px; }
+}
+@media (max-width:900px) {
+  .hero { grid-template-columns: minmax(0,1fr); background-position: center,right center; }
+  .hero-copy { max-width: min(65%,500px); }
+  .hero h1 { font-size: clamp(30px,4.5vw,39px); }
+}
+@media (max-width:760px) {
+  :root { --portal-topbar-height: 128px; }
+  .portal-topbar { grid-template-columns: minmax(0,1fr) auto; }
+  .portal-brand-mark { display: none; }
+  .cards > .home-card { min-height: 236px; }
+}
+@media (max-width:700px) {
+  .hero {
+    min-height: 245px;
+    padding: 30px 24px 30px;
+    background-image:
+      linear-gradient(90deg,#E5F4FE 0%,rgba(229,244,254,.98) 65%,rgba(229,244,254,.75) 100%),
+      url("assets/images/background-image/dhis2-training-banner-background.jpeg");
+  }
+  .hero-copy { max-width: 100%; }
+  .hero h1 { font-size: clamp(27px,6vw,35px); }
+  .hero p { font-size: 15px; }
+  .section-title { margin-top: 27px; font-size: 20px; }
+  .cards > .home-card { min-height: 0; padding: 22px; }
+  .home-card .btn { min-height: 42px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
+  .cards > .home-card:hover, .home-card .btn.primary:hover { transform: none; }
 }
 
 </style>
