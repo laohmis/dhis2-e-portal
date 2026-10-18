@@ -1696,8 +1696,9 @@ body { background: var(--bg); }
       rgba(223,242,254,.06) 69%,
       rgba(223,242,254,0) 74%),
     url("assets/images/background-image/dhis2-training-banner-background.jpeg");
+  background-repeat: no-repeat, no-repeat;
   background-position: center, right center;
-  background-size: cover, cover;
+  background-size: cover, auto 100%;
   box-shadow: 0 8px 26px rgba(20,53,105,.055);
 }
 .hero-copy {
@@ -1722,6 +1723,10 @@ body { background: var(--bg); }
   margin-top: 16px;
   max-width: 480px;
 }
+
+/* Lao welcome heading: intentionally place “eResources” on a separate line.
+   The existing subtitle follows beneath it; English remains unchanged. */
+.hero-title-secondline { display: block; }
 
 /* Friendly, restrained feature cards with strong visual hierarchy. */
 .page { padding-top: 26px; }
@@ -1808,7 +1813,12 @@ body { background: var(--bg); }
   .page { padding-top: 24px; }
 }
 @media (max-width:900px) {
-  .hero { grid-template-columns: minmax(0,1fr); background-position: center,right center; }
+  .hero {
+    grid-template-columns: minmax(0,1fr);
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, right center;
+    background-size: cover, auto 100%;
+  }
   .hero-copy { max-width: min(65%,500px); }
   .hero h1 { font-size: clamp(30px,4.5vw,39px); }
 }
@@ -1825,6 +1835,9 @@ body { background: var(--bg); }
     background-image:
       linear-gradient(90deg,#E5F4FE 0%,rgba(229,244,254,.98) 58%,rgba(229,244,254,.74) 86%,rgba(229,244,254,.48) 100%),
       url("assets/images/background-image/dhis2-training-banner-background.jpeg");
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, right center;
+    background-size: cover, auto 100%;
   }
   .hero-copy { max-width: 100%; }
   .hero h1 { font-size: clamp(27px,6vw,35px); }
@@ -2964,7 +2977,15 @@ function renderCurrent() {
   const render = VIEW_RENDERERS[window.currentView || 'home'];
   if (render) render();
 }
-function showHome() { window.currentView = 'home'; navActive('navHome'); document.getElementById('app').innerHTML = `<div class="page"><section class="hero"><div class="hero-copy"><h1>${t('heroTitle')}</h1><p>${t('heroText')}</p></div></section><h2 class="section-title">${t('explore')}</h2><div class="cards"><div class="card home-card c-blue"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2.5 9 9.5-5 9.5 5-9.5 5-9.5-5Z"/><path d="M6 11v5c3.5 2.5 8.5 2.5 12 0v-5M21.5 9v6"/></svg></div><h3>${t('programCardTitle')}</h3><p>${t('programCardText')}</p><button class="btn primary" onclick="showPrograms()">${t('explorePrograms')}</button></div><div class="card home-card c-teal"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8 4.8-2.2Z"/></svg></div><h3>${t('developerCardTitle')}</h3><p>${t('developerCardText')}</p><button class="btn primary" onclick="showDevelopments()">${t('exploreDeveloper')}</button></div><div class="card home-card c-amber"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14V9a1 1 0 0 1 1-1h3l10-4v14L8 14H5a1 1 0 0 1-1-1Z"/><path d="m8 14 2 6h4l-2.2-5.2M21 9v5"/></svg></div><h3>${t('updates')}</h3><p>${t('updatesText')}</p><button class="btn disabled" onclick="showPlaceholder('updates')">${t('comingSoon')}</button></div><div class="card home-card c-coral"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H10l2 2h7.5A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5v-11Z"/><path d="M3.5 9h17"/></svg></div><h3>${t('resources')}</h3><p>${t('resourcesText')}</p><button class="btn primary" onclick="showResources()">${t('openResources')}</button></div></div><div class="notice"><strong>${t('versionFocus')}</strong> ${t('versionFocusText')}</div><div class="footer"><span>${t('pilotFooter')}</span><span>${t('footerTag')}</span></div></div>`; }
+function homeHeroTitleHTML() {
+  const title = t('heroTitle');
+  if (lang !== 'lo') return title;
+  const suffix = ' eResources';
+  return title.endsWith(suffix)
+    ? title.slice(0, -suffix.length) + '<span class="hero-title-secondline">eResources</span>'
+    : title;
+}
+function showHome() { window.currentView = 'home'; navActive('navHome'); document.getElementById('app').innerHTML = `<div class="page"><section class="hero"><div class="hero-copy"><h1>${homeHeroTitleHTML()}</h1><p>${t('heroText')}</p></div></section><h2 class="section-title">${t('explore')}</h2><div class="cards"><div class="card home-card c-blue"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2.5 9 9.5-5 9.5 5-9.5 5-9.5-5Z"/><path d="M6 11v5c3.5 2.5 8.5 2.5 12 0v-5M21.5 9v6"/></svg></div><h3>${t('programCardTitle')}</h3><p>${t('programCardText')}</p><button class="btn primary" onclick="showPrograms()">${t('explorePrograms')}</button></div><div class="card home-card c-teal"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8 4.8-2.2Z"/></svg></div><h3>${t('developerCardTitle')}</h3><p>${t('developerCardText')}</p><button class="btn primary" onclick="showDevelopments()">${t('exploreDeveloper')}</button></div><div class="card home-card c-amber"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14V9a1 1 0 0 1 1-1h3l10-4v14L8 14H5a1 1 0 0 1-1-1Z"/><path d="m8 14 2 6h4l-2.2-5.2M21 9v5"/></svg></div><h3>${t('updates')}</h3><p>${t('updatesText')}</p><button class="btn disabled" onclick="showPlaceholder('updates')">${t('comingSoon')}</button></div><div class="card home-card c-coral"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H10l2 2h7.5A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5v-11Z"/><path d="M3.5 9h17"/></svg></div><h3>${t('resources')}</h3><p>${t('resourcesText')}</p><button class="btn primary" onclick="showResources()">${t('openResources')}</button></div></div><div class="notice"><strong>${t('versionFocus')}</strong> ${t('versionFocusText')}</div><div class="footer"><span>${t('pilotFooter')}</span><span>${t('footerTag')}</span></div></div>`; }
 function showPrograms() { window.currentView = 'programs'; navActive('navPrograms'); document.getElementById('app').innerHTML = `<div class="page"><div class="breadcrumb">${t('home')} / ${t('programGuidance')}</div><div class="subhead"><div><h1>${t('programGuidanceTitle')}</h1><p>${t('selectProgram')}</p></div><button class="btn" onclick="showHome()">${t('homeBtn')}</button></div><div class="program-grid"><div class="program c-blue"><div><div class="card-top"><div class="icon">🔎</div><div class="status">${t('available')}</div></div><h3>${t('surveillanceTitle')}</h3><p>${t('surveillanceDesc')}</p></div><button class="btn primary" onclick="showAreas()">${t('openProgram')}</button></div><div class="program c-coral"><div><div class="card-top"><div class="icon">👶</div><div class="status">${t('available')}</div></div><h3>${t('mchTitle')}</h3><p>${t('mchDesc')}</p></div><button class="btn primary" onclick="showMchAreas()">${t('openProgram')}</button></div><div class="program soon c-amber"><div><div class="card-top"><div class="icon">🎗️</div><div class="status">${t('notAvailable')}</div></div><h3>${t('hivTitle')}</h3><p>${t('hivDesc')}</p></div><button class="btn disabled" disabled aria-disabled="true">${t('openProgram')}</button></div><div class="program soon c-teal"><div><div class="card-top"><div class="icon">🩺</div><div class="status">${t('notAvailable')}</div></div><h3>${t('tbTitle')}</h3><p>${t('tbDesc')}</p></div><button class="btn disabled" disabled aria-disabled="true">${t('openProgram')}</button></div></div></div>`; }
 function showAreas() { window.currentView = 'areas'; navActive('navPrograms'); document.getElementById('app').innerHTML = `<div class="page"><div class="breadcrumb">${t('home')} / ${t('programGuidance')} / ${t('surveillanceTitle')}</div><div class="subhead"><div><h1>${t('surveillanceTitle')}</h1><p>${t('chooseArea')}</p></div><button class="btn" onclick="showPrograms()">${t('programsBtn')}</button></div><div class="area-grid"><div class="area c-blue"><div class="card-top"><div class="icon">ℹ️</div><div class="status">${t('availableNow')}</div></div><h3>${t('aboutProgram')}</h3><p>${t('diseaseSurveillanceShort')}</p><button class="btn primary" onclick="showProgramAbout('diseaseSurveillance')">${t('openProgram')}</button></div><div class="area c-blue"><div class="card-top"><div class="icon">📝</div><div class="status">${t('availableNow')}</div></div><h3>${t('dataEntry')}</h3><p>${t('dataEntryDesc')}</p><button class="btn primary" onclick="showDataEntryModules()">${t('startLearning')}</button></div><div class="area c-teal"><div class="card-top"><div class="icon">📊</div><div class="status">${t('availableNow')}</div></div><h3>${t('dataAnalysis')}</h3><p>${t('dataAnalysisDesc')}</p><button class="btn primary" onclick="startAnalysisLesson()">${t('startLearning')}</button></div><div class="area c-amber"><div class="card-top"><div class="icon">📄</div><div class="status">${t('availableNow')}</div></div><h3>${t('standardReports')}</h3><p>${t('srCardDesc')}</p><button class="btn primary" onclick="startReportLesson()">${t('startLearning')}</button></div><div class="area soon c-coral"><div class="card-top"><div class="icon">✅</div><div class="status">${t('notAvailable')}</div></div><h3>${t('dataQualityTitle')}</h3><p>${t('dataQualityDesc')}</p><button class="btn disabled">${t('comingSoon')}</button></div></div></div>`; }
 function showDataEntryModules() { window.currentView = 'dataEntryModules'; navActive('navPrograms'); document.getElementById('app').innerHTML = `<div class="page"><div class="breadcrumb">${t('home')} / ${t('programGuidance')} / ${t('surveillanceTitle')} / ${t('dataEntry')}</div><div class="subhead"><div><h1>${t('dataEntryModulesTitle')}</h1><p>${t('dataEntryModulesIntro')}</p></div><button class="btn" onclick="showAreas()">${t('backDataEntry')}</button></div><div class="area-grid data-entry-modules"><div class="area c-blue"><div class="card-top"><div class="icon">📝</div><div class="status">${t('availableNow')}</div></div><h3>${t('communicableCaseTitle')}</h3><p>${t('communicableCaseDesc')}</p><button class="btn primary" onclick="startLesson()">${t('startLearning')}</button></div><div class="area c-teal"><div class="card-top"><div class="icon">🦟</div><div class="status">${t('availableNow')}</div></div><h3>${t('malariaCaseTitle')}</h3><p>${t('malariaCaseDesc')}</p><button class="btn primary" onclick="startMalariaLesson()">${t('startLearning')}</button></div><div class="area c-amber"><div class="card-top"><div class="icon">0️⃣</div><div class="status">${t('availableNow')}</div></div><h3>${t('zeroCaseTitle')}</h3><p>${t('zeroCaseDesc')}</p><button class="btn primary" onclick="startZeroCaseLesson()">${t('startLearning')}</button></div><div class="area c-coral"><div class="card-top"><div class="icon">📅</div><div class="status">${t('availableNow')}</div></div><h3>${t('completenessTitle')}</h3><p>${t('completenessDesc')}</p><button class="btn primary" onclick="startWeeklyReportLesson()">${t('startLearning')}</button></div></div><div class="footer"><span>${t('pilotFooter')}</span><span>${t('footerTag')}</span></div></div>`; }
