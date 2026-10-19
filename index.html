@@ -1990,6 +1990,66 @@ body { background: var(--bg); }
     box-shadow: inset 0 -3px var(--amber);
   }
 }
+/* ==========================================================================
+   SCREENSHOT-FIRST LESSON VIEWER
+   Remove the redundant upper module introduction from all step-by-step lessons.
+   The module name remains in the lesson's own step navigation on the left.
+   On desktop the image can grow into the newly available vertical space;
+   object-fit:contain preserves the image aspect ratio without cropping.
+   ========================================================================== */
+@media (min-width:1051px) {
+  .lesson-layout .lesson-main {
+    padding: 10px 14px 12px;
+    gap: 8px;
+  }
+  .lesson-layout .toolbar {
+    min-height: 29px;
+    flex: 0 0 auto;
+  }
+  .lesson-layout .content {
+    min-height: 0;
+    flex: 1 1 0;
+    overflow: hidden;
+  }
+  .lesson-layout .content-head {
+    padding: 11px 18px 10px;
+  }
+  .lesson-layout .content-head h2 {
+    font-size: 20px;
+  }
+  .lesson-layout .image-wrap {
+    flex: 1 1 0;
+    min-height: 0;
+    padding: 8px 10px;
+    overflow: hidden;
+  }
+  .lesson-layout .image-wrap img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    background: transparent;
+    box-shadow: none;
+  }
+  .lesson-layout .actionbar {
+    padding: 9px 14px;
+    flex: 0 0 auto;
+  }
+}
+@media (max-width:1050px) {
+  .lesson-layout .lesson-main { padding: 12px; }
+  .lesson-layout .content-head { padding: 15px 18px; }
+  .lesson-layout .image-wrap { padding: 10px; }
+  .lesson-layout .image-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: none;
+    object-fit: contain;
+  }
+}
 @media (prefers-reduced-motion:reduce) {
   .lesson-layout { transition: none; }
 }
@@ -3382,7 +3442,7 @@ function renderSidebar() { const malariaOrder = ['Main workflow', 'Decision poin
 } }
 function renderLesson() {
     const isAnalysis = activeLesson === 'analysis', isReport = activeLesson === 'report', isEntry = activeLesson === 'entry', isAnc = isEntry && activeEntryType === 'anc', isDeliveryMother = isEntry && activeEntryType === 'deliveryMother', isDeliveryInfant = isEntry && activeEntryType === 'deliveryInfant', isAncDA = isAnalysis && activeAnalysisType === 'anc', isMalaria = isEntry && activeEntryType === 'malaria', isZero = isEntry && activeEntryType === 'zero', isWeekly = isEntry && activeEntryType === 'weekly', lessonName = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonTitle' : isDeliveryInfant ? 'mchInfantLessonTitle' : isAnc ? 'ancLessonTitle' : isWeekly ? 'weeklyLessonTitle' : isZero ? 'zeroLessonTitle' : isMalaria ? 'malariaLessonTitle' : 'communicableLessonTitle') : t(isAncDA ? 'ancDaTitle' : isAnalysis ? 'dataAnalysis' : 'standardReports'), lessonSubtitle = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonSub' : isDeliveryInfant ? 'mchInfantLessonSub' : isAnc ? 'ancLessonSub' : isWeekly ? 'weeklyLessonSub' : isZero ? 'zeroLessonSub' : isMalaria ? 'malariaLessonSub' : 'communicableLessonSub') : t(isAncDA ? 'ancDaSub' : 'lessonSub'), lessonIntro = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonIntro' : isDeliveryInfant ? 'mchInfantLessonIntro' : isAnc ? 'ancLessonIntro' : isWeekly ? 'weeklyLessonIntro' : isZero ? 'zeroLessonIntro' : isMalaria ? 'malariaLessonIntro' : 'communicableLessonIntro') : t(isAncDA ? 'ancDaIntro' : 'lessonIntro'), s = stepById(current), seq = visibleSequence(), idx = seq.indexOf(current), isComplete = current === (isAnalysis ? (isAncDA ? 'MCH-ANC-DA-011' : 'SUR-DA-011') : isReport ? 'SUR-SR-012' : isDeliveryMother ? 'MCH-DR-MT-018' : isDeliveryInfant ? 'MCH-DR-IF-023' : isAnc ? 'MCH-ANC-020' : isMalaria ? 'SUR-DE-MAL-039' : isZero ? 'SUR-DE-ZCR-013' : isWeekly ? 'SUR-DE-WR-013' : 'SUR-DE-016');
-    document.getElementById('app').innerHTML = `<div class="lesson-layout ${lessonStepsCollapsed ? 'steps-collapsed' : ''}"><aside class="sidebar"><div class="lesson-panel-head"><div class="lesson-panel-meta"><div class="crumb">${isAncDA ? DA_T[lang].ancDaCrumb : isAnalysis ? DA_T[lang].lessonCrumb : isReport ? SR_T[lang].lessonCrumb : isDeliveryMother ? t('mchDeliveryLessonCrumb') : isDeliveryInfant ? t('mchInfantLessonCrumb') : isAnc ? t('mchLessonCrumb') : t('lessonCrumb')}</div><div class="lesson-title">${lessonName}</div><div class="lesson-sub">${lessonSubtitle}</div></div><button class="lesson-panel-toggle" type="button" id="lessonPanelToggle" onclick="toggleLessonSteps()" aria-controls="stepList" aria-expanded="${!lessonStepsCollapsed}" aria-label="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}" title="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button></div><div class="progress"><i id="progressBar"></i></div><nav id="stepList" aria-label="${lang === 'lo' ? 'ຂັ້ນຕອນບົດຮຽນ' : 'Lesson steps'}"></nav><div class="footer-note">${isAnalysis ? DA_T[lang].versionPilot : isReport ? SR_T[lang].versionPilot : t('versionPilot')}</div></aside><main class="lesson-main"><section class="lesson-hero"><h1>${lessonName}</h1><p>${lessonIntro}</p></section><div class="toolbar"><span class="badge">${groupKey[s.group] ? t(groupKey[s.group]) : s.group}</span><span class="counter">${isComplete ? t('lessonCompleted') : t('stepCounter').replace('{n}', Math.max(1, idx + 1)).replace('{total}', seq.length - 1)}</span></div><section class="content" id="lessonContent"></section></main></div>`;
+    document.getElementById('app').innerHTML = `<div class="lesson-layout ${lessonStepsCollapsed ? 'steps-collapsed' : ''}"><aside class="sidebar"><div class="lesson-panel-head"><div class="lesson-panel-meta"><div class="crumb">${isAncDA ? DA_T[lang].ancDaCrumb : isAnalysis ? DA_T[lang].lessonCrumb : isReport ? SR_T[lang].lessonCrumb : isDeliveryMother ? t('mchDeliveryLessonCrumb') : isDeliveryInfant ? t('mchInfantLessonCrumb') : isAnc ? t('mchLessonCrumb') : t('lessonCrumb')}</div><div class="lesson-title">${lessonName}</div><div class="lesson-sub">${lessonSubtitle}</div></div><button class="lesson-panel-toggle" type="button" id="lessonPanelToggle" onclick="toggleLessonSteps()" aria-controls="stepList" aria-expanded="${!lessonStepsCollapsed}" aria-label="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}" title="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button></div><div class="progress"><i id="progressBar"></i></div><nav id="stepList" aria-label="${lang === 'lo' ? 'ຂັ້ນຕອນບົດຮຽນ' : 'Lesson steps'}"></nav><div class="footer-note">${isAnalysis ? DA_T[lang].versionPilot : isReport ? SR_T[lang].versionPilot : t('versionPilot')}</div></aside><main class="lesson-main"><div class="toolbar"><span class="badge">${groupKey[s.group] ? t(groupKey[s.group]) : s.group}</span><span class="counter">${isComplete ? t('lessonCompleted') : t('stepCounter').replace('{n}', Math.max(1, idx + 1)).replace('{total}', seq.length - 1)}</span></div><section class="content" id="lessonContent"></section></main></div>`;
     const c = document.getElementById('lessonContent');
     if (isComplete) {
         const summary = isAnalysis || isReport || isAnc || isDeliveryMother || isDeliveryInfant || isMalaria || isZero || isWeekly ? '' : `<div class="summary-list"><ul>${['SUR-DE-002', 'SUR-DE-005', 'SUR-DE-006', 'SUR-DE-007', 'SUR-DE-008', 'SUR-DE-010A-01', 'SUR-DE-010B-01', 'SUR-DE-011', 'SUR-DE-012', 'SUR-DE-015'].map(id => `<li>${title(byId[id])}</li>`).join('')}</ul></div>`;
