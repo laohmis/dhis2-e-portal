@@ -12,12 +12,16 @@ A static learning portal prototype with step-by-step DHIS2 guidance, available i
 |---|---|---|
 | Surveillance 2.0 | Data Entry — Communicable Disease Case Report (codes 1–18) | Available |
 | Surveillance 2.0 | Data Entry — Malaria Case Report (code 19) | Available |
-| Surveillance 2.0 | Data Entry — Zero Case Report (diseases 1–19) | To develop |
-| Surveillance 2.0 | Data Entry — Completeness Report (weekly reporting rate) | To develop |
+| Surveillance 2.0 | Data Entry — Zero Case Report | Available |
+| Surveillance 2.0 | Data Entry — Weekly Completeness Report | Available |
 | Surveillance 2.0 | Data Analysis | Available |
 | Surveillance 2.0 | Standard Reports | Available |
 | Surveillance 2.0 | Data Quality | Coming soon |
-| Mother and Child (MCH) | Data Entry, Data Analysis, Standard Reports, Data Quality | Coming soon (program is open, lessons to be added) |
+| Mother and Child (MCH) | Data Entry — Antenatal Care (ANC), Delivery Registry (mother and infant) | Available |
+| Mother and Child (MCH) | Data Entry — Postnatal Care, Family Planning | Coming soon |
+| Mother and Child (MCH) | Data Analysis — Antenatal Care (ANC) | Available |
+| Mother and Child (MCH) | Data Analysis — Delivery, Postnatal Care, Family Planning | Coming soon |
+| Mother and Child (MCH) | Standard Reports, Data Quality | Coming soon |
 | HIV | - | Coming soon |
 | TB | - | Coming soon |
 
@@ -32,13 +36,22 @@ dhis2-e-portal/
 ├── index.html                 # the whole portal (text, lessons, logic)
 ├── README.md
 └── assets/
-    ├── data-entry/
-    │   ├── communicable Disease(codes 1–18)/ # Communicable Disease Case Report
-    │   └── malaria Case Report(code 19)/ # Malaria Case Report
-    ├── data-analysis/
-    │   └── communicable Disease(codes 1–18)/ # Data Analysis screenshots
-    └── standard-report/
-        └── communicable Disease(codes 1–18)/ # Standard Report screenshots
+    ├── disease surveillance/
+    │   └── data-entry/
+    │       ├── communicable Disease(codes 1–18)/
+    │       ├── malaria Case Report(code 19)/
+    │       ├── weekly completeness/
+    │       └── zero case/
+    ├── mch/
+    │   ├── data-entry/
+    │   │   ├── anc/
+    │   │   └── delivery/
+    │   │       ├── mother-data-entry/
+    │   │       └── infant-data-entry/
+    │   └── data-analysis/
+    │       └── anc/
+    └── images/
+        └── background-image/
 ```
 
 Screenshots are separate image files, not embedded in `index.html`. This keeps the page small so it loads quickly, including on slow connections. Each new lesson gets its own folder under `assets/`.
@@ -47,10 +60,14 @@ Screenshots are separate image files, not embedded in `index.html`. This keeps t
 
 Each lesson step looks for an image named after its step ID. Names are **case-sensitive** and must match exactly, including the file extension.
 
-- Data Entry: `assets/data-entry/communicable Disease(codes 1–18)/SUR-DE-001.png`, `SUR-DE-010A-01.png`, `SUR-DE-014-02.png`, and so on
-- Malaria Case Report: `assets/data-entry/malaria Case Report(code 19)/SUR-DE-MAL-001.png`, `SUR-DE-MAL-010A-01.png`, and so on
-- Data Analysis: `assets/data-analysis/communicable Disease(codes 1–18)/SUR-DA-001.png`, `SUR-DA-008-01.png`, and so on
-- Standard Report: `assets/standard-report/communicable Disease(codes 1–18)/SUR-SR-001.png`, `SUR-SR-009-01.png`, and so on
+- Communicable Disease Case Report: `assets/disease surveillance/data-entry/communicable Disease(codes 1–18)/SUR-DE-001.png`, `SUR-DE-010A-01.png`, and so on
+- Malaria Case Report: `assets/disease surveillance/data-entry/malaria Case Report(code 19)/SUR-DE-MAL-001.png`, `SUR-DE-MAL-010A-01.png`, and so on
+- Zero Case Report: `assets/disease surveillance/data-entry/zero case/SUR-DE-ZCR-001.png`, and so on
+- Weekly Completeness Report: `assets/disease surveillance/data-entry/weekly completeness/SUR-DE-WR-001.png`, and so on
+- Antenatal Care: `assets/mch/data-entry/anc/MCH-ANC-001.png`, and so on
+- Delivery Registry mother entry: `assets/mch/data-entry/delivery/mother-data-entry/MCH-DR-MT-001.png`, and so on
+- Delivery Registry infant entry: `assets/mch/data-entry/delivery/infant-data-entry/MCH-DR-IF-001.png`, and so on
+- Antenatal Care data analysis: `assets/mch/data-analysis/anc/MCH-ANC-DA-001.png`, and so on
 
 The final "Lesson Completed" step of each lesson has no screenshot.
 
@@ -73,7 +90,7 @@ Then visit `http://localhost:8000`.
 ## Add or update a lesson
 
 1. Prepare the steps (title, instruction, screenshot name) in the content register, in English and Lao.
-2. Save the screenshots in a new folder under `assets/` (for example `assets/standard-report/`), named exactly as in the register.
+2. Save the screenshots in the folder used by the lesson under `assets/` (for example `assets/disease surveillance/data-entry/zero case/`), named exactly as in the register.
 3. Add the lesson to `index.html` (steps, groups, translations, and the learning area card).
 4. In GitHub Desktop, write a short summary and click **Commit to main**, then **Push origin**. Include the new images in the same commit.
 5. Wait one to three minutes for GitHub Pages to rebuild. The **Actions** tab shows a "pages build and deployment" run, and a green check means it is live.
