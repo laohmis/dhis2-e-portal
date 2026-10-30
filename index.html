@@ -2579,6 +2579,7 @@ const malariaStepsRaw=[
 ];
 const malariaSteps=malariaStepsRaw.map(x=>({id:x[0],en:x[1],lo:x[2],ien:x[3],ilo:x[4],group:x[5]==='Search Results'?'Decision point':x[5]==='Data Entry'?(x[0]==='SUR-DE-MAL-039'?'Finish':'Main workflow'):x[5],image:x[6]}));
 const malariaById=Object.fromEntries(malariaSteps.map(s=>[s.id,s]));
+// Existing ANC screenshots use the previous step numbering; paths below follow screen content.
 const ancStepsRaw=[
  [
   "MCH-ANC-001",
@@ -2737,32 +2738,23 @@ const ancStepsRaw=[
   "MCH-ANC-011",
   "Start the enrollment",
   "ເລີ່ມການລົງທະບຽນ",
-  "Click 'Start' button to open new ANC enrollment. (Two entry types: Gestational age or LMP date).",
-  "ກົດປຸ່ມ “Start” ເພື່ອເປີດການລົງທະບຽນ ANC ໃໝ່. (ມີສອງວິທີປ້ອນຂໍ້ມູນ: ອາຍຸຄັນ ຫຼື ວັນທີມີປະຈຳເດືອນຄັ້ງສຸດທ້າຍ - LMP).",
+  "Click 'Start' to open a new ANC enrollment.",
+  "ກົດປຸ່ມ “Start” ເພື່ອເປີດການລົງທະບຽນ ANC ໃໝ່.",
   "ANC Enrollment",
   "assets/mch/data-entry/anc/MCH-ANC-011.png"
  ],
  [
   "MCH-ANC-012",
-  "Select “Enter the gestational age (weeks)”",
-  "ເລືອກ “Enter the gestational age (weeks)”",
-  "Select 'Enter the gestational age (weeks)' as the data entry method.",
-  "ເລືອກ “Enter the gestational age (weeks)” ເປັນວິທີປ້ອນຂໍ້ມູນ.",
-  "ANC Enrollment",
-  "assets/mch/data-entry/anc/MCH-ANC-012.png"
- ],
- [
-  "MCH-ANC-013",
-  "Select the “ANC visit date” from the calendar and enter “Gestational age (weeks)”",
-  "ເລືອກ “ANC visit date” ຈາກປະຕິທິນ ແລະ ປ້ອນ “Gestational age (weeks)”",
-  "Pick ANC visit date from calendar and enter gestational age in weeks.",
-  "ເລືອກວັນທີມາກວດ ANC ຈາກປະຕິທິນ ແລະ ປ້ອນອາຍຸຄັນເປັນອາທິດ.",
+  "Enter the MCH Book number, ANC visit date, and gestational age (weeks)",
+  "ປ້ອນ “MCH Book number”, ວັນທີມາກວດ ANC ແລະ ອາຍຸຄັນ (ອາທິດ)",
+  "Enter the MCH Book number. Select the ANC visit date from the calendar, then enter gestational age in weeks.",
+  "ປ້ອນ “MCH Book number”. ເລືອກວັນທີມາກວດ ANC ຈາກປະຕິທິນ ແລ້ວປ້ອນອາຍຸຄັນເປັນອາທິດ.",
   "ANC Enrollment",
   "assets/mch/data-entry/anc/MCH-ANC-013.png"
  ],
  [
-  "MCH-ANC-014",
-  "Click on “Submit”",
+  "MCH-ANC-013",
+  "Click on \"Submit\"",
   "ກົດ “Submit”",
   "Click 'Submit' to create the Antenatal Care enrollment.",
   "ກົດ “Submit” ເພື່ອສ້າງການລົງທະບຽນການດູແລກ່ອນເກີດ.",
@@ -2770,7 +2762,7 @@ const ancStepsRaw=[
   "assets/mch/data-entry/anc/MCH-ANC-014.png"
  ],
  [
-  "MCH-ANC-015",
+  "MCH-ANC-014",
   "Click Edit to be able to fill in the information",
   "ກົດ Edit ເພື່ອປ້ອນຂໍ້ມູນ",
   "Click 'Edit' to open and enable the ANC event data entry form.",
@@ -2779,7 +2771,7 @@ const ancStepsRaw=[
   "assets/mch/data-entry/anc/MCH-ANC-015.png"
  ],
  [
-  "MCH-ANC-016",
+  "MCH-ANC-015",
   "Fill in the information in the Risk Screening and Physical Examination section",
   "ປ້ອນຂໍ້ມູນໃນພາກການຄັດກອງຄວາມສ່ຽງ ແລະ ການກວດຮ່າງກາຍ",
   "Complete fields in Risk Screening and Physical Examination section.",
@@ -2788,7 +2780,7 @@ const ancStepsRaw=[
   "assets/mch/data-entry/anc/MCH-ANC-016.png"
  ],
  [
-  "MCH-ANC-017",
+  "MCH-ANC-016",
   "Fill in the information in the Laboratory section",
   "ປ້ອນຂໍ້ມູນໃນພາກຫ້ອງທົດລອງ",
   "Complete fields in Laboratory section.",
@@ -2797,7 +2789,7 @@ const ancStepsRaw=[
   "assets/mch/data-entry/anc/MCH-ANC-017.png"
  ],
  [
-  "MCH-ANC-018",
+  "MCH-ANC-017",
   "Fill in the information in the IFA and services details section",
   "ປ້ອນຂໍ້ມູນໃນພາກ IFA ແລະ ລາຍລະອຽດການບໍລິການ",
   "Complete fields in IFA (Iron-Folic Acid) and services details section.",
@@ -2806,20 +2798,20 @@ const ancStepsRaw=[
   "assets/mch/data-entry/anc/MCH-ANC-018.png"
  ],
  [
-  "MCH-ANC-019",
-  "Click “Save”",
-  "ກົດ “Save”",
-  "Click 'Save' to save and finish the Antenatal Care record.",
-  "ກົດ “Save” ເພື່ອບັນທຶກ ແລະ ສຳເລັດບັນທຶກການດູແລກ່ອນເກີດ.",
+  "MCH-ANC-018",
+  "Click \"Complete\"",
+  "ກົດ “Complete”",
+  "Click 'Complete' to save and finish the Antenatal Care record.",
+  "ກົດ “Complete” ເພື່ອບັນທຶກ ແລະ ສຳເລັດບັນທຶກການດູແລກ່ອນເກີດ.",
   "Data entry form",
-  "assets/mch/data-entry/anc/MCH-ANC-019.png"
+  null
  ],
  [
-  "MCH-ANC-020",
+  "MCH-ANC-019",
   "Lesson Completed",
   "ບົດຮຽນສຳເລັດ",
   "Completion message; no screenshot required at this stage.",
-  "ທ່ານໄດ້ຮຽນຈົບບົດລາຍງານກໍລະນີມາລາເລຍແລ້ວ.",
+  "ບົດຮຽນສຳເລັດ; ຂັ້ນຕອນນີ້ບໍ່ຕ້ອງມີຮູບພາບໜ້າຈໍ.",
   "Finish",
   null
  ]
@@ -3539,7 +3531,7 @@ function renderSidebar() { const malariaOrder = ['Main workflow', 'Decision poin
     }
 } }
 function renderLesson() {
-    const isAnalysis = activeLesson === 'analysis', isReport = activeLesson === 'report', isEntry = activeLesson === 'entry', isAnc = isEntry && activeEntryType === 'anc', isDeliveryMother = isEntry && activeEntryType === 'deliveryMother', isDeliveryInfant = isEntry && activeEntryType === 'deliveryInfant', isAncDA = isAnalysis && activeAnalysisType === 'anc', isMalaria = isEntry && activeEntryType === 'malaria', isZero = isEntry && activeEntryType === 'zero', isWeekly = isEntry && activeEntryType === 'weekly', lessonName = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonTitle' : isDeliveryInfant ? 'mchInfantLessonTitle' : isAnc ? 'ancLessonTitle' : isWeekly ? 'weeklyLessonTitle' : isZero ? 'zeroLessonTitle' : isMalaria ? 'malariaLessonTitle' : 'communicableLessonTitle') : t(isAncDA ? 'ancDaTitle' : isAnalysis ? 'dataAnalysis' : 'standardReports'), lessonSubtitle = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonSub' : isDeliveryInfant ? 'mchInfantLessonSub' : isAnc ? 'ancLessonSub' : isWeekly ? 'weeklyLessonSub' : isZero ? 'zeroLessonSub' : isMalaria ? 'malariaLessonSub' : 'communicableLessonSub') : t(isAncDA ? 'ancDaSub' : 'lessonSub'), lessonIntro = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonIntro' : isDeliveryInfant ? 'mchInfantLessonIntro' : isAnc ? 'ancLessonIntro' : isWeekly ? 'weeklyLessonIntro' : isZero ? 'zeroLessonIntro' : isMalaria ? 'malariaLessonIntro' : 'communicableLessonIntro') : t(isAncDA ? 'ancDaIntro' : 'lessonIntro'), s = stepById(current), seq = visibleSequence(), idx = seq.indexOf(current), isComplete = current === (isAnalysis ? (isAncDA ? 'MCH-ANC-DA-011' : 'SUR-DA-011') : isReport ? 'SUR-SR-012' : isDeliveryMother ? 'MCH-DR-MT-018' : isDeliveryInfant ? 'MCH-DR-IF-023' : isAnc ? 'MCH-ANC-020' : isMalaria ? 'SUR-DE-MAL-039' : isZero ? 'SUR-DE-ZCR-013' : isWeekly ? 'SUR-DE-WR-013' : 'SUR-DE-016');
+    const isAnalysis = activeLesson === 'analysis', isReport = activeLesson === 'report', isEntry = activeLesson === 'entry', isAnc = isEntry && activeEntryType === 'anc', isDeliveryMother = isEntry && activeEntryType === 'deliveryMother', isDeliveryInfant = isEntry && activeEntryType === 'deliveryInfant', isAncDA = isAnalysis && activeAnalysisType === 'anc', isMalaria = isEntry && activeEntryType === 'malaria', isZero = isEntry && activeEntryType === 'zero', isWeekly = isEntry && activeEntryType === 'weekly', lessonName = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonTitle' : isDeliveryInfant ? 'mchInfantLessonTitle' : isAnc ? 'ancLessonTitle' : isWeekly ? 'weeklyLessonTitle' : isZero ? 'zeroLessonTitle' : isMalaria ? 'malariaLessonTitle' : 'communicableLessonTitle') : t(isAncDA ? 'ancDaTitle' : isAnalysis ? 'dataAnalysis' : 'standardReports'), lessonSubtitle = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonSub' : isDeliveryInfant ? 'mchInfantLessonSub' : isAnc ? 'ancLessonSub' : isWeekly ? 'weeklyLessonSub' : isZero ? 'zeroLessonSub' : isMalaria ? 'malariaLessonSub' : 'communicableLessonSub') : t(isAncDA ? 'ancDaSub' : 'lessonSub'), lessonIntro = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonIntro' : isDeliveryInfant ? 'mchInfantLessonIntro' : isAnc ? 'ancLessonIntro' : isWeekly ? 'weeklyLessonIntro' : isZero ? 'zeroLessonIntro' : isMalaria ? 'malariaLessonIntro' : 'communicableLessonIntro') : t(isAncDA ? 'ancDaIntro' : 'lessonIntro'), s = stepById(current), seq = visibleSequence(), idx = seq.indexOf(current), isComplete = current === (isAnalysis ? (isAncDA ? 'MCH-ANC-DA-011' : 'SUR-DA-011') : isReport ? 'SUR-SR-012' : isDeliveryMother ? 'MCH-DR-MT-018' : isDeliveryInfant ? 'MCH-DR-IF-023' : isAnc ? 'MCH-ANC-019' : isMalaria ? 'SUR-DE-MAL-039' : isZero ? 'SUR-DE-ZCR-013' : isWeekly ? 'SUR-DE-WR-013' : 'SUR-DE-016');
     document.getElementById('app').innerHTML = `<div class="lesson-layout ${lessonStepsCollapsed ? 'steps-collapsed' : ''}"><aside class="sidebar"><div class="lesson-panel-head"><div class="lesson-panel-meta"><div class="crumb">${isAncDA ? DA_T[lang].ancDaCrumb : isAnalysis ? DA_T[lang].lessonCrumb : isReport ? SR_T[lang].lessonCrumb : isDeliveryMother ? t('mchDeliveryLessonCrumb') : isDeliveryInfant ? t('mchInfantLessonCrumb') : isAnc ? t('mchLessonCrumb') : t('lessonCrumb')}</div><div class="lesson-title">${lessonName}</div><div class="lesson-sub">${lessonSubtitle}</div></div><button class="lesson-panel-toggle" type="button" id="lessonPanelToggle" onclick="toggleLessonSteps()" aria-controls="stepList" aria-expanded="${!lessonStepsCollapsed}" aria-label="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}" title="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button></div><div class="progress"><i id="progressBar"></i></div><nav id="stepList" aria-label="${lang === 'lo' ? 'ຂັ້ນຕອນບົດຮຽນ' : 'Lesson steps'}"></nav><div class="footer-note">${isAnalysis ? DA_T[lang].versionPilot : isReport ? SR_T[lang].versionPilot : t('versionPilot')}</div></aside><main class="lesson-main"><div class="toolbar"><span class="badge">${groupKey[s.group] ? t(groupKey[s.group]) : s.group}</span><span class="counter">${isComplete ? t('lessonCompleted') : t('stepCounter').replace('{n}', Math.max(1, idx + 1)).replace('{total}', seq.length - 1)}</span></div><section class="content" id="lessonContent"></section></main></div>`;
     const c = document.getElementById('lessonContent');
     if (isComplete) {
@@ -3697,6 +3689,7 @@ function prev(){const seq=visibleSequence(),i=seq.indexOf(current);if(i>0){curre
   }
 
   function openLesson(key, step, path) {
+    if (key === 'anc' && step === 'MCH-ANC-020') step = 'MCH-ANC-019';
     if (!own(LESSONS, key) || !/^[A-Za-z0-9-]+$/.test(step || '')) return false;
     const L = LESSONS[key];
     activeLesson = L.lesson;
