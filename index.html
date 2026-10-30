@@ -2579,7 +2579,7 @@ const malariaStepsRaw=[
 ];
 const malariaSteps=malariaStepsRaw.map(x=>({id:x[0],en:x[1],lo:x[2],ien:x[3],ilo:x[4],group:x[5]==='Search Results'?'Decision point':x[5]==='Data Entry'?(x[0]==='SUR-DE-MAL-039'?'Finish':'Main workflow'):x[5],image:x[6]}));
 const malariaById=Object.fromEntries(malariaSteps.map(s=>[s.id,s]));
-// Existing ANC screenshots use the previous step numbering; paths below follow screen content.
+// ANC screenshot filenames match the step IDs in the MCH content register.
 const ancStepsRaw=[
  [
   "MCH-ANC-001",
@@ -2630,8 +2630,8 @@ const ancStepsRaw=[
   "MCH-ANC-006",
   "Select the ANC program",
   "ເລືອກໂປຣແກຣມ ANC",
-  "Select 'Anatenal Care' from the program selection dropdown.",
-  "ເລືອກ “Anatenal Care” ຈາກເມນູເລືອກໂປຣແກຣມ.",
+  "Select 'Antenatal Care' from the program selection dropdown.",
+  "ເລືອກ “Antenatal Care” ຈາກເມນູເລືອກໂປຣແກຣມ.",
   "Main workflow",
   "assets/mch/data-entry/anc/MCH-ANC-006.png"
  ],
@@ -2745,12 +2745,12 @@ const ancStepsRaw=[
  ],
  [
   "MCH-ANC-012",
-  "Enter the MCH Book number, ANC visit date, and gestational age (weeks)",
-  "ປ້ອນ “MCH Book number”, ວັນທີມາກວດ ANC ແລະ ອາຍຸຄັນ (ອາທິດ)",
-  "Enter the MCH Book number. Select the ANC visit date from the calendar, then enter gestational age in weeks.",
-  "ປ້ອນ “MCH Book number”. ເລືອກວັນທີມາກວດ ANC ຈາກປະຕິທິນ ແລ້ວປ້ອນອາຍຸຄັນເປັນອາທິດ.",
+  "Complete the ANC enrollment details",
+  "ຕື່ມຂໍ້ມູນການລົງທະບຽນ ANC",
+  "Enter the MCH Book number, select the ANC visit date from the calendar, and enter gestational age in weeks. The LMP date is generated automatically.",
+  "ປ້ອນເລກປຶ້ມ MCH, ເລືອກວັນທີມາກວດ ANC ຈາກປະຕິທິນ ແລະ ປ້ອນອາຍຸຄັນເປັນອາທິດ. ລະບົບຈະສ້າງວັນທີ LMP ໃຫ້ອັດຕະໂນມັດ.",
   "ANC Enrollment",
-  "assets/mch/data-entry/anc/MCH-ANC-013.png"
+  "assets/mch/data-entry/anc/MCH-ANC-012.png"
  ],
  [
   "MCH-ANC-013",
@@ -2759,7 +2759,7 @@ const ancStepsRaw=[
   "Click 'Submit' to create the Antenatal Care enrollment.",
   "ກົດ “Submit” ເພື່ອສ້າງການລົງທະບຽນການດູແລກ່ອນເກີດ.",
   "ANC Enrollment",
-  "assets/mch/data-entry/anc/MCH-ANC-014.png"
+  "assets/mch/data-entry/anc/MCH-ANC-013.png"
  ],
  [
   "MCH-ANC-014",
@@ -2768,7 +2768,7 @@ const ancStepsRaw=[
   "Click 'Edit' to open and enable the ANC event data entry form.",
   "ກົດ “Edit” ເພື່ອເປີດ ແລະ ເປີດໃຊ້ແບບຟອມປ້ອນຂໍ້ມູນເຫດການ ANC.",
   "Data entry form",
-  "assets/mch/data-entry/anc/MCH-ANC-015.png"
+  "assets/mch/data-entry/anc/MCH-ANC-014.png"
  ],
  [
   "MCH-ANC-015",
@@ -2777,7 +2777,7 @@ const ancStepsRaw=[
   "Complete fields in Risk Screening and Physical Examination section.",
   "ຕື່ມຂໍ້ມູນໃນພາກການຄັດກອງຄວາມສ່ຽງ ແລະ ການກວດຮ່າງກາຍ.",
   "Data entry form",
-  "assets/mch/data-entry/anc/MCH-ANC-016.png"
+  "assets/mch/data-entry/anc/MCH-ANC-015.png"
  ],
  [
   "MCH-ANC-016",
@@ -2786,7 +2786,7 @@ const ancStepsRaw=[
   "Complete fields in Laboratory section.",
   "ຕື່ມຂໍ້ມູນໃນພາກຫ້ອງທົດລອງ.",
   "Data entry form",
-  "assets/mch/data-entry/anc/MCH-ANC-017.png"
+  "assets/mch/data-entry/anc/MCH-ANC-016.png"
  ],
  [
   "MCH-ANC-017",
@@ -2795,7 +2795,7 @@ const ancStepsRaw=[
   "Complete fields in IFA (Iron-Folic Acid) and services details section.",
   "ຕື່ມຂໍ້ມູນໃນພາກ IFA (ທາດເຫຼັກ-ໂຟລິກ) ແລະ ລາຍລະອຽດການບໍລິການ.",
   "Data entry form",
-  "assets/mch/data-entry/anc/MCH-ANC-018.png"
+  "assets/mch/data-entry/anc/MCH-ANC-017.png"
  ],
  [
   "MCH-ANC-018",
@@ -2804,7 +2804,7 @@ const ancStepsRaw=[
   "Click 'Complete' to save and finish the Antenatal Care record.",
   "ກົດ “Complete” ເພື່ອບັນທຶກ ແລະ ສຳເລັດບັນທຶກການດູແລກ່ອນເກີດ.",
   "Data entry form",
-  null
+  "assets/mch/data-entry/anc/MCH-ANC-018.png"
  ],
  [
   "MCH-ANC-019",
