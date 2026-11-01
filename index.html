@@ -322,7 +322,7 @@ body.sb-open .gburger .im { display: none; }
   padding: 22px clamp(36px,3.3vw,48px) 12px;
   border-radius: 18px;
   background-color: rgb(var(--hero-blue));
-  background-image: url("assets/background-image/dhis2-training-banner-background.jpeg");
+  background-image: url("assets/images/background-image/dhis2-training-banner-background.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right center;
@@ -1700,7 +1700,7 @@ body { background: var(--bg); }
       rgba(229,244,254,.13) 83%,
       rgba(229,244,254,.05) 87%,
       rgba(229,244,254,0) 91%),
-    url("assets/background-image/dhis2-training-banner-background.jpeg");
+    url("assets/images/background-image/dhis2-training-banner-background.jpeg");
   background-repeat: no-repeat, no-repeat;
   background-position: center, right center;
   background-size: cover, auto 100%;
@@ -1839,7 +1839,7 @@ body { background: var(--bg); }
     padding: 30px 24px 30px;
     background-image:
       linear-gradient(90deg,#E5F4FE 0%,rgba(229,244,254,.98) 54%,rgba(229,244,254,.92) 66%,rgba(229,244,254,.81) 77%,rgba(229,244,254,.63) 89%,rgba(229,244,254,.40) 100%),
-      url("assets/background-image/dhis2-training-banner-background.jpeg");
+      url("assets/images/background-image/dhis2-training-banner-background.jpeg");
     background-repeat: no-repeat, no-repeat;
     background-position: center, right center;
     background-size: cover, auto 100%;
@@ -3173,9 +3173,8 @@ function title(s){return lang==='en'?s.en:s.lo} function instruction(s){return l
 function lessonSteps(){return activeLesson==='analysis'?(activeAnalysisType==='delivery'?deliveryAnalysisSteps:activeAnalysisType==='anc'?ancAnalysisSteps:analysisSteps):activeLesson==='report'?reportSteps:activeEntryType==='anc'?ancSteps:activeEntryType==='deliveryMother'?deliveryMotherSteps:activeEntryType==='deliveryInfant'?deliveryInfantSteps:activeEntryType==='malaria'?malariaSteps:activeEntryType==='zero'?zeroCaseSteps:activeEntryType==='weekly'?weeklyReportSteps:steps}
 function stepById(id){return id.startsWith('MCH-DR-DA-')?deliveryAnalysisById[id]:id.startsWith('MCH-ANC-DA-')?ancAnalysisById[id]:id.startsWith('MCH-DR-IF-')?deliveryInfantById[id]:id.startsWith('MCH-DR-MT-')?deliveryMotherById[id]:id.startsWith('MCH-ANC-')?ancById[id]:id.startsWith('SUR-DE-MAL-')?malariaById[id]:id.startsWith('SUR-DE-ZCR-')?zeroCaseById[id]:id.startsWith('SUR-DE-WR-')?weeklyReportById[id]:id.startsWith('SUR-DA-')?analysisById[id]:id.startsWith('SUR-SR-')?reportById[id]:byId[id]}
 
-function localizedImagePath(path, imageLang=lang){if(!path)return path;const slash=path.lastIndexOf('/');if(slash<0)return path;return `${path.slice(0,slash)}/${imageLang==='en'?'en':'lao'}/${path.slice(slash+1)}`}
-function imgFail(img){const englishSrc=img.dataset.englishSrc;if(englishSrc&&img.getAttribute('src')!==englishSrc&&img.dataset.englishFallback!=='true'){img.dataset.englishFallback='true';img.src=englishSrc;return}const w=img.closest('.image-wrap');if(w){w.removeAttribute('onclick');w.removeAttribute('title');w.style.cursor='default';w.innerHTML='<div class="no-image">'+t(activeLesson === 'analysis' && activeAnalysisType === 'delivery' ? 'imagePending' : 'imageMissing')+'</div>'}else{img.style.display='none';img.alt=t('imageMissing')}}
-function openLightbox(id){const s=stepById(id);if(!s||!s.image)return;const lb=document.getElementById('lightbox'),img=document.getElementById('lightboxImage'),cap=document.getElementById('lightboxCaption');img.dataset.englishSrc=localizedImagePath(s.image,'en');img.dataset.englishFallback='false';img.style.display='';img.src=localizedImagePath(s.image);img.alt=title(s);cap.textContent=`${shortNo(id)} · ${title(s)}`;lb.classList.add('open');document.body.style.overflow='hidden'}
+function imgFail(img){const w=img.closest('.image-wrap');if(w){w.removeAttribute('onclick');w.removeAttribute('title');w.style.cursor='default';w.innerHTML='<div class="no-image">'+t(activeLesson === 'analysis' && activeAnalysisType === 'delivery' ? 'imagePending' : 'imageMissing')+'</div>'}}
+function openLightbox(id){const s=stepById(id);if(!s||!s.image)return;const lb=document.getElementById('lightbox'),img=document.getElementById('lightboxImage'),cap=document.getElementById('lightboxCaption');img.src=s.image;img.alt=title(s);cap.textContent=`${shortNo(id)} · ${title(s)}`;lb.classList.add('open');document.body.style.overflow='hidden'}
 function closeLightbox(){const lb=document.getElementById('lightbox');if(!lb)return;lb.classList.remove('open');document.body.style.overflow=''}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
 function setLang(l){
@@ -3576,7 +3575,7 @@ function renderLesson() {
             extra = `<div class="branchbox"><strong>${t('searchResults')}</strong><div class="branch-options"><button class="branch-btn" onclick="choosePath('B')"><strong>${t('found')}</strong><span>${t('foundAction')}</span></button><button class="branch-btn" onclick="choosePath('A')"><strong>${t('notFound')}</strong><span>${t('notFoundAction')}</span></button></div></div>`;
         if (isEntry && !isMalaria && step14.includes(current))
             extra = `<div class="subtabs">${step14.map(id => `<button class="subtab ${id === current ? 'active' : ''}" onclick="selectStep('${id}')">${id === 'SUR-DE-014-01' ? t('step14Basic') : id === 'SUR-DE-014-02' ? t('step14Symptoms') : id === 'SUR-DE-014-03' ? t('step14Specimens') : t('step14Vax')}</button>`).join('')}</div>`;
-        const imgHtml = s.image ? `<div class="image-wrap" onclick="openLightbox('${s.id}')" title="${t('clickToEnlarge')}"><img src="${localizedImagePath(s.image)}" data-english-src="${localizedImagePath(s.image,'en')}" alt="${title(s)}" onerror="imgFail(this)"><span class="zoom-hint">${t('clickToEnlarge')}</span></div>` : `<div class="image-wrap"><div class="no-image">${t('noImage')}</div></div>`;
+        const imgHtml = s.image ? `<div class="image-wrap" onclick="openLightbox('${s.id}')" title="${t('clickToEnlarge')}"><img src="${s.image}" alt="${title(s)}" onerror="imgFail(this)"><span class="zoom-hint">${t('clickToEnlarge')}</span></div>` : `<div class="image-wrap"><div class="no-image">${t('noImage')}</div></div>`;
         const backAction = isDeliveryDA || isAncDA ? 'showMchDataAnalysisModules()' : isDeliveryMother || isDeliveryInfant ? 'showMchDeliveryModules()' : isAnc ? 'showMchDataEntryModules()' : isEntry ? 'showDataEntryModules()' : 'showAreas()';
         c.innerHTML = `<div class="content-head"><h2>${title(s)}</h2><p>${instruction(s)}</p></div>${extra}${imgHtml}<div class="actionbar"><div class="left"><button class="btn" id="backBtn">${t('previous')}</button><button class="btn" onclick="${backAction}">${t('backProgram')}</button></div><div class="right"><button class="btn primary" id="nextBtn">${t('next')}</button></div></div>`;
         document.getElementById('backBtn').onclick = prev;
@@ -3769,6 +3768,6 @@ function prev(){const seq=visibleSequence(),i=seq.indexOf(current);if(i>0){curre
 setLang(lang);
 startRouter();
 </script>
-<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview" onclick="if(event.target===this)closeLightbox()"><div class="lightbox-panel"><button class="lightbox-close" type="button" aria-label="Close screenshot" onclick="closeLightbox()">×</button><img id="lightboxImage" alt="" onerror="imgFail(this)"><div id="lightboxCaption" class="lightbox-caption"></div></div></div>
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview" onclick="if(event.target===this)closeLightbox()"><div class="lightbox-panel"><button class="lightbox-close" type="button" aria-label="Close screenshot" onclick="closeLightbox()">×</button><img id="lightboxImage" alt=""><div id="lightboxCaption" class="lightbox-caption"></div></div></div>
 </body>
 </html>
