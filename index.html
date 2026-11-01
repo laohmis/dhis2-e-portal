@@ -448,27 +448,21 @@ body.sb-open .gburger .im { display: none; }
 
 .data-entry-modules .area { min-height: 240px; }
 
-.indicator-catalog { max-width: 1120px; margin: 0 auto; }
-.indicator-intro { background: #f0f6fd; border: 1px solid #d9e6f5; border-left: 4px solid #f2bd35; border-radius: 10px; padding: 16px 18px; margin: 18px 0 22px; color: var(--text); line-height: 1.65; }
+.indicator-catalog { max-width: 1040px; margin: 0 auto; }
+.indicator-catalog .subhead { align-items: center; margin-bottom: 22px; }
+.indicator-catalog .subhead p { max-width: 720px; line-height: 1.55; }
 .indicator-panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-.indicator-panel-head { padding: 20px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: end; justify-content: space-between; gap: 18px; }
-.indicator-panel-head h2 { margin: 0 0 5px; color: var(--navy); font-size: 21px; }
-.indicator-panel-head p { margin: 0; color: var(--muted); }
-.indicator-search { width: min(100%, 360px); min-height: 44px; border: 1px solid var(--border); border-radius: 8px; background: #fff; color: var(--text); padding: 10px 13px; font: inherit; }
-.indicator-groups { padding: 0 22px; }
-.indicator-group-title { margin: 0 -22px; padding: 12px 22px; color: #244675; background: #edf3fb; border-bottom: 1px solid var(--border); font-weight: 700; }
-.indicator-row { display: grid; grid-template-columns: 58px minmax(0,1fr); align-items: start; gap: 14px; padding: 15px 4px; border-bottom: 1px solid #e8edf4; }
-.indicator-row:last-child { border-bottom: 0; }
-.indicator-row[hidden] { display: none; }
-.indicator-number { width: 42px; height: 36px; display: grid; place-items: center; border-radius: 8px; background: #f3f6fa; color: #536782; font-weight: 700; font-variant-numeric: tabular-nums; }
-.indicator-row.is-example { background: #fffaf0; }
-.indicator-row.is-example .indicator-number { background: #ffedbd; color: #77510d; }
-.indicator-row-content { min-width: 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
-.indicator-name { color: var(--text); line-height: 1.65; }
-.indicator-inline-link { margin-top: 12px; }
-.indicator-example { flex: 0 0 auto; border-radius: 999px; background: #fff0c7; color: #77510d; padding: 4px 10px; font-size: 12px; font-weight: 700; line-height: 1.5; }
-.indicator-actions { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 18px 22px; border-top: 1px solid var(--border); }
-.indicator-empty { display: none; padding: 18px 4px; color: var(--muted); }
+.indicator-register-row { display: flex; align-items: center; gap: 14px; padding: 20px 22px; }
+.indicator-register-mark { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 11px; background: #e9f1fb; color: var(--blue); font-size: 23px; font-weight: 700; }
+.indicator-register-row h2 { margin: 0; color: var(--navy); font-size: 19px; }
+.indicator-sheet-link { display: inline-flex; align-items: center; margin-left: auto; text-decoration: none; white-space: nowrap; }
+.indicator-example-card { display: flex; align-items: center; gap: 14px; margin: 0 22px; padding: 15px 16px; border: 1px solid #f1dfb5; border-radius: 10px; background: #fffaf0; }
+.indicator-example-number { display: grid; place-items: center; flex: 0 0 46px; width: 46px; height: 42px; border-radius: 8px; background: #ffedbd; color: #77510d; font-weight: 700; font-variant-numeric: tabular-nums; }
+.indicator-example-copy { display: grid; gap: 4px; min-width: 0; }
+.indicator-example-copy span { color: #77510d; font-size: 12px; font-weight: 700; }
+.indicator-example-copy strong { color: var(--text); line-height: 1.5; }
+.indicator-actions { display: flex; justify-content: flex-end; padding: 16px 22px; margin-top: 18px; border-top: 1px solid var(--border); }
+
 
 .card, .program, .area {
   --c: #1B3367;
@@ -1474,13 +1468,13 @@ body.sb-open .gburger .im { display: none; }
   .subhead { flex-direction: column; align-items: flex-start; }
   .subhead h1 { font-size: 28px; }
   .footer { flex-direction: column; }
-  .indicator-panel-head, .indicator-actions { align-items: stretch; flex-direction: column; }
-  .indicator-search { width: 100%; }
-  .indicator-groups { padding: 0 14px; }
-  .indicator-group-title { margin-left: -14px; margin-right: -14px; padding-left: 14px; }
-  .indicator-row { grid-template-columns: 44px minmax(0,1fr); gap: 9px; }
-  .indicator-number { width: 36px; }
-  .indicator-row-content { flex-direction: column; gap: 8px; }
+  .indicator-catalog .subhead { align-items: flex-start; }
+  .indicator-register-row { align-items: flex-start; flex-wrap: wrap; padding: 16px; }
+  .indicator-register-row h2 { padding-top: 10px; }
+  .indicator-sheet-link { width: 100%; justify-content: center; margin-left: 0; }
+  .indicator-example-card { align-items: flex-start; margin-left: 16px; margin-right: 16px; }
+  .indicator-actions { justify-content: flex-start; padding: 14px 16px; }
+  .indicator-actions .btn { width: 100%; }
 }
 
 @media(prefers-reduced-motion:reduce) {
@@ -2274,45 +2268,13 @@ const SR_T={
   lo:{lessonCrumb:'ຄູ່ມືການນຳໃຊ້ / ລະບົບເຝົ້າລະວັງພະຍາດ 2.0 / ບົດລາຍງານມາດຕະຖານ',versionPilot:"ໄລຍະທົດລອງ ",srReportsApp:"ແອັບ ລາຍງານ",srSelectReport:'ເລືອກລາຍງານມາດຕະຖານ',srConfigure:'ກຳນົດພາຣາມິເຕີລາຍງານ',srGenerate:"ສ້າງບົດລາຍງານ",completedTitle:'ທ່ານໄດ້ຮຽນຈົບບົດຮຽນບົດລາຍງານມາດຕະຖານແລ້ວ',completedText:'ທ່ານໄດ້ຮຽນຈົບບົດຮຽນບົດລາຍງານມາດຕະຖານ ລະບົບເຝົ້າລະວັງພະຍາດ 2.0 ແລ້ວ. ທ່ານໄດ້ຮຽນຮູ້ການເປີດແອັບ Reports, ການເລືອກລາຍງານມາດຕະຖານ, ການກຳນົດໜ່ວຍງານ ແລະ ໄລຍະເວລາ ແລະ ການສ້າງລາຍງານ.',startReportAgain:'ເລີ່ມບົດຮຽນບົດລາຍງານມາດຕະຖານອີກຄັ້ງ'}
 };
 const MCH_INDICATOR_UI={
-  en:{catalogTitle:'MCH programme indicators',intro:'Review the full indicator list before the guided analysis. The lesson demonstrates one indicator as an example; the other indicators remain available for your own analysis.',search:'Search indicators by number or name',ancGroup:'A. Antenatal Care',deliveryGroup:'B. Intrapartum Care',indicatorCount:'indicators',example:'Used in lesson example',viewIndicators:'View indicator list',startExample:'Start guided example →',backModules:'← Back to MCH Data Analysis',backLesson:'← Return to lesson',empty:'No indicators match your search.'},
-  lo:{catalogTitle:'ຕົວຊີ້ວັດສາຍງານ MCH',intro:'ເບິ່ງລາຍການຕົວຊີ້ວັດທັງໝົດກ່ອນຮຽນການວິເຄາະ. ບົດຮຽນນຳໃຊ້ພຽງໜຶ່ງຕົວຊີ້ວັດເປັນຕົວຢ່າງ; ທ່ານສາມາດນຳຕົວຊີ້ວັດອື່ນໆໄປວິເຄາະໄດ້.',search:'ຄົ້ນຫາຕົວຊີ້ວັດດ້ວຍເລກ ຫຼື ຊື່',ancGroup:'A. ການດູແລກ່ອນເກີດ',deliveryGroup:'B. ການດູແລເວລາເກີດ',indicatorCount:'ຕົວຊີ້ວັດ',example:'ຕົວຢ່າງໃນບົດຮຽນ',viewIndicators:'ເບິ່ງລາຍການຕົວຊີ້ວັດ',startExample:'ເລີ່ມບົດຮຽນຕົວຢ່າງ →',backModules:'← ກັບໄປຫາການວິເຄາະຂໍ້ມູນ MCH',backLesson:'← ກັບໄປຫາບົດຮຽນ',empty:'ບໍ່ພົບຕົວຊີ້ວັດທີ່ກົງກັບຄຳຄົ້ນຫາ.'}
+  en:{titleSuffix:'indicators',intro:'Browse all ANC and Delivery indicators in the shared spreadsheet. The lesson example is shown below.',sheetTitle:'Full indicator register',openSheet:'Open spreadsheet ↗',exampleLabel:'Lesson example',viewIndicators:'View indicator register',startExample:'Start guided example →',backModules:'← Back to MCH Data Analysis',backLesson:'← Return to lesson'},
+  lo:{titleSuffix:'ລາຍການຂໍ້ມູນສຳລັບການວິເຄາະ',intro:'ເບີ່ງລາຍການຂໍ້ມູນສຳລັບ ໂປແກມ ການດູແລກ່ອນເກີດ ແລະ ການດູແລເວລາເກີດ ທັງໝົດໄດ້ຈາກ ສະເປຣດຊີດ. ສຳລັບລາຍການຂໍ້ມູນດ້ານລຸ່ມນີ້ເປັນຂໍ້ມູນທີ່ໃຊ້ວິເຄາະສະເພາະໃນບົດຮຽນ',sheetTitle:'ລາຍການຂໍ້ມູນທັງໝົດ',openSheet:'ເປີດສະເປຣດຊີດ ↗',exampleLabel:'ຕົວຢ່າງບົດຮຽນ',viewIndicators:'ເບິ່ງລາຍການຂໍ້ມູນ',startExample:'ເລີ່ມບົດຮຽນຕົວຢ່າງ →',backModules:'← ກັບໄປຫາການວິເຄາະຂໍ້ມູນ MCH',backLesson:'← ກັບໄປຫາບົດຮຽນ'}
 };
-const MCH_INDICATORS={
-  anc:[
-    ['01','Total number of ANC women aged under 15 years','ຈຳນວນຂອງແມ່ຍິງຖືພາ ກຸ່ມ ອາຍຸ ນ້ອຍກວ່າ 15 ປີ ທີ່ໄດ້ຮັບການມາກວດກ່ອນເກີດ'],
-    ['02','Total number of ANC women aged between 15-19 years come for ANC','ຈຳນວນຂອງແມ່ຍິງຖືພາ ກຸ່ມ ອາຍຸ 15-19 ປີ ທີ່ໄດ້ຮັບການມາກວດກ່ອນເກີດ'],
-    ['03','Total number of ANC visit','ຈຳນວນຄັ້ງທີ່ແມ່ຍິງຖືພາມາກວດກ່ອນເກີດທັງໝົດ',true],
-    ['04','Total number of ANC 1st visit with gestational aged less than 12 weeks','ຈຳນວນຂອງແມ່ຍິງຖືພາມາກວດກ່ອນເກີດຄັ້ງທຳອິດ ANC 1 ມີອາຍຸຄັນນ້ອຍກວ່າ ຫຼື ເທົ່າກັບ 12 ອາທິດ'],
-    ['05','Total number of ANC 1st visit with gestational aged more than 12 weeks','ຈຳນວນຂອງແມ່ຍິງຖືພາມາກວດກ່ອນເກີດຄັ້ງທຳອິດ ANC 1 ມີອາຍຸຄັນຫຼາຍກວ່າ 12 ອາທິດ'],
-    ['06','Total number of ANC 1st visit','ຈຳນວນແມ່ຍິງມາກວດກ່ອນເກີດ ຄັ້ງທີ 1 ທັງໝົດ'],
-    ['07','Total number of ANC 4th visit','ຈຳນວນແມ່ຍິງມາກວດກ່ອນເກີດ ຄັ້ງທີ 4 ທັງໝົດ'],
-    ['08','Total number of pregnant women who tested for anemia for the first time during pregnancy','ຈຳນວນແມ່ຍິງຖືພາທີ່ໄດ້ກວດຫາພາວະເລືອດຈາງ ຄັ້ງທຳອິດໃນໄລຍະຖືພາ'],
-    ['09','Total number of pregnant women who have identified as having anemia (Hb < 11 g/dl)','ຈຳນວນແມ່ຍິງຖືພາທີ່ພົບວ່າເປັນພາວະເລືອດຈາງ (Hb < 11 g/dl)'],
-    ['10','Total number of pregnant women received IFA 90 tablets','ຈຳນວນແມ່ຍິງຖືພາໄດ້ຮັບຢາທາດເຫຼັກ/ອາຊິດໂຟລິກ 90 ເມັດ'],
-    ['11','Total number of ANC visit with gestational aged at 36 or more than 36 weeks','ຈຳນວນແມ່ຍິງມາກວດຕອນອາຍຸຄັນພາບ 36 ຫຼື ຫຼາຍກວ່າ 36 ອາທິດ'],
-    ['12','Total number of free for ANC visit','ຈຳນວນເດັກແມ່ຍິງ ຖືພາທີ່ໄດ້ຮັບບໍລິການ ບໍ່ເສຍຄ່າ'],
-    ['13','Total number of pay for ANC visit','ຈຳນວນເດັກແມ່ຍິງ ຖືພາທີ່ໄດ້ຮັບບໍລິການ ເສຍຄ່າ']
-  ],
-  delivery:[
-    ['14','Total number of birth by SBA','ຈຳນວນແມ່ຍິງ ເກີດລູກມີແພດຊ່ວຍທຳມະດາ'],
-    ['15','Number of natural delivery (Vaginal Delivery)','ຈຳນວນແມ່ຍິງ ເກີດລູກທາງຊ່ອງຄອດ'],
-    ['16','Number of delivery with equipment','ຈຳນວນແມ່ຍິງ ເກີດລູກໂດຍໃຊ້ເຄື່ອງມືຊ່ວຍ'],
-    ['17','Number of cesarean section','ຈຳນວນແມ່ຍິງ ຜ່າຕັດເກີດລູກ'],
-    ['18','Number of delivery women aged under 15 years','ຈຳນວນແມ່ຍິງ ກຸ່ມອາຍຸ ນ້ອຍກວ່າ 15 ປີ ທີ່ມາເກີດລູກ'],
-    ['19','Number of delivery women aged between 15-19 years','ຈຳນວນແມ່ຍິງ ກຸ່ມອາຍຸ 15-19 ປີ ທີ່ມາເກີດລູກ'],
-    ['20','Number of facility based delivery women received uterine contraction medicine (Oxytocin/Methergin/Misoprostol)','ຈຳນວນແມ່ຍິງ ເກີດລູກໃນສະຖານບໍລິການ ທີ່ໄດ້ຮັບຢາເຮັດໃຫ້ມົດລູກບີບຕົວຫຼັງເກີດ (Oxytocin/Methergin/Misoprostol)'],
-    ['21','Number of high risk present pregnant women which gestational aged under/equal 32 weeks received MgSO4','ແມ່ຍິງຖືພາທີ່ມີຄວາມສ່ຽງສູງກ່ອນກຳນົດ ອາຍຸຄັນຕ່ຳກວ່າ ຫຼື ເທົ່າກັບ 32 ອາທິດ ໄດ້ຮັບ MgSO4'],
-    ['22','Number of newborn weight under 2500 g','ຈຳນວນເດັກເກີດ ມີນ້ຳໜັກ ນ້ອຍກວ່າ 2500 ກຣາມ'],
-    ['23','Number of newborn with weight over/equal 4000 g','ຈຳນວນເດັກເກີດ ມີນ້ຳໜັກ ຫຼາຍກວ່າ ຫຼື ເທົ່າກັບ 4000 ກຣາມ'],
-    ['24','Number of newborn with congenital anomaly','ຈຳນວນເດັກເກີດ ມີຄວາມຜິດປົກກະຕິ (Congenital Anomalies)'],
-    ['25','Number of still birth (pregnancy aged more than 28 weeks)','ຈຳນວນເດັກ ຕາຍໃນທ້ອງ ອາຍຸການຖືພາ ຫຼາຍກວ່າ 28 ອາທິດ (Still Birth)'],
-    ['26','Number of live birth','ຈຳນວນເດັກ ເກີດມີຊີວິດ',true],
-    ['27','Number of newborn breast feeding within 90 minutes','ຈຳນວນເດັກເກີດໃໝ່ໄດ້ກິນນົມແມ່ພາຍໃນ 90 ນາທີ'],
-    ['28','Number of newborn receive skin-to-skin contact for 90 min','ຈຳນວນເດັກເກີດໃໝ່ທີ່ໄດ້ປະຕິບັດການສຳຜັດຜິວກັບ 90 ນາທີ'],
-    ['29','Number of newborn receive immediate and sustained skin-to-skin contact for at least 90 min and early initial breastfeeding','ຈຳນວນເດັກເກີດໃໝ່ທີ່ໄດ້ປະຕິບັດນຳສຳຜັດຜິວສຳຜັດກັນໃກ້ເກີດ ແລະ ສືບຕໍ່ຮອດ 90 ນາທີ ແລະ ໄດ້ກິນນົມແມ່ທັນທີ'],
-    ['30','Number of free delivery women','ຈຳນວນແມ່ຍິງ ຖືພາມາເກີດລູກ ທີ່ໄດ້ຮັບບໍລິການ ບໍ່ເສຍຄ່າ'],
-    ['31','Number of pay for delivery women','ຈຳນວນແມ່ຍິງ ຖືພາມາເກີດລູກ ທີ່ໄດ້ຮັບບໍລິການ ເສຍຄ່າ']
-  ]
+const MCH_INDICATOR_SHEET_URL='https://docs.google.com/spreadsheets/d/1YLIg89O-sa_0JXrCpNZJ0Ab0EhFBjry7Ikjdek8Z0uU/edit?usp=sharing';
+const MCH_INDICATOR_EXAMPLES={
+  anc:{number:'03',en:'Total number of ANC visit',lo:'ຈຳນວນຄັ້ງທີ່ແມ່ຍິງຖືພາມາກວດກ່ອນເກີດທັງໝົດ'},
+  delivery:{number:'26',en:'Number of live birth',lo:'ຈຳນວນເດັກ ເກີດມີຊີວິດ'}
 };
 function t(k){return (activeLesson==='analysis'&&DA_T[lang]?.[k])||(activeLesson==='report'&&SR_T[lang]?.[k])||T[lang][k]||k}
 const steps=[
@@ -3435,21 +3397,10 @@ function startMchAnalysisExample(type) {
   if (type === 'delivery') startDeliveryAnalysisLesson();
   else startAncAnalysisLesson();
 }
-function filterMchIndicators(input) {
-  const query = input.value.trim().toLocaleLowerCase();
-  let visible = 0;
-  document.querySelectorAll('[data-indicator-search]').forEach(row => {
-    const match = row.dataset.indicatorSearch.includes(query);
-    row.hidden = !match;
-    if (match) visible++;
-  });
-  const empty = document.getElementById('indicatorSearchEmpty');
-  if (empty) empty.style.display = visible ? 'none' : 'block';
-}
 function showMchIndicatorCatalog(type, returnToLesson = false) {
   const catalogType = type === 'delivery' ? 'delivery' : 'anc';
   const ui = MCH_INDICATOR_UI[lang === 'lo' ? 'lo' : 'en'];
-  const items = MCH_INDICATORS[catalogType];
+  const example = MCH_INDICATOR_EXAMPLES[catalogType];
   window.currentView = 'mchIndicatorCatalog';
   window.mchIndicatorCatalogType = catalogType;
   window.mchIndicatorCatalogReturn = returnToLesson
@@ -3457,13 +3408,10 @@ function showMchIndicatorCatalog(type, returnToLesson = false) {
     : null;
   navActive('navPrograms');
   const moduleTitle = catalogType === 'anc' ? t('mchAncTitle') : t('mchDeliveryTitle');
-  const groupTitle = catalogType === 'anc' ? ui.ancGroup : ui.deliveryGroup;
-  const list = items.map(([number, en, lo, isExample]) => {
-    const searchText = `${number} ${en} ${lo}`.toLocaleLowerCase();
-    return `<div class="indicator-row ${isExample ? 'is-example' : ''}" data-indicator-search="${escapeHtml(searchText)}"><div class="indicator-number">${number}</div><div class="indicator-row-content"><span class="indicator-name">${escapeHtml(lang === 'lo' ? lo : en)}</span>${isExample ? `<span class="indicator-example">${ui.example}</span>` : ''}</div></div>`;
-  }).join('');
+  const pageTitle = lang === 'lo' ? `${moduleTitle}-${ui.titleSuffix}` : `${moduleTitle} ${ui.titleSuffix}`;
   const backLabel = window.mchIndicatorCatalogReturn?.fromLesson ? ui.backLesson : ui.backModules;
-  document.getElementById('app').innerHTML = `<div class="page indicator-catalog"><div class="breadcrumb">${t('home')} / ${t('programGuidance')} / ${t('mchTitle')} / ${t('dataAnalysis')} / ${moduleTitle}</div><div class="subhead"><div><h1>${ui.catalogTitle}</h1><p>${moduleTitle}</p></div><button class="btn" onclick="returnFromMchIndicatorCatalog()">${backLabel}</button></div><div class="indicator-intro">${ui.intro}</div><section class="indicator-panel" aria-label="${ui.catalogTitle}"><div class="indicator-panel-head"><div><h2>${groupTitle}</h2><p>${items.length} ${ui.indicatorCount}</p></div><input class="indicator-search" type="search" placeholder="${ui.search}" aria-label="${ui.search}" oninput="filterMchIndicators(this)"></div><div class="indicator-groups"><div class="indicator-row indicator-group-title" aria-hidden="true"><span></span><span>${groupTitle}</span></div>${list}<div class="indicator-empty" id="indicatorSearchEmpty">${ui.empty}</div></div><div class="indicator-actions"><span>${ui.example} — ${catalogType === 'anc' ? '03' : '26'}</span><button class="btn primary" onclick="startMchAnalysisExample('${catalogType}')">${ui.startExample}</button></div></section><div class="footer"><span>${t('pilotFooter')}</span><span>${t('footerTag')}</span></div></div>`;
+  const exampleName = lang === 'lo' ? example.lo : example.en;
+  document.getElementById('app').innerHTML = `<div class="page indicator-catalog"><div class="breadcrumb">${t('home')} / ${t('programGuidance')} / ${t('mchTitle')} / ${t('dataAnalysis')} / ${moduleTitle}</div><div class="subhead"><div><h1>${pageTitle}</h1><p>${ui.intro}</p></div><button class="btn" onclick="returnFromMchIndicatorCatalog()">${backLabel}</button></div><section class="indicator-panel" aria-label="${pageTitle}"><div class="indicator-register-row"><div class="indicator-register-mark" aria-hidden="true">↗</div><h2>${ui.sheetTitle}</h2><a class="btn primary indicator-sheet-link" href="${MCH_INDICATOR_SHEET_URL}" target="_blank" rel="noopener noreferrer">${ui.openSheet}</a></div><div class="indicator-example-card"><div class="indicator-example-number">${example.number}</div><div class="indicator-example-copy"><span>${ui.exampleLabel}</span><strong>${exampleName}</strong></div></div><div class="indicator-actions"><button class="btn primary" onclick="startMchAnalysisExample('${catalogType}')">${ui.startExample}</button></div></section><div class="footer"><span>${t('pilotFooter')}</span><span>${t('footerTag')}</span></div></div>`;
 }
 function showOtherProgramAreas() { showPrograms(); }
 const SURV_ABOUT={"en": {"heading": "Diseases and Syndromes under the National Surveillance System of Lao PDR", "paras": ["Since around 2008, the Lao People’s Democratic Republic (Lao PDR) has been using the Early Warning and Response system (EWARN) as a key tool for national disease and syndrome surveillance. The main objective is to strengthen the surveillance system by providing a mechanism for data analysis, monitoring, and alerts for epidemiological events that require urgent attention.", "Lao-EWARN was introduced in phases, beginning at the national level and subsequently expanding to the provincial level. Under this system, data from various health service units were submitted to District Health Offices, where they were compiled and forwarded to Provincial Health Departments (PHDs) for entry into the EWARN database. The Provincial Health Departments then extracted the data, added aggregated figures, and forwarded them to the National Center for Laboratory and Epidemiology (NCLE). The data were subsequently entered into the Lao-EWARN system again for further analysis, and reports were disseminated to relevant stakeholders.", "The need to count, combine, aggregate, and enter data at each administrative level arose because the Lao-EWARN database was developed using Microsoft Access. As a result, it operated as a closed system and did not support online data backup. The data management and reporting process described above was largely decentralized and lacked a centralized approach to data management, increasing the risk of data discrepancies and potential data loss.", "Since 2015, Lao PDR has expanded the use of the District Health Information Software 2 (DHIS2) platform. This represented a shift towards a health information system that could be accessed and used by authorized health sector personnel across the country. DHIS2 provides a centralized data repository that allows users at different administrative levels to enter and access data, provided they have the necessary equipment, such as computers, and an internet connection. Authorized users can enter data from different locations and at any time, subject to system availability and access permissions. Furthermore, DHIS2 is designed to support timely and efficient data analysis and reporting. Data entered into the system can be automatically aggregated, analyzed, and presented in reports, reducing the time required for data processing.", "All diseases and syndromes under the national surveillance system require timely data collection and analysis to enable the early detection of disease patterns and potential outbreaks. These findings may trigger verification, investigation, and response activities. To support this objective, NCLE, in collaboration with the World Health Organization (WHO), began integrating surveillance data from the Lao-EWARN database into DHIS2 in 2018.", "The integration of these systems aligns with the Ministry of Health's Digital Health Strategy (2023–2027), which promotes DHIS2 as a national central platform for health information across disease programmes. The purpose of this integration guide is to reduce duplication of systems, improve data quality, and enable strategic decision-making by linking disease surveillance under the national surveillance system with malaria surveillance.", "This guide consolidates operational procedures from the National Center for Laboratory and Epidemiology (NCLE) and the Center of Malariology, Parasitology and Entomology (CMPE), focusing on the reporting of data for nationally surveilled diseases and malaria, respectively.", "The integration aims to establish standardized procedures for data entry, reporting, analysis, and monitoring within DHIS2. These procedures are intended to improve coordination, operational efficiency, and the use of surveillance data to support timely decision-making."], "ref": "References: Disease Surveillance 2.0 SOP"}, "lo": {"heading": "ພະຍາດ/ອາການພາຍໃຕ້ລະບົບການເຝົ້າລະວັງແຫ່ງ ສ ປປ ລາວ", "paras": ["ເລີ່ມແຕ່ປະມານປີ 2008, ສປປ ລາວ ໄດ້ເລີ່ມນຳໃຊ້ລະບົບການເຝົ້າລະວັງການເຕືອນ ແລະ ໂຕ້ຕອບແຕ່ຫົວທີໂດຍເປັນເຄື່ອງມືຫຼັກໃນວຽກງານເຝົ້າລະວັງພະຍາດ/ອາການແຫ່ງຊາດ. ຈຸດປະສົງຫຼັກແມ່ນເພື່ອເພີ່ມຄວາມເຂັ້ມແຂງໃຫ້ແກ່ລະບົບວຽກງານເຝົ້າລະວັງໂດຍການສະໜອງຊ່ອງທາງທີ່ເປັນໄປໄດ້ສຳລັບການວິເຄາະຂໍ້ມູນດ້ວຍວິທີການຕິດຕາມ ແລະ ແຈ້ງເຕືອນກ່ຽວກັບສະພາບການທີ່ຈຳເປັນທີ່ຕ້ອງການເອົາໃຈໃສ່ທີ່ຮີບດ່ວນຂອງລະບາດວິທະຍາ.", "Lao-EWARN ໄດ້ເລີ່ມດຳເນີນການເປັນເທື່ອລະກ້າວໂດຍເລີ່ມຈາກລະດັບປະເທດ ແລະ ຕໍ່ມາໃນລະດັບແຂວງ. ພາຍໃຕ້ການປະຕິບັດງານຂອງລະບົບດັ່ງກ່າວ, ບັນດາຂໍ້ມູນຈາກໜ່ວຍງານບໍລິການທາງດ້ານສາທາລະນະສຸກຕ່າງໆໄດ້ຖືກນຳສົ່ງໄປຍັງຫ້ອງການສາທາລະນະສຸກເມືອງເຊິ່ງໄດ້ມີການສັງລວມ ແລະ ຖືກສົ່ງຕໍ່ໄປພະແນກສາທາລະນະສຸກແຂວງເພື່ອປ້ອນເຂົ້າໃນລະບົບຖານຂໍ້ມູນ EWARN. ຫຼັງຈາກນັ້ນ, ພະແນກສາທາລະນະສຸກແຂວງໄດ້ນຳເອົາຂໍ້ມູນອອກມາບວກກັບໂຕເລກສັງລວມ ແລະ ສົ່ງໄປຍັງສູນວິເຄາະ ແລະ ລະບາດວິທະຍາເພື່ອຈະໄດ້ນຳເອົາຂໍ້ມູນເຂົ້າໃນລະບົບ Lao EWARN ອີກເທື່ອໜຶ່ງເພື່ອວິເຄາະເພີ່ມຕື່ມ ແລະ ສົ່ງລາຍງານໄປຍັງໜ່ວຍງານທີ່ກ່ຽວຂ້ອງ.", "ເຫດຜົນທີ່ຂໍ້ມູນຖືກນັບ, ປະສົມ, ສັງລວມ ແລະ ປ້ອນໃສ່ໃນແຕ່ລະຂັ້ນເພາະວ່າລະບົບຖານຂໍ້ມູນ Lao-Ewarn ໄດ້ຖືກພັດທະນາຢູ່ໃນໂປແກມ Microsoft Access. ດັ່ງນັ້ນ ມັນຈຶ່ງເປັນລະບົບປິດ ແລະ ບໍ່ສາມາດສຳຮອງຂໍ້ມູນຜ່ານອິນເຕີເນັດໄວ້ໄດ້. ລະບົບຂັ້ນຕອນການຈັດເກັບຂໍ້ມູນດັ່ງກ່າວມາຂ້າງເທີງນີ້ສ່ວນຫຼັກໆແມ່ນບໍ່ມີການຈັດການຂໍ້ມູນແບບເປັນແຫຼ່ງ, ດັ່ງນັ້ນຈຶ່ງເຮັດໃຫ້ຂໍ້ມູນມີການຄາດເຄື່ອນ ຫຼື ອາດເສຍຂໍ້ມູນໄປໄດ້.", "ນັບຕັ້ງແຕ່ປີ 2015 ສປປ ລາວ ໄດ້ມີການຂະຫຍາຍວຽກງານດ້ານລະບົບຖານຂໍ້ມູນ DHIS2. ນີ້ແມ່ນການໂອນຖ່າຍຂໍ້ມູນຂອງລະບົບຂໍ້ມູນສຸຂະພາບໂດຍມີຄວາມສາມາດເຂົ້າເຖີງ ແລະ ໃຫ້ບໍລິການແກ່ທຸກໆໜ່ວຍງານພາຍໃນປະເທດ. DHIS2 ແມ່ນແຫຼ່ງຈັດເກັບຂໍ້ມູນທີ່ທຸກໆຂັ້ນສາມາດນຳໃຊ້ ແລະ ບັນທຶກຂໍ້ມູນໃສ່ໄດ້ໂດຍປັດໃຈຫຼັກຕ້ອງມີເຄື່ອງມືເຊັ່ນ: ຄອມພີວເຕີ ແລະ ອິນເຕີເນັດ. ຖ້າຫາກວ່າບຸກຄົນໃດມີສິດເຂົ້ານຳໃຊ້ລະບົບຖານຂໍ້ມູນດັ່ງກ່າວບຸກຄົນນັ້ນກໍ່ສາມາດນຳໃຊ້ເພື່ອການປ້ອນຂໍ້ມູນໃນທຸກໆສະຖານທີ່ ແລະ ທຸກໆເວລາໄດ້. ຫຼາຍໄປກວ່ານັ້ນ, ດັ່ງທີ່ໂປແກມໂຕນີ້ຖືກອອກແບບມາໃຫ້ມີຄວາມສາມາດວິເຄາະ, ລາຍງານຂໍ້ມູນຢ່າງທັນການ ແລະ ມີປະສິດທິພາບ, ຂໍ້ມູນທີ່ຖືກປ້ອນເຂົ້າໃນລະບົບຈະສັງລວມໂຕເລກ, ວິເຄາະ, ລາຍງານໃຫ້ອັດຕະໂນມັດຢ່າງວ່ອງໄວ.", "ທຸກໆພະຍາດ/ອາການພາຍໃຕ້ລະບົບການເຝົ້າລະວັງຮຽກຮ້ອງໃຫ້ມີການເກັບກຳຂໍ້ມູນ ແລະ ວິເຄາະຂໍ້ມູນຕາມເວລາທີ່ເໝາະສົມເພື່ອຢືນຢັນຮູບແບບພະຍາດຢ່າງວ່ອງໄວເຊິ່ງອາດຈະຕ້ອງມີການກວດສອບ, ການສືບສວນ ແລະ ການຕອບໂຕ້. ດ້ວຍຈຸດປະສົງນີ້ສູນວິເຄາະ ແລະ ລະບາດວິທະຍາຮ່ວມມືກັບອົງການອະນາໄມໂລກເລີ່ມແຕ່ປີ 2018 ຂໍ້ມູນພະຍາດພາຍໃຕ້ລະບົບການເຝົ້າລະວັງຈາກຖານຂໍ້ມູນ LaoEwarn ຈຶ່ງໄດ້ຖືກນຳເຂົ້າສູ່ລະບົບຖານຂໍ້ມູນ DHIS2.", "ການເຊື່ອມສານທັງສອງໜ່ວຍງານແມ່ນສອດຄ່ອງກັບຍຸດທະສາດເທັກໂນໂລຊີດິຈິຕໍຂອງກະຊວງສາທາລະນະສຸກ ( 2023-2027 ) ເຊິ່ງສົ່ງເສີມໃຫ້ DHIS2 ເປັນລະບົບສູນລວມຂໍ້ມູນແຫ່ງຊາດສຳລັບຂໍ້ມູນດ້ານສຸຂະພາບໃນບັນດາໂຄງການພະຍາດຕ່າງໆ. ຈຸດປະສົງສຳລັບການສ້າງຄູ່ມືເຊື່ອມສານເຫຼັ້ມນີ້ເພື່ອຫຼຸດການນຳໃຊ້ລະບົບທີ່ຊ້ຳຊ້ອນ,ປັບປຸງຄຸນະພາບຂອງຂໍ້ມູນ, ແລະ ສາມາດຕັດສິນໃຈໄດ້ທາງດ້ານກົນລະຍຸດ (enable strategic decision-making) ລະຫວ່າງວຽກງານການເຝົ້າລະວັງພະຍາດພາຍໃຕ້ລະບົບການເຝົ້າລະວັງແຫ່ງຊາດ ແລະ ພະຍາດໄຂ້ມາລາເຣຍ.", "ເຊິ່ງໄດ້ຮວບຮວມຂັ້ນຕອນການດໍາເນີນງານຈາກສູນວິເຄາະ ແລະ ລະບາດວິທະຍາ (NCLE) ແລະ ສູນແມ່ກາຟາກ, ແລະ ແມງໄມ້ (CMPE), ໂດຍສຸມໃສ່ການລາຍງານຂໍ້ມູນພະຍາດເຝົ້າລະວັງ ແລະ ພະຍາດໄຂ້ມາເລເລຍຕາມລໍາດັບ.", "ການລວມເຂົ້າກັນມີຈຸດປະສົງທີ່ຈະສ້າງມາດຕະຖານຂັ້ນຕອນສໍາລັບການບັນທຶກຂໍ້ມູນ, ການລາຍງານ, ການວິເຄາະ ແລະ ການຄວບຄຸມໃນ DHIS2 ເພື່ອປັບປຸງການປະສານງານ, ປະສິດທິພາບ ແລະ ການນໍາໃຊ້ຂໍ້ມູນການເຝົ້າລະວັງເພື່ອການຕັດສິນໃຈທີ່ທັນເວລາ."], "ref": "ຂໍ້ມູນອ້າງອີງຈາກ: ປື້ມຄູ່ມືເຊື່ອມສານພະຍາດເຝົ້າລະວັງ 2.0 SOP"}};
@@ -3808,8 +3756,8 @@ const SPLIT_VIEW_TIP_UI = {
     ]
   },
   lo: {
-    title: 'ກ່ອນເລີ່ມຮຽນ: ຕັ້ງຄ່າ Chrome Split View',
-    text: 'ເບິ່ງວິດີໂອ 33 ວິນາທີ ເພື່ອເປີດ DHIS2 ຄຽງຄູ່ກັບບົດຮຽນ ແລະ ຝຶກປະຕິບັດໄປພ້ອມກັນ.',
+    title: 'ກ່ອນເລີ່ມການຮຽນ: ທ່ານສາມາດເຮັດບຣາວເຊີ google chorme split view ແຍກອອກເປັນສອງຈໍໄດ້ເພື່ອເບີ່ງບົດຮຽນ ແລະ ຝຶກໄປພ້ອມ',
+    text: 'ເບີ່ງວິດີໂອສາທິດການແຍກ google chorme ອອກເປັນສອງໜ້າຈໍ',
     watch: '▶ ເບິ່ງວິດີໂອສັ້ນ',
     dialogTitle: 'ຕັ້ງຄ່າ Chrome Split View',
     tipLabel: 'ຄຳແນະນຳ:',
