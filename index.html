@@ -1056,12 +1056,21 @@ body.sb-open .gburger .im { display: none; }
 .pdo3-activity-card { margin: 18px 26px 22px; padding: 18px; border: 1px solid #D6E3F2; border-radius: 10px; background: #F8FBFF; }
 .pdo3-activity-card h3 { margin: 3px 0 8px; color: var(--navy); font-size: 17px; }
 .pdo3-activity-card > p { margin: 0; color: #52657B; line-height: 1.6; }
+.pdo4-example-quote { margin: 12px 0; padding: 14px 16px; border-left: 3px solid var(--amber); border-radius: 7px; background: #fff; color: var(--text); line-height: 1.65; }
+.pdo4-example-note { margin-top: 10px !important; }
+.pdo4-followup-example { margin-top: 14px; padding: 14px 16px; border: 1px solid #E3D2A0; border-radius: 8px; background: #fffaf0; color: #34485F; line-height: 1.6; }
+.pdo4-followup-example h4 { margin: 0 0 6px; color: #7A5A14; font-size: 14px; }
+.pdo4-followup-example p, .pdo4-followup-note { margin: 0; }
+.pdo4-followup-note { margin-top: 9px !important; font-size: 12.5px; }
 .pdo3-plan-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 13px; }
 .pdo3-plan-step { padding: 12px; border: 1px solid #DFE8F2; border-radius: 8px; background: #fff; }
 .pdo3-plan-step b { display: block; margin-bottom: 5px; color: #304762; }
 .pdo3-checklist { display: grid; gap: 8px; margin-top: 12px; }
 .pdo3-checklist label { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border: 1px solid #DFE8F2; border-radius: 8px; background: #fff; color: #34485F; line-height: 1.55; cursor: pointer; }
 .pdo3-checklist input { flex: 0 0 auto; margin-top: 4px; accent-color: #17633A; }
+.pdo4-review-list { display: grid; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+.pdo4-review-list li { display: flex; align-items: flex-start; gap: 10px; padding: 12px; border: 1px solid #DFE8F2; border-radius: 8px; background: #fff; color: #34485F; line-height: 1.55; }
+.pdo4-review-number { display: grid; flex: 0 0 24px; width: 24px; height: 24px; place-items: center; border-radius: 50%; background: #EAF2FB; color: #1B3367; font-size: 12px; font-weight: 700; }
 .pdo3-completion { margin: 18px 0; padding: 18px; border: 1px solid #D6E3F2; border-radius: 10px; background: #F8FBFF; text-align: left; }
 .pdo3-completion h4 { margin: 0 0 10px; color: var(--navy); font-size: 16px; }
 .pdo3-completion ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px 18px; margin: 0; padding-left: 20px; color: #46546A; line-height: 1.55; }
@@ -2202,6 +2211,7 @@ body { background: var(--bg); }
     flex: 1 1 0;
     overflow: hidden;
   }
+  .lesson-layout .content.pdo-analysis-content .actionbar { margin-top: auto; }
   .lesson-layout .content-head {
     padding: 11px 18px 10px;
   }
@@ -3398,7 +3408,7 @@ const pdo3AnalysisSteps=[
   ['MCH-PDO3-DA-016','Check before sharing results','Confirm the reporting cutoff, why overview and detail percentages may differ, and what “Closed” means. The export label “61false” is a formatting error. Until it is corrected, compare the numeric values with the 61% target; do not teach a colour rule.','Plan follow-up',null],
   ['MCH-PDO3-DA-017','Optional: explore the ANC continuum','Return to the district view and select “ANC continuum”. Use the district rows; the summary totals above them are national in this screenshot. Phongsali shows ANC1 437, ANC4 206, and SBA 141. The displayed gaps are 52.86% from ANC1 to ANC4 and 31.55% from ANC4 to SBA. These counts may refer to different women or reporting periods, so they do not show that individual women dropped out of care. Use them to discuss follow-up, referrals, and recording practices.','Optional ANC investigation','MCH-PDO3-DA-017.png'],
   ['MCH-PDO3-DA-018','Lesson completed','You can identify a district below target, explain what needs checking, and agree on a follow-up action. The ANC continuum section was optional.','Finish',null]
-].map(([id,en,ien,group,image])=>({id,en,ien,group,image:image?'assets/mch/data-analysis/Result Framework Dashboard/pdo3/'+image:null}));
+].map(([id,en,ien,group,image])=>({id,en,ien,group,image:image&&id!=='MCH-PDO3-DA-017'?'assets/mch/data-analysis/Result Framework Dashboard/pdo3/'+image:null}));
 const pdo3AnalysisById=Object.fromEntries(pdo3AnalysisSteps.map(s=>[s.id,s]));
 const PDO3_LAO={
   lessonTitle:'PDO 3: ການເກີດມີແພດຊ່ວຍ',
@@ -3481,6 +3491,115 @@ function updatePdo3ShareChecklist(){
   const status=document.getElementById('pdo3ShareChecklistStatus');
   if(status)status.textContent=lang==='lo'?PDO3_LAO.checklist.status(checked):checked===3?'All three checks are complete. You are ready to discuss or share the finding.':`${checked} of 3 checks complete. Review the remaining items before sharing.`;
 }
+const PDO4_LAO={
+  lessonTitle:'PDO 4: ເດັກນ້ອຍທີ່ໄດ້ຮັບວັກຊີນ Penta3',
+  groups:{
+    'Open the dashboard':'ເປີດກະດານຂ່າວ',
+    'Set filters':'ກຳນົດຕົວກອງ',
+    'Review province results':'ກວດເບິ່ງຜົນລະດັບແຂວງ',
+    'Review district results':'ປຽບທຽບຜົນລະດັບເມືອງ',
+    'Review facilities':'ກວດເບິ່ງສະຖານບໍລິການ',
+    'Practice and follow-up':'ຝຶກປະຕິບັດ ແລະ ວາງແຜນຕິດຕາມ',
+    'Finish':'ສິ້ນສຸດ'
+  },
+  steps:{
+    'MCH-PDO4-DA-001':['ເປີດເວັບບຣາວເຊີ','ເປີດ Google Chrome ຫຼື ເວັບບຣາວເຊີອື່ນທີ່ທ່ານສະດວກໃຊ້.'],
+    'MCH-PDO4-DA-002':['ເປີດຖານຂໍ້ມູນກະດານຂ່າວສາທາລະນະ','ພິມ hmis.gov.la/data ໃນຊ່ອງທີ່ຢູ່ເວັບ ແລ້ວລໍຖ້າໃຫ້ກະດານຂ່າວສາທາລະນະຂອງກະຊວງສາທາລະນະສຸກໂຫຼດສຳເລັດ.'],
+    'MCH-PDO4-DA-003':['ເປີດເມນູກະດານຂ່າວ','ກົດເມນູຢູ່ມຸມຊ້າຍເທິງ. ໃນເບື້ອງຕົ້ນ ເມນູອາດສະແດງຄຳວ່າ “Home”.'],
+    'MCH-PDO4-DA-004':['ເລືອກ Result Framework Dashboard','ເລືອກ “Result Framework Dashboard” ຈາກເມນູ.'],
+    'MCH-PDO4-DA-005':['ເປີດຕົວຊີ້ວັດ PDO 4','ພາຍໃຕ້ Outcome 3: Utilization, ໃຫ້ເປີດ “PDO-4 Infants receiving Penta3 (target districts)”. ກວດວ່າຊື່ຕົວຊີ້ວັດຖືກຕ້ອງກ່ອນສືບຕໍ່.'],
+    'MCH-PDO4-DA-006':['ເລືອກປີ 2026','ເລືອກປີ 2026 ເພື່ອຝຶກປະຕິບັດ. ເນື່ອງຈາກປີລາຍງານອາດຍັງດຳເນີນຢູ່, ໃຫ້ກວດວັນສິ້ນສຸດຂອງຂໍ້ມູນທີ່ສະແດງ.'],
+    'MCH-PDO4-DA-007':['ເປີດຕົວເລືອກຫົວໜ່ວຍການຈັດຕັ້ງ','ກົດຊ່ອງຫົວໜ່ວຍການຈັດຕັ້ງທີ່ຢູ່ຂ້າງປີ. ໃນເບື້ອງຕົ້ນ ຊ່ອງນີ້ສະແດງ “Lao PDR”.'],
+    'MCH-PDO4-DA-008':['ເລືອກແຂວງຜົ້ງສາລີ','ເລືອກ “02 Phongsali”. ຖ້າມີການເລືອກແຂວງອື່ນຢູ່ ໃຫ້ຍົກເລີກການເລືອກນັ້ນ ເພື່ອເນັ້ນເບິ່ງແຂວງຜົ້ງສາລີ.'],
+    'MCH-PDO4-DA-009':['ກົດ Apply','ກົດປຸ່ມ “Apply” ເພື່ອອັບເດດກະດານຂ່າວໃຫ້ສະແດງແຂວງທີ່ເລືອກ.'],
+    'MCH-PDO4-DA-010':['ອ່ານສະຫຼຸບຜົນຂອງແຂວງ','ກວດວັນສິ້ນສຸດຂໍ້ມູນ, ຈຳນວນ Penta3 ສະສົມແຕ່ຕົ້ນປີ (YTD), ຈຳນວນເດັກເກີດມີຊີວິດທີ່ຄາດຄະເນ, ອັດຕາ YTD, ອັດຕາຄາດຄະເນທັງປີ (Annualized) ແລະ ເປົ້າໝາຍ 81%. ໄຟລ໌ສົ່ງອອກທີ່ດາວໂຫຼດໃນວັນທີ 9 ພະຈິກ 2026 ສະແດງ 2,850, 4,427, 66.9% ແລະ 72.98% ຕາມລຳດັບ; ຕົວເລກປ່ຽນແປງໄດ້ ດັ່ງນັ້ນໃຫ້ໃຊ້ຄ່າປັດຈຸບັນໃນກະດານຂ່າວ. ໃຫ້ປຽບທຽບຜົນກັບເປົ້າໝາຍ 81% ທີ່ສະແດງໃນກະດານຂ່າວ.'],
+    'MCH-PDO4-DA-011':['ປຽບທຽບຜົນຂອງເມືອງກັບເປົ້າໝາຍ','ໃນໄຟລ໌ທີ່ດາວໂຫຼດວັນທີ 9 ພະຈິກ 2026, ອັດຕາ Annualized ຂອງຜົ້ງສາລີແມ່ນ 63.27% ເຊິ່ງຕ່ຳກວ່າເປົ້າໝາຍ 81%; ສ່ວນ Bounnuan ແມ່ນ 91.96% ເຊິ່ງສູງກວ່າເປົ້າໝາຍ. ສຳລັບການຝຶກຂອງທ່ານ ໃຫ້ປຽບທຽບຄ່າປັດຈຸບັນໃນກະດານຂ່າວ. ຜົນຕ່ຳກວ່າເປົ້າໝາຍບອກພຽງວ່າຄວນກວດສອບຈຸດໃດຕໍ່; ມັນບໍ່ໄດ້ບອກສາເຫດ. ຢ່າອີງຕາມຊື່ສະຖານະ ຫຼື ສີເທົ່ານັ້ນ ຖ້າຍັງບໍ່ຮູ້ຄຳນິຍາມ.'],
+    'MCH-PDO4-DA-012':['ເປີດລາຍລະອຽດຂອງເມືອງຜົ້ງສາລີ','ກົດແຖວເມືອງ “0201 Phongsali” ເພື່ອເປີດລາຍລະອຽດລະດັບຕ່ຳກວ່າ. ໜ້ານີ້ຈະສະແດງຈຳນວນແຍກຕາມສະຖານບໍລິການ.'],
+    'MCH-PDO4-DA-013':['ກວດເບິ່ງຈຳນວນຕາມສະຖານບໍລິການ','ກວດຈຳນວນ Penta3 ລາຍເດືອນ ແລະ ຈຳນວນ YTD ຂອງແຕ່ລະສະຖານບໍລິການ. ໃນຮູບຕົວຢ່າງທີ່ດາວໂຫຼດວັນທີ 9 ພະຈິກ 2026, ຜົ້ງສາລີສະແດງ 269, ຈຳນວນເດັກເກີດມີຊີວິດທີ່ຄາດຄະເນ 490, YTD 58% ແລະ Annualized 63.27%. ຕົວເລກປ່ຽນແປງໄດ້. ຄ່າຄາດຄະເນຈຳນວນເດັກເກີດມີຊີວິດມີສະເພາະລະດັບເມືອງ; ຈຳນວນຕາມສະຖານບໍລິການບໍ່ແມ່ນອັດຕາການປົກຄຸມ. ກວດສອບຄວາມຄົບຖ້ວນຂອງການລາຍງານກ່ອນສະຫຼຸບວ່າຄ່າສູນໝາຍເຖິງບໍ່ມີການໃຫ້ວັກຊີນ.'],
+    'MCH-PDO4-DA-014':['ຕົວຢ່າງ: ຂຽນການຕີຄວາມໝາຍຜົນ','ໃຊ້ຕົວຢ່າງດ້ານລຸ່ມເປັນແນວທາງໃນການຂຽນການຕີຄວາມໝາຍສັ້ນໆ. ຕົວຢ່າງສະແດງວິທີລະບຸຜົນຂອງເມືອງ, ປຽບທຽບກັບເປົ້າໝາຍ 81% ແລະ ລະບຸສິ່ງທີ່ຄວນກວດກ່ອນອະທິບາຍສາເຫດ. ຕົວເລກນີ້ມາຈາກຂໍ້ມູນວັນທີ 9 ພະຈິກ 2026; ໃຫ້ກວດກະດານຂ່າວປັດຈຸບັນກ່ອນນຳໄປໃຊ້.'],
+    'MCH-PDO4-DA-015':['ຕົກລົງກິດຈະກຳຕິດຕາມ','ປຶກສາຫາລືຜົນກັບພະນັກງານແມ່ ແລະ ເດັກ ຫຼື ພະນັກງານສ້າງພູມຄຸ້ມກັນລະດັບເມືອງ. ຕົກລົງວ່າໃຜຈະກວດສອບວັນສິ້ນສຸດການລາຍງານ ແລະ ຈຳນວນຕາມສະຖານບໍລິການ, ຈະກວດຫຍັງຕໍ່ ແລະ ຈະກັບມາທົບທວນເມື່ອໃດ. ຜົນຕົວຊີ້ວັດຢ່າງດຽວບໍ່ໄດ້ລະບຸສາເຫດຂອງຜົນຕ່ຳ.'],
+    'MCH-PDO4-DA-016':['ທົບທວນກ່ອນແບ່ງປັນຜົນ','ກ່ອນອະທິບາຍ ຫຼື ແບ່ງປັນຜົນ, ໃຫ້ໃຊ້ 4 ຈຸດດ້ານລຸ່ມເປັນແນວທາງ. ຈຸດເຫຼົ່ານີ້ຊ່ວຍໃຫ້ກວດໄລຍະລາຍງານ, ເຂົ້າໃຈຄ່າຕົວຊີ້ວັດ, ປຽບທຽບເປົ້າໝາຍ ແລະ ອະທິບາຍຈຳນວນຕາມສະຖານບໍລິການໃຫ້ຖືກຕ້ອງ.'],
+    'MCH-PDO4-DA-017':['ບົດຮຽນສຳເລັດ','ທ່ານສາມາດຊອກຫາ PDO 4, ກຳນົດຕົວກອງເປັນແຂວງຜົ້ງສາລີ, ປຽບທຽບຜົນລະດັບເມືອງກັບເປົ້າໝາຍ, ກວດຈຳນວນຂອງສະຖານບໍລິການ ແລະ ວາງແຜນການກວດສອບຕໍ່ໄປໄດ້ແລ້ວ.']
+  },
+  checkpoint:{
+    prompt:'ໃນໄຟລ໌ທີ່ດາວໂຫຼດວັນທີ 9 ພະຈິກ 2026, ຜົ້ງສາລີມີ Annualized 63.27% ແລະ ເປົ້າໝາຍ 81%. ຂໍ້ສະຫຼຸບໃດເໝາະສົມ?',
+    explain:'ຖືກຕ້ອງ. ຄ່າ 63.27% ຕ່ຳກວ່າ 81% ຢູ່ 17.73 ຈຸດເປີເຊັນ. ຄວນກວດສອບການລາຍງານ ແລະ ສະພາບການກ່ອນສະເໜີສາເຫດ.',
+    hint:'ປຽບທຽບ 63.27% ກັບ 81%. ຄ່ານີ້ບອກວ່າຄວນກວດສອບຕໍ່, ແຕ່ບໍ່ໄດ້ບອກສາເຫດ.',
+    options:[
+      ['below','ຕ່ຳກວ່າເປົ້າໝາຍ; ກວດວັນລາຍງານ ແລະ ຂໍ້ມູນກ່ອນສະຫຼຸບສາເຫດ.'],
+      ['closed','ບັນລຸເປົ້າໝາຍແລ້ວ ເພາະສະຖານະຂຽນວ່າ “Closed”.'],
+      ['facility','ທຸກສະຖານບໍລິການໃນເມືອງມີອັດຕາການປົກຄຸມ 63.27%.']
+    ]
+  },
+  practice:{
+    kicker:'ຕົວຢ່າງການຂຽນ · ຂໍ້ມູນວັນທີ 9 ພະຈິກ 2026',
+    title:'ຕົວຢ່າງການຕີຄວາມໝາຍ',
+    example:'«ໃນເມືອງຜົ້ງສາລີ, ອັດຕາ Annualized ການໄດ້ຮັບວັກຊີນ Penta3 ແມ່ນ 63.27%, ຕ່ຳກວ່າເປົ້າໝາຍ 81%. ກ່ອນອະທິບາຍຜົນ, ຄວນກວດວັນສິ້ນສຸດການລາຍງານ ແລະ ຢືນຢັນວ່າລາຍງານປະຈຳເດືອນ ແລະ ຈຳນວນຂອງສະຖານບໍລິການຄົບຖ້ວນ.»',
+    note:'ຕົວເລກນີ້ເປັນພຽງຕົວຢ່າງຈາກຂໍ້ມູນວັນທີດັ່ງກ່າວ; ເມື່ອຂຽນການຕີຄວາມໝາຍ ໃຫ້ໃຊ້ຄ່າປັດຈຸບັນຈາກກະດານຂ່າວ.'
+  },
+  followup:{
+    kicker:'ວາງແຜນຕິດຕາມ',
+    title:'ປ່ຽນຜົນທີ່ພົບໃຫ້ເປັນກິດຈະກຳຕໍ່ໄປ',
+    intro:'ເລືອກການກວດສອບທີ່ຊ່ວຍຢືນຢັນຂໍ້ມູນ ແລະ ຕົກລົງຜູ້ຮັບຜິດຊອບກັບວັນທີທົບທວນ.',
+    cards:[
+      ['1. ກວດຂໍ້ມູນ','ຢືນຢັນວັນສິ້ນສຸດລາຍງານ ແລະ ກວດວ່າຈຳນວນແຕ່ລະເດືອນຄົບຖ້ວນ.'],
+      ['2. ກວດບັນທຶກຂອງສະຖານບໍລິການ','ກວດສອບຈຳນວນ Penta3 ແລະ ຄ່າສູນກັບສະຖານບໍລິການ; ຢ່າສັນນິຖານວ່າຄ່າສູນໝາຍເຖິງບໍ່ມີການໃຫ້ວັກຊີນ.'],
+      ['3. ຕົກລົງການຕິດຕາມ','ກຳນົດຜູ້ກວດສອບ, ວັນກຳນົດ ແລະ ວັນທີຈະກັບມາທົບທວນຜົນ.']
+    ],
+    exampleTitle:'ຕົວຢ່າງແຜນຕິດຕາມ',
+    example:'ໃຫ້ຜູ້ປະສານງານດ້ານແມ່ ແລະ ເດັກ ຫຼື ດ້ານວັກຊີນລະດັບເມືອງ ກວດວ່າລາຍງານ Penta3 ປະຈຳເດືອນຄົບຖ້ວນ ແລະ ຢືນຢັນຄ່າສູນກັບບັນທຶກຂອງສະຖານບໍລິການ. ຈາກນັ້ນ ໃຫ້ທີມງານລະດັບເມືອງ ແລະ ສະຖານບໍລິການທົບທວນຜົນໃນວັນທີທີ່ຕົກລົງກັນ.',
+    note:'ຕົວຢ່າງນີ້ເປັນແນວທາງເທົ່ານັ້ນ; ໃຫ້ຕົກລົງຜູ້ຮັບຜິດຊອບ, ການກວດສອບ ແລະ ວັນທີທົບທວນຈິງກັບທີມງານ.'
+  },
+  reviewPoints:{
+    kicker:'ກ່ອນແບ່ງປັນຜົນ',
+    title:'ຈຸດທີ່ຄວນກວດກ່ອນແບ່ງປັນ',
+    intro:'ໃຊ້ຈຸດຕໍ່ໄປນີ້ເປັນແນວທາງໃນການທົບທວນຜົນ.',
+    items:[
+      ['ຢືນຢັນວັນສິ້ນສຸດການລາຍງານ.','ກວດວ່າປີ 2026 ມີຂໍ້ມູນເຖິງເດືອນໃດ.'],
+      ['ອະທິບາຍຄ່າໃຫ້ຖືກຕ້ອງ.','YTD ແມ່ນຂໍ້ມູນທີ່ລາຍງານແລ້ວ; Annualized ແມ່ນຄ່າຄາດຄະເນ ບໍ່ແມ່ນຜົນສຸດທ້າຍຂອງປີ.'],
+      ['ປຽບທຽບກັບເປົ້າໝາຍ 81%.','ໃຊ້ຄ່າຕົວເລກ; ກວດຄວາມໝາຍຂອງ “Closed” ຫຼື ສີສະແດງສະຖານະກ່ອນນຳໄປແປຜົນ.'],
+      ['ແຍກຄ່າລະດັບເມືອງອອກຈາກລະດັບສະຖານບໍລິການ.','ຈຳນວນຕາມສະຖານບໍລິການບໍ່ແມ່ນອັດຕາການປົກຄຸມ; ຢ່າສະຫຼຸບສາເຫດຈາກຜົນຢ່າງດຽວ.']
+    ]
+  },
+  completion:{title:'ສິ່ງທີ່ທ່ານສາມາດເຮັດໄດ້ແລ້ວ',items:['ຊອກຫາຕົວຊີ້ວັດ PDO 4 ແລະ ກຳນົດຕົວກອງເປັນແຂວງຜົ້ງສາລີ.','ອ່ານຄ່າ YTD ແລະ Annualized ແລ້ວປຽບທຽບກັບເປົ້າໝາຍ 81%.','ກວດຈຳນວນຕາມສະຖານບໍລິການໂດຍບໍ່ສັນນິຖານສາເຫດ.','ວາງແຜນການກວດສອບ ໂດຍລະບຸຜູ້ຮັບຜິດຊອບ ແລະ ວັນທີທົບທວນ.']},
+  restart:'ເລີ່ມບົດຮຽນ PDO 4 ອີກຄັ້ງ',
+  tryAgain:'ຍັງບໍ່ຖືກ. ',
+  chooseAgain:' ລອງເລືອກຄຳຕອບອື່ນ.'
+};
+const PDO4_CHECK={
+  prompt:'The 9 November 2026 export shows Phongsali Annualized coverage at 63.27% against the 81% target. Which conclusion is appropriate?',
+  correct:'below',
+  explain:'Correct. 63.27% is 17.73 percentage points below 81%. Verify reporting and context before suggesting a cause.',
+  hint:'Compare 63.27% with 81%. The value tells you where to review, but not why the result is low.',
+  options:[
+    ['below','Below target; check the reporting cutoff and data before explaining the result.'],
+    ['closed','The target is met because the status says “Closed”.'],
+    ['facility','Every facility has 63.27% coverage.']
+  ]
+};
+const pdo4AnalysisSteps=[
+  ['MCH-PDO4-DA-001','Open a web browser','Open Google Chrome or another web browser.','Open the dashboard','MCH-PDO4-DA-001.png'],
+  ['MCH-PDO4-DA-002','Open the public dashboard','Go to https://hmis.gov.la/data and wait for the Ministry of Health public dashboard to load.','Open the dashboard','MCH-PDO4-DA-002.png'],
+  ['MCH-PDO4-DA-003','Open the dashboard menu','Open the dashboard menu at the top left. It may show “Home”.','Open the dashboard','MCH-PDO4-DA-003.png'],
+  ['MCH-PDO4-DA-004','Choose Results Framework Dashboard','Select “Result Framework Dashboard” from the menu.','Open the dashboard','MCH-PDO4-DA-004.png'],
+  ['MCH-PDO4-DA-005','Open the PDO 4 indicator','Under Outcome 3: Utilization, open “PDO-4 Infants receiving Penta3 (target districts)”. Confirm the indicator title before continuing.','Open the dashboard','MCH-PDO4-DA-005.png'],
+  ['MCH-PDO4-DA-006','Select 2026','Select 2026 for this practice. Because the year may still be in progress, check the reporting cutoff shown on the dashboard.','Set filters','MCH-PDO4-DA-006.png'],
+  ['MCH-PDO4-DA-007','Open the organisation unit selector','Click the organisation unit field beside the year. It initially shows “Lao PDR”.','Set filters','MCH-PDO4-DA-007.png'],
+  ['MCH-PDO4-DA-008','Select Phongsali Province','Select “02 Phongsali”. Clear other province selections if needed so the example focuses on Phongsali.','Set filters','MCH-PDO4-DA-008.png'],
+  ['MCH-PDO4-DA-009','Apply the selection','Click “Apply” to update the dashboard for the selected province.','Set filters','MCH-PDO4-DA-009.png'],
+  ['MCH-PDO4-DA-010','Read the province summary','Check the reporting cutoff, YTD Penta3 count, estimated live births, YTD coverage, Annualized coverage, and the 81% annual target. The export downloaded 9 November 2026 shows 2,850, 4,427, 66.9%, and 72.98%, respectively; these figures change, so use the current dashboard values. Compare the result with the 81% target shown on the dashboard.','Review province results','MCH-PDO4-DA-010.png'],
+  ['MCH-PDO4-DA-011','Compare district results with the target','Compare each district’s Annualized coverage with the 81% target. In the export downloaded 9 November 2026, Phongsali is 63.27% (below target) and Bounnuan is 91.96% (above target). Use current values for your own review. A low result shows where to investigate, not the cause. Do not rely on a status label or colour without understanding its definition.','Review district results','MCH-PDO4-DA-011.png'],
+  ['MCH-PDO4-DA-012','Open the Phongsali district details','Click the “0201 Phongsali” district row to open the lower-level details. This displays the facility breakdown.','Review district results','MCH-PDO4-DA-012.png'],
+  ['MCH-PDO4-DA-013','Review the facility counts','Review monthly Penta3 counts and the YTD count for each facility. The 9 November 2026 example shows Phongsali YTD count 269, estimated live births 490, YTD coverage 58%, and Annualized coverage 63.27%; current values can change. The estimated live-birth denominator is available at district level only, so facility counts are not facility coverage. Check reporting completeness before treating a zero as no service provided.','Review facilities','MCH-PDO4-DA-013.png'],
+  ['MCH-PDO4-DA-014','Example: write an interpretation','Use the worked example below as a guide for writing a short interpretation. It shows how to state the district result, compare it with the 81% target, and name a check before explaining why. The figures are from a 9 November 2026 snapshot; check the current dashboard before using them.','Practice and follow-up',null],
+  ['MCH-PDO4-DA-015','Agree on a follow-up action','Discuss the result with district MCH or immunization staff. Agree who will verify the reporting and facility counts, what to check next, and when to review progress. The result alone does not identify the reason for low coverage.','Practice and follow-up',null],
+  ['MCH-PDO4-DA-016','Review before sharing results','Review the four points below as guidance before explaining or sharing the result. They show what to check about the reporting period, measures, target, and facility counts.','Practice and follow-up',null],
+  ['MCH-PDO4-DA-017','Lesson completed','You can locate PDO 4, filter to Phongsali, compare district results with the target, review facility counts, and identify a reasonable follow-up check.','Finish',null]
+].map(([id,en,ien,group,image])=>{
+  const lo=PDO4_LAO.steps[id];
+  return {id,en,ien,lo:lo?.[0],ilo:lo?.[1],group,image:image?'assets/mch/data-analysis/Result Framework Dashboard/pdo4/'+image:null};
+});
+const pdo4AnalysisById=Object.fromEntries(pdo4AnalysisSteps.map(s=>[s.id,s]));
 const reportSteps=[
   ['SUR-SR-001','1','Open a web browser','ເປີດເວັບບຣາວເຊີ','Launch Google Chrome or your preferred web browser.','ເປີດ Google Chrome ຫຼື ເວັບບຣາວເຊີທີ່ທ່ານໃຊ້.','Reports App'],
   ['SUR-SR-002','2','Open the DHIS2 system','ເປີດລະບົບ DHIS2','Navigate to the DHIS2 system URL (hmis.gov.la).','ເຂົ້າໄປທີ່ທີ່ຢູ່ເວັບຂອງລະບົບ DHIS2 (hmis.gov.la).','Reports App'],
@@ -3515,9 +3634,9 @@ const mchDataApprovalStepsRaw=[
 const mchDataApprovalById=Object.fromEntries(mchDataApprovalStepsRaw.map(step=>[step.id,step]));
 const groupKey={"Main workflow":'mainWorkflow',"Decision point":'decisionPoint',"Patient Not Found":'notFound',"Patient Found":'found',"Delivery enrollment":'mchDeliveryEnrollment',"Delivery details":'mchDeliveryDetails',"Infant form":'mchInfantFormGroup',"Optional functions":'mchInfantOptionalGroup',"Enter Surveillance 2.0 Data":'enterData',"Data entry form":'dataEntryForm',"Finish":'finish',"Data Visualiser":'daVisualiser',"Select Visualization Type":'daVisualizationType',"Determine Data":'daDetermineData',"Determine Period":'daDeterminePeriod',"Determine Organisation Units":'daDetermineOrgUnits',"Stage 1: Notification":'malStage1',"Stage 2: Investigation & Classification":'malStage2',"Stage 3: Follow-up":'malStage3',"Stage 4: HH & Neighbourhood Response":'malStage4',"ANC Enrollment":'ancEnrollment',"Reports App":'srReportsApp',"Select Standard Report":'srSelectReport',"Configure Report Parameters":'srConfigure',"Generate Report":'srGenerate'};
 function title(s){if(lang==='lo'&&s.id?.startsWith('MCH-PDO3-DA-'))return PDO3_LAO.steps[s.id]?.[0]||s.en;return lang==='en'||!s.lo?s.en:s.lo} function instruction(s){if(lang==='lo'&&s.id?.startsWith('MCH-PDO3-DA-'))return PDO3_LAO.steps[s.id]?.[1]||s.ien;return lang==='en'||!s.ilo?s.ien:s.ilo}
-function groupTitle(group){if(activeLesson==='analysis'&&activeAnalysisType==='pdo3'&&lang==='lo')return PDO3_LAO.groups[group]||group;return t(groupKey[group]||group)}
-function lessonSteps(){return activeLesson==='analysis'?(activeAnalysisType==='pdo3'?pdo3AnalysisSteps:activeAnalysisType==='delivery'?deliveryAnalysisSteps:activeAnalysisType==='anc'?ancAnalysisSteps:analysisSteps):activeLesson==='report'?reportSteps:activeEntryType==='dataApproval'?mchDataApprovalStepsRaw:activeEntryType==='anc'?ancSteps:activeEntryType==='deliveryMother'?deliveryMotherSteps:activeEntryType==='deliveryInfant'?deliveryInfantSteps:activeEntryType==='malaria'?malariaSteps:activeEntryType==='zero'?zeroCaseSteps:activeEntryType==='weekly'?weeklyReportSteps:steps}
-function stepById(id){return id.startsWith('MCH-DAPR-')?mchDataApprovalById[id]:id.startsWith('MCH-PDO3-DA-')?pdo3AnalysisById[id]:id.startsWith('MCH-DR-DA-')?deliveryAnalysisById[id]:id.startsWith('MCH-ANC-DA-')?ancAnalysisById[id]:id.startsWith('MCH-DR-IF-')?deliveryInfantById[id]:id.startsWith('MCH-DR-MT-')?deliveryMotherById[id]:id.startsWith('MCH-ANC-')?ancById[id]:id.startsWith('SUR-DE-MAL-')?malariaById[id]:id.startsWith('SUR-DE-ZCR-')?zeroCaseById[id]:id.startsWith('SUR-DE-WR-')?weeklyReportById[id]:id.startsWith('SUR-DA-')?analysisById[id]:id.startsWith('SUR-SR-')?reportById[id]:byId[id]}
+function groupTitle(group){if(activeLesson==='analysis'&&activeAnalysisType==='pdo3'&&lang==='lo')return PDO3_LAO.groups[group]||group;if(activeLesson==='analysis'&&activeAnalysisType==='pdo4'&&lang==='lo')return PDO4_LAO.groups[group]||group;return t(groupKey[group]||group)}
+function lessonSteps(){return activeLesson==='analysis'?(activeAnalysisType==='pdo4'?pdo4AnalysisSteps:activeAnalysisType==='pdo3'?pdo3AnalysisSteps:activeAnalysisType==='delivery'?deliveryAnalysisSteps:activeAnalysisType==='anc'?ancAnalysisSteps:analysisSteps):activeLesson==='report'?reportSteps:activeEntryType==='dataApproval'?mchDataApprovalStepsRaw:activeEntryType==='anc'?ancSteps:activeEntryType==='deliveryMother'?deliveryMotherSteps:activeEntryType==='deliveryInfant'?deliveryInfantSteps:activeEntryType==='malaria'?malariaSteps:activeEntryType==='zero'?zeroCaseSteps:activeEntryType==='weekly'?weeklyReportSteps:steps}
+function stepById(id){return id.startsWith('MCH-DAPR-')?mchDataApprovalById[id]:id.startsWith('MCH-PDO4-DA-')?pdo4AnalysisById[id]:id.startsWith('MCH-PDO3-DA-')?pdo3AnalysisById[id]:id.startsWith('MCH-DR-DA-')?deliveryAnalysisById[id]:id.startsWith('MCH-ANC-DA-')?ancAnalysisById[id]:id.startsWith('MCH-DR-IF-')?deliveryInfantById[id]:id.startsWith('MCH-DR-MT-')?deliveryMotherById[id]:id.startsWith('MCH-ANC-')?ancById[id]:id.startsWith('SUR-DE-MAL-')?malariaById[id]:id.startsWith('SUR-DE-ZCR-')?zeroCaseById[id]:id.startsWith('SUR-DE-WR-')?weeklyReportById[id]:id.startsWith('SUR-DA-')?analysisById[id]:id.startsWith('SUR-SR-')?reportById[id]:byId[id]}
 
 function imgFail(img){const w=img.closest('.image-wrap');if(w){w.removeAttribute('onclick');w.removeAttribute('title');w.style.cursor='default';w.innerHTML='<div class="no-image">'+t(activeLesson==='entry'&&activeEntryType==='dataApproval'?'approvalImagePending':activeLesson === 'analysis' && activeAnalysisType === 'delivery' ? 'imagePending' : 'imageMissing')+'</div>'}}
 function openLightbox(id){const s=stepById(id);if(!s||!s.image)return;const lb=document.getElementById('lightbox'),img=document.getElementById('lightboxImage'),cap=document.getElementById('lightboxCaption');img.src=s.image;img.alt=title(s);cap.textContent=`${shortNo(id)} · ${title(s)}`;lb.classList.add('open');document.body.style.overflow='hidden'}
@@ -3589,8 +3708,12 @@ const MCH_ANALYSIS_CATALOG = {
     },
     lessons: [{
       id: 'pdo3',
-      title: 'PDO 3: Skilled birth attendance',
-      description: 'Compare target-district coverage, review district and facility counts, and plan a follow-up action.'
+      title: {en:'PDO 3: Skilled birth attendance',lo:'PDO 3: ການເກີດມີແພດຊ່ວຍ'},
+      description: {en:'Compare target-district coverage, review district and facility counts, and plan a follow-up action.',lo:'ປຽບທຽບອັດຕາການປົກຄຸມ, ກວດຈຳນວນລະດັບເມືອງ ແລະ ສະຖານບໍລິການ, ແລ້ວວາງແຜນຕິດຕາມ.'}
+    },{
+      id: 'pdo4',
+      title: {en:'PDO 4: Infants receiving Penta3',lo:PDO4_LAO.lessonTitle},
+      description: {en:'Compare district results with the 81% target, review facility counts, and plan a follow-up check.',lo:'ປຽບທຽບຜົນລະດັບເມືອງກັບເປົ້າໝາຍ 81%, ກວດຈຳນວນຂອງສະຖານບໍລິການ ແລະ ວາງແຜນການກວດສອບຕໍ່ໄປ.'}
     }]
   }]
 };
@@ -3608,6 +3731,22 @@ function showMchResultFrameworkDashboard() {
   const pdoLanguageNote = lang === 'lo' ? '<div class="notice">PDO 3 lesson content is currently in English.</div>' : '';
   document.getElementById('app').innerHTML = `<div class="page"><div class="breadcrumb">${t('home')} / ${t('programGuidance')} / ${t('mchTitle')} / ${t('dataAnalysis')} / ${folder.title}</div><div class="subhead"><div><h1>${folder.title}</h1><p>${lang === 'lo' ? 'ເລືອກບົດຮຽນທີ່ຕ້ອງການຮຽນ.' : 'Choose a learning module.'}</p></div><button class="btn" onclick="showMchDataAnalysisModules()">${lang === 'lo' ? '← ກັບໄປການວິເຄາະຂໍ້ມູນ' : '← Back to Data Analysis'}</button></div>${pdoLanguageNote}<div class="area-grid data-entry-modules"><div class="area c-amber"><div class="card-top"><div class="icon">🤱</div><div class="status">${lang === 'lo' ? 'English' : t('availableNow')}</div></div><h3>${lesson.title}</h3><p>${lesson.description}</p><button class="btn primary" onclick="startPdo3AnalysisLesson()">${t('startLearning')}</button></div></div><div class="footer"><span>${t('pilotFooter')}</span><span>${t('footerTag')}</span></div></div>`;
 }
+const showMchResultFrameworkDashboardOriginal=showMchResultFrameworkDashboard;
+showMchResultFrameworkDashboard=function(){
+  showMchResultFrameworkDashboardOriginal();
+  const folder=MCH_ANALYSIS_CATALOG.folders.find(item=>item.id==='result-framework-dashboard');
+  const grid=document.querySelector('.page .area-grid.data-entry-modules');
+  if(!folder||!grid)return;
+  grid.innerHTML=folder.lessons.map((lesson,index)=>{
+    const title=typeof lesson.title==='string'?lesson.title:lesson.title[lang==='lo'?'lo':'en'];
+    const description=typeof lesson.description==='string'?lesson.description:lesson.description[lang==='lo'?'lo':'en'];
+    const start=lesson.id==='pdo4'?'startPdo4AnalysisLesson()':'startPdo3AnalysisLesson()';
+    const icon=lesson.id==='pdo4'?'👶':'🤱';
+    const color=index%2===0?'c-amber':'c-teal';
+    return '<div class="area '+color+'"><div class="card-top"><div class="icon">'+icon+'</div><div class="status">'+t('availableNow')+'</div></div><h3>'+title+'</h3><p>'+description+'</p><button class="btn primary" onclick="'+start+'">'+t('startLearning')+'</button></div>';
+  }).join('');
+  document.querySelector('.page .notice')?.remove();
+};
 function returnFromMchIndicatorCatalog() {
   const saved = window.mchIndicatorCatalogReturn;
   window.mchIndicatorCatalogReturn = null;
@@ -3894,6 +4033,7 @@ function startZeroCaseLesson(){activeLesson='entry';activeEntryType='zero';curre
 function startWeeklyReportLesson(){activeLesson='entry';activeEntryType='weekly';current='SUR-DE-WR-001';activePath=null;renderLesson()}
 function startAncAnalysisLesson(){activeLesson='analysis';activeAnalysisType='anc';current='MCH-ANC-DA-001';activePath=null;renderLesson()}
 function startPdo3AnalysisLesson(){activeLesson='analysis';activeAnalysisType='pdo3';current='MCH-PDO3-DA-001';activePath=null;renderLesson()}
+function startPdo4AnalysisLesson(){activeLesson='analysis';activeAnalysisType='pdo4';current='MCH-PDO4-DA-001';activePath=null;renderLesson()}
 function startDeliveryAnalysisLesson(){activeLesson='analysis';activeAnalysisType='delivery';current='MCH-DR-DA-001';activePath=null;renderLesson()}
 function startAnalysisLesson(){activeLesson='analysis';activeAnalysisType='surv';current='SUR-DA-001';activePath=null;renderLesson()}
 function startReportLesson(){activeLesson='report';current='SUR-SR-001';activePath=null;renderLesson()}
@@ -3915,6 +4055,11 @@ function shortNo(id) { if (id.startsWith('MCH-DAPR-')) { const m=id.match(/^MCH-
     const m = id.match(/^SUR-DA-(\d{3})(?:-(\d{2}))?$/);
     return m ? `${Number(m[1])}${m[2] ? `-${Number(m[2])}` : ''}` : id.replace('SUR-DA-', '');
 } const m = { 'SUR-DE-010A-01': '10A.1', 'SUR-DE-010A-02': '10A.2', 'SUR-DE-010A-03': '10A.3', 'SUR-DE-010A-04': '10A.4', 'SUR-DE-010A-05': '10A.5', 'SUR-DE-010B-01': '10B.1', 'SUR-DE-010B-02': '10B.2', 'SUR-DE-014-01': '14.1', 'SUR-DE-014-02': '14.2', 'SUR-DE-014-03': '14.3', 'SUR-DE-014-04': '14.4' }; return m[id] || id.replace('SUR-DE-', ''); }
+const shortNoOriginal=shortNo;
+shortNo=function(id){
+  if(id.startsWith('MCH-PDO4-DA-')){const m=id.match(/^MCH-PDO4-DA-(\d{3})$/);return m?String(Number(m[1])):id;}
+  return shortNoOriginal(id);
+};
 /* The lesson panel starts expanded. Keep the user's choice while moving
    between steps or switching languages. This is separate from the global nav. */
 let lessonStepsCollapsed = false;
@@ -3941,7 +4086,7 @@ function lessonStepAria(s, id) {
   return (shortNo(id) + ' — ' + title(s)).replace(/&/g,'&amp;')
     .replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-function renderSidebar() { const malariaOrder = ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'Enter Surveillance 2.0 Data', 'Stage 1: Notification', 'Stage 2: Investigation & Classification', 'Stage 3: Follow-up', 'Stage 4: HH & Neighbourhood Response', 'Finish']; const ancOrder = ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'ANC Enrollment', 'Data entry form', 'Finish']; const deliveryMotherOrder = ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'Delivery enrollment', 'Delivery details', 'Infant form', 'Finish']; const deliveryInfantOrder = ['Main workflow', 'Infant form', 'Optional functions', 'Finish']; const approvalOrder = ['Main workflow', 'Finish']; const entryOrder = activeEntryType === 'dataApproval' ? approvalOrder : activeEntryType === 'deliveryMother' ? deliveryMotherOrder : activeEntryType === 'deliveryInfant' ? deliveryInfantOrder : activeEntryType === 'anc' ? ancOrder : activeEntryType === 'malaria' ? malariaOrder : activeEntryType === 'zero' || activeEntryType === 'weekly' ? ['Main workflow', 'Finish'] : ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'Enter Surveillance 2.0 Data', 'Data entry form', 'Finish']; const pdoAnalysisOrder = ['Open the dashboard', 'Set filters', 'Review district results', 'Review facilities', 'Plan follow-up', 'Optional ANC investigation', 'Finish']; const order = activeLesson === 'analysis' ? (activeAnalysisType === 'pdo3' ? pdoAnalysisOrder : ['Data Visualiser', 'Select Visualization Type', 'Determine Data', 'Determine Period', 'Determine Organisation Units', 'Finish']) : activeLesson === 'report' ? ['Reports App', 'Select Standard Report', 'Configure Report Parameters', 'Generate Report', 'Finish'] : entryOrder; const groups = Object.fromEntries(order.map(g => [g, []])); for (const s of lessonSteps()) {
+function renderSidebar() { const malariaOrder = ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'Enter Surveillance 2.0 Data', 'Stage 1: Notification', 'Stage 2: Investigation & Classification', 'Stage 3: Follow-up', 'Stage 4: HH & Neighbourhood Response', 'Finish']; const ancOrder = ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'ANC Enrollment', 'Data entry form', 'Finish']; const deliveryMotherOrder = ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'Delivery enrollment', 'Delivery details', 'Infant form', 'Finish']; const deliveryInfantOrder = ['Main workflow', 'Infant form', 'Optional functions', 'Finish']; const approvalOrder = ['Main workflow', 'Finish']; const entryOrder = activeEntryType === 'dataApproval' ? approvalOrder : activeEntryType === 'deliveryMother' ? deliveryMotherOrder : activeEntryType === 'deliveryInfant' ? deliveryInfantOrder : activeEntryType === 'anc' ? ancOrder : activeEntryType === 'malaria' ? malariaOrder : activeEntryType === 'zero' || activeEntryType === 'weekly' ? ['Main workflow', 'Finish'] : ['Main workflow', 'Decision point', 'Patient Not Found', 'Patient Found', 'Enter Surveillance 2.0 Data', 'Data entry form', 'Finish']; const pdoAnalysisOrder = ['Open the dashboard', 'Set filters', 'Review province results', 'Review district results', 'Review facilities', 'Plan follow-up', 'Practice and follow-up', 'Optional ANC investigation', 'Finish']; const order = activeLesson === 'analysis' ? (activeAnalysisType === 'pdo3' || activeAnalysisType === 'pdo4' ? pdoAnalysisOrder : ['Data Visualiser', 'Select Visualization Type', 'Determine Data', 'Determine Period', 'Determine Organisation Units', 'Finish']) : activeLesson === 'report' ? ['Reports App', 'Select Standard Report', 'Configure Report Parameters', 'Generate Report', 'Finish'] : entryOrder; const groups = Object.fromEntries(order.map(g => [g, []])); for (const s of lessonSteps()) {
     if (activeLesson === 'entry' && s.group === 'Patient Not Found' && activePath !== 'A')
         continue;
     if (activeLesson === 'entry' && s.group === 'Patient Found' && activePath !== 'B')
@@ -4051,16 +4196,61 @@ function renderPdo3Completion(){
   const c=PDO3_LAO.completion;
   return `<section class="pdo3-completion" aria-labelledby="pdo3CompletionSkills"><h4 id="pdo3CompletionSkills">${c.title}</h4><ul>${c.items.map(item=>`<li>${item}</li>`).join('')}</ul></section>`;
 }
+function renderPdo4Checkpoint(){
+  const c=PDO4_CHECK,lo=lang==='lo'?PDO4_LAO.checkpoint:null,options=lo?lo.options:c.options;
+  return '<section class="pdo3-check" id="pdo4Check" aria-labelledby="pdo4CheckTitle"><span class="pdo3-check-kicker">'+(lang==='lo'?'ຝຶກຄິດ · ບໍ່ມີຄະແນນ':'Quick practice · no score')+'</span><h3 id="pdo4CheckTitle">'+(lo?lo.prompt:c.prompt)+'</h3><div class="pdo3-check-options">'+options.map(([choice,label])=>'<button class="pdo3-check-option" type="button" aria-pressed="false" data-answer="'+choice+'" onclick="answerPdo4Checkpoint(this.dataset.answer)">'+label+'</button>').join('')+'</div><p class="pdo3-check-feedback" id="pdo4CheckFeedback" aria-live="polite"></p></section>';
+}
+function answerPdo4Checkpoint(choice){
+  const card=document.getElementById('pdo4Check');if(!card)return;
+  const correct=choice===PDO4_CHECK.correct;
+  card.querySelectorAll('.pdo3-check-option').forEach(button=>{
+    const selected=button.dataset.answer===choice;
+    button.classList.toggle('is-correct',selected&&correct);
+    button.classList.toggle('is-incorrect',selected&&!correct);
+    button.setAttribute('aria-pressed',String(selected));
+  });
+  const lo=lang==='lo'?PDO4_LAO.checkpoint:null,feedback=document.getElementById('pdo4CheckFeedback');
+  feedback.classList.toggle('is-correct',correct);
+  feedback.textContent=correct?(lo?lo.explain:PDO4_CHECK.explain):(lang==='lo'?PDO4_LAO.tryAgain:'Not quite. ')+(lo?lo.hint:PDO4_CHECK.hint)+(lang==='lo'?PDO4_LAO.chooseAgain:' Choose another answer.');
+}
+function renderPdo4Practice(){
+  const p=PDO4_LAO.practice;
+  const example=lang==='lo'?p.example:'“In Phongsali, Annualized Penta3 coverage was 63.27%, below the 81% target. Before explaining the result, check the reporting cutoff and confirm monthly reports and facility counts are complete.”';
+  const kicker=lang==='lo'?p.kicker:'Worked example · 9 November 2026 snapshot';
+  const title=lang==='lo'?p.title:'Example interpretation';
+  const note=lang==='lo'?p.note:'This is a dated example. Use the current dashboard values when writing your own interpretation.';
+  return '<section class="pdo3-activity-card pdo4-worked-example" aria-labelledby="pdo4PracticeTitle"><span class="pdo3-check-kicker">'+kicker+'</span><h3 id="pdo4PracticeTitle">'+title+'</h3><blockquote class="pdo4-example-quote">'+example+'</blockquote><p class="pdo4-example-note">'+note+'</p></section>';
+}
+function renderPdo4Followup(){
+  const f=PDO4_LAO.followup;
+  const steps=lang==='lo'?f.cards:[['1. Verify the data','Confirm the reporting cutoff and check whether all monthly submissions are complete.'],['2. Check facility records','Verify Penta3 counts and any zeros with the facilities. Do not assume that a zero means no vaccination was provided.'],['3. Agree on follow-up','Name the person who will check, set a due date, and agree when the team will review progress.']];
+  const title=lang==='lo'?f.title:'Turn the finding into a follow-up action';
+  const intro=lang==='lo'?f.intro:'Choose a check that can verify the data. Agree who will do it and when you will review progress.';
+  const exampleTitle=lang==='lo'?f.exampleTitle:'Example follow-up plan';
+  const example=lang==='lo'?f.example:'The district MCH or immunization focal person checks that monthly Penta3 reports are complete and verifies any zero counts against facility registers. The district team reviews the findings with facility staff on an agreed date.';
+  const note=lang==='lo'?f.note:'Example only. Agree the actual owner, checks, and review date with the responsible team.';
+  return '<section class="pdo3-activity-card pdo4-followup-example-card" aria-labelledby="pdo4FollowupTitle"><span class="pdo3-check-kicker">'+(lang==='lo'?f.kicker:'Action planning')+'</span><h3 id="pdo4FollowupTitle">'+title+'</h3><p>'+intro+'</p><div class="pdo3-plan-steps">'+steps.map(([head,text])=>'<div class="pdo3-plan-step"><b>'+head+'</b>'+text+'</div>').join('')+'</div><div class="pdo4-followup-example"><h4>'+exampleTitle+'</h4><p>'+example+'</p></div><p class="pdo4-followup-note">'+note+'</p></section>';
+}
+function renderPdo4ReviewPoints(){
+  const c=PDO4_LAO.reviewPoints;
+  const items=lang==='lo'?c.items:[['Confirm the reporting cutoff.','Check which months are included in the 2026 result.'],['Explain the measures.','YTD is recorded so far; Annualized is an estimate, not the final annual result.'],['Compare numeric values with 81%.','Verify labels such as “Closed” and status colours before interpreting them.'],['Separate district coverage from facility counts.','Facility counts are not facility coverage. Do not infer a cause from the result alone.']];
+  return '<section class="pdo3-activity-card" aria-labelledby="pdo4ReviewPointsTitle"><span class="pdo3-check-kicker">'+(lang==='lo'?c.kicker:'Before sharing')+'</span><h3 id="pdo4ReviewPointsTitle">'+(lang==='lo'?c.title:'Four points to review')+'</h3><p>'+(lang==='lo'?c.intro:'Use these four points as guidance when reviewing the result before sharing it.')+'</p><ol class="pdo4-review-list">'+items.map(([heading,text],i)=>'<li><span class="pdo4-review-number" aria-hidden="true">'+(i+1)+'</span><span><b>'+heading+'</b> '+text+'</span></li>').join('')+'</ol></section>';
+}
+function renderPdo4Completion(){
+  const c=PDO4_LAO.completion,items=lang==='lo'?c.items:['Locate PDO 4 and filter the dashboard to Phongsali.','Read YTD and Annualized values and compare with the 81% target.','Review facility counts without assuming they are facility coverage or inferring a cause.','Plan a follow-up check with an owner and review date.'];
+  return '<section class="pdo3-completion" aria-labelledby="pdo4CompletionSkills"><h4 id="pdo4CompletionSkills">'+(lang==='lo'?c.title:'What you can now do')+'</h4><ul>'+items.map(item=>'<li>'+item+'</li>').join('')+'</ul></section>';
+}
 function renderLesson() {
-    const isAnalysis = activeLesson === 'analysis', isReport = activeLesson === 'report', isEntry = activeLesson === 'entry', isDataApproval = isEntry && activeEntryType === 'dataApproval', isAnc = isEntry && activeEntryType === 'anc', isDeliveryMother = isEntry && activeEntryType === 'deliveryMother', isDeliveryInfant = isEntry && activeEntryType === 'deliveryInfant', isAncDA = isAnalysis && activeAnalysisType === 'anc', isDeliveryDA = isAnalysis && activeAnalysisType === 'delivery', isPdo3DA = isAnalysis && activeAnalysisType === 'pdo3', isPdoDA = isPdo3DA, isMalaria = isEntry && activeEntryType === 'malaria', isZero = isEntry && activeEntryType === 'zero', isWeekly = isEntry && activeEntryType === 'weekly', lessonName = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonTitle' : isDeliveryInfant ? 'mchInfantLessonTitle' : isDataApproval ? 'mchDataApprovalLessonTitle' : isAnc ? 'ancLessonTitle' : isWeekly ? 'weeklyLessonTitle' : isZero ? 'zeroLessonTitle' : isMalaria ? 'malariaLessonTitle' : 'communicableLessonTitle') : (isPdo3DA ? (lang === 'lo' ? PDO3_LAO.lessonTitle : 'PDO 3: Skilled birth attendance') : isDeliveryDA ? t('mchDeliveryTitle') + (lang === 'en' ? ' Data Analysis' : ' · ' + t('dataAnalysis')) : t(isAncDA ? 'ancDaTitle' : isAnalysis ? 'dataAnalysis' : 'standardReports')), lessonSubtitle = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonSub' : isDeliveryInfant ? 'mchInfantLessonSub' : isDataApproval ? 'mchDataApprovalLessonSub' : isAnc ? 'ancLessonSub' : isWeekly ? 'weeklyLessonSub' : isZero ? 'zeroLessonSub' : isMalaria ? 'malariaLessonSub' : 'communicableLessonSub') : (isPdoDA ? t('mchTitle') + ' · ' + t('dataAnalysis') : isDeliveryDA ? (lang === 'en' ? 'Maternal and Child Health · Delivery Registry · MCH-DR-DA' : t('mchDeliveryTitle')) : t(isAncDA ? 'ancDaSub' : 'lessonSub')), lessonIntro = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonIntro' : isDeliveryInfant ? 'mchInfantLessonIntro' : isDataApproval ? 'mchDataApprovalLessonIntro' : isAnc ? 'ancLessonIntro' : isWeekly ? 'weeklyLessonIntro' : isZero ? 'zeroLessonIntro' : isMalaria ? 'malariaLessonIntro' : 'communicableLessonIntro') : (isDeliveryDA ? t('mchDeliveryAnalysisDesc') : t(isAncDA ? 'ancDaIntro' : 'lessonIntro')), s = stepById(current), seq = visibleSequence(), idx = seq.indexOf(current), isComplete = current === (isAnalysis ? (isPdo3DA ? 'MCH-PDO3-DA-018' : isAncDA ? 'MCH-ANC-DA-011' : isDeliveryDA ? 'MCH-DR-DA-011' : 'SUR-DA-011') : isReport ? 'SUR-SR-012' : isDeliveryMother ? 'MCH-DR-MT-018' : isDeliveryInfant ? 'MCH-DR-IF-023' : isAnc ? 'MCH-ANC-019' : isMalaria ? 'SUR-DE-MAL-039' : isZero ? 'SUR-DE-ZCR-013' : isWeekly ? 'SUR-DE-WR-013' : isDataApproval ? 'MCH-DAPR-010' : 'SUR-DE-016');
+    const isAnalysis = activeLesson === 'analysis', isReport = activeLesson === 'report', isEntry = activeLesson === 'entry', isDataApproval = isEntry && activeEntryType === 'dataApproval', isAnc = isEntry && activeEntryType === 'anc', isDeliveryMother = isEntry && activeEntryType === 'deliveryMother', isDeliveryInfant = isEntry && activeEntryType === 'deliveryInfant', isAncDA = isAnalysis && activeAnalysisType === 'anc', isDeliveryDA = isAnalysis && activeAnalysisType === 'delivery', isPdo3DA = isAnalysis && activeAnalysisType === 'pdo3', isPdo4DA = isAnalysis && activeAnalysisType === 'pdo4', isPdoDA = isPdo3DA || isPdo4DA, isMalaria = isEntry && activeEntryType === 'malaria', isZero = isEntry && activeEntryType === 'zero', isWeekly = isEntry && activeEntryType === 'weekly', lessonName = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonTitle' : isDeliveryInfant ? 'mchInfantLessonTitle' : isDataApproval ? 'mchDataApprovalLessonTitle' : isAnc ? 'ancLessonTitle' : isWeekly ? 'weeklyLessonTitle' : isZero ? 'zeroLessonTitle' : isMalaria ? 'malariaLessonTitle' : 'communicableLessonTitle') : (isPdoDA ? (isPdo4DA ? (lang === 'lo' ? PDO4_LAO.lessonTitle : 'PDO 4: Infants receiving Penta3') : (lang === 'lo' ? PDO3_LAO.lessonTitle : 'PDO 3: Skilled birth attendance')) : isDeliveryDA ? t('mchDeliveryTitle') + (lang === 'en' ? ' Data Analysis' : ' · ' + t('dataAnalysis')) : t(isAncDA ? 'ancDaTitle' : isAnalysis ? 'dataAnalysis' : 'standardReports')), lessonSubtitle = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonSub' : isDeliveryInfant ? 'mchInfantLessonSub' : isDataApproval ? 'mchDataApprovalLessonSub' : isAnc ? 'ancLessonSub' : isWeekly ? 'weeklyLessonSub' : isZero ? 'zeroLessonSub' : isMalaria ? 'malariaLessonSub' : 'communicableLessonSub') : (isPdoDA ? t('mchTitle') + ' · ' + t('dataAnalysis') : isDeliveryDA ? (lang === 'en' ? 'Maternal and Child Health · Delivery Registry · MCH-DR-DA' : t('mchDeliveryTitle')) : t(isAncDA ? 'ancDaSub' : 'lessonSub')), lessonIntro = isEntry ? t(isDeliveryMother ? 'mchDeliveryLessonIntro' : isDeliveryInfant ? 'mchInfantLessonIntro' : isDataApproval ? 'mchDataApprovalLessonIntro' : isAnc ? 'ancLessonIntro' : isWeekly ? 'weeklyLessonIntro' : isZero ? 'zeroLessonIntro' : isMalaria ? 'malariaLessonIntro' : 'communicableLessonIntro') : (isDeliveryDA ? t('mchDeliveryAnalysisDesc') : t(isAncDA ? 'ancDaIntro' : 'lessonIntro')), s = stepById(current), seq = visibleSequence(), idx = seq.indexOf(current), isComplete = current === (isAnalysis ? (isPdo4DA ? 'MCH-PDO4-DA-017' : isPdo3DA ? 'MCH-PDO3-DA-018' : isAncDA ? 'MCH-ANC-DA-011' : isDeliveryDA ? 'MCH-DR-DA-011' : 'SUR-DA-011') : isReport ? 'SUR-SR-012' : isDeliveryMother ? 'MCH-DR-MT-018' : isDeliveryInfant ? 'MCH-DR-IF-023' : isAnc ? 'MCH-ANC-019' : isMalaria ? 'SUR-DE-MAL-039' : isZero ? 'SUR-DE-ZCR-013' : isWeekly ? 'SUR-DE-WR-013' : isDataApproval ? 'MCH-DAPR-010' : 'SUR-DE-016');
     document.getElementById('app').innerHTML = `<div class="lesson-layout ${lessonStepsCollapsed ? 'steps-collapsed' : ''}"><aside class="sidebar"><div class="lesson-panel-head"><div class="lesson-panel-meta"><div class="crumb">${isDeliveryDA || isPdoDA ? [t('home'), t('programGuidance'), t('mchTitle'), t('dataAnalysis')].join(' / ') : isAncDA ? DA_T[lang].ancDaCrumb : isAnalysis ? DA_T[lang].lessonCrumb : isReport ? SR_T[lang].lessonCrumb : isDeliveryMother ? t('mchDeliveryLessonCrumb') : isDeliveryInfant ? t('mchInfantLessonCrumb') : isDataApproval ? t('mchDataApprovalLessonCrumb') : isAnc ? t('mchLessonCrumb') : t('lessonCrumb')}</div><div class="lesson-title">${lessonName}</div><div class="lesson-sub">${lessonSubtitle}</div></div><button class="lesson-panel-toggle" type="button" id="lessonPanelToggle" onclick="toggleLessonSteps()" aria-controls="stepList" aria-expanded="${!lessonStepsCollapsed}" aria-label="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}" title="${lang === 'lo' ? (lessonStepsCollapsed ? 'ຂະຫຍາຍລາຍຊື່ຂັ້ນຕອນ' : 'ຫຍໍ້ລາຍຊື່ຂັ້ນຕອນ') : (lessonStepsCollapsed ? 'Expand step list' : 'Collapse to step numbers')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button></div><div class="progress"><i id="progressBar"></i></div><nav id="stepList" aria-label="${lang === 'lo' ? 'ຂັ້ນຕອນບົດຮຽນ' : 'Lesson steps'}"></nav><div class="footer-note">${isAnalysis ? DA_T[lang].versionPilot : isReport ? SR_T[lang].versionPilot : t('versionPilot')}</div></aside><main class="lesson-main"><div class="toolbar"><span class="badge">${groupTitle(s.group)}</span><div class="toolbar-tools"><span class="counter">${isComplete ? t('lessonCompleted') : t('stepCounter').replace('{n}', Math.max(1, idx + 1)).replace('{total}', seq.length - 1)}</span><button class="split-video-action" type="button" onclick="openSplitViewTip()" aria-haspopup="dialog">${SPLIT_VIEW_TIP_UI[lang === 'lo' ? 'lo' : 'en'].watch}</button></div></div><section class="content" id="lessonContent"></section></main></div>`;
     const c = document.getElementById('lessonContent');
+    if (isPdoDA) c.classList.add('pdo-analysis-content');
     if (isPdo3DA && current === 'MCH-PDO3-DA-015') c.classList.add('pdo3-practice-content');
-    if (isPdo3DA && (current === 'MCH-PDO3-DA-014' || current === 'MCH-PDO3-DA-016')) c.classList.add('pdo3-interactive-content');
+    if ((isPdo3DA && (current === 'MCH-PDO3-DA-014' || current === 'MCH-PDO3-DA-016')) || (isPdo4DA && ['MCH-PDO4-DA-011','MCH-PDO4-DA-016'].includes(current))) c.classList.add('pdo3-interactive-content');
     if (isComplete) {
         const summary = isAnalysis || isReport || isDataApproval || isAnc || isDeliveryMother || isDeliveryInfant || isMalaria || isZero || isWeekly ? '' : `<div class="summary-list"><ul>${['SUR-DE-002', 'SUR-DE-005', 'SUR-DE-006', 'SUR-DE-007', 'SUR-DE-008', 'SUR-DE-010A-01', 'SUR-DE-010B-01', 'SUR-DE-011', 'SUR-DE-012', 'SUR-DE-015'].map(id => `<li>${title(byId[id])}</li>`).join('')}</ul></div>`;
-        const completeTitle = isDeliveryDA || isPdoDA ? t('lessonCompleted') : isDataApproval ? t('mchDataApprovalCompletedTitle') : isAncDA ? t('ancDaCompletedTitle') : isDeliveryMother ? t('mchDeliveryCompletedTitle') : isDeliveryInfant ? t('mchInfantCompletedTitle') : isAnc ? t('ancCompletedTitle') : isWeekly ? t('weeklyCompletedTitle') : isZero ? t('zeroCompletedTitle') : isMalaria ? t('malariaCompletedTitle') : t('completedTitle'), completeText = isDeliveryDA ? s.ien : isPdoDA ? instruction(s) : isDataApproval ? t('mchDataApprovalCompletedText') : isAncDA ? t('ancDaCompletedText') : isDeliveryMother ? t('mchDeliveryCompletedText') : isDeliveryInfant ? t('mchInfantCompletedText') : isAnc ? t('ancCompletedText') : isAnalysis ? DA_T[lang].completedText : isReport ? SR_T[lang].completedText : isWeekly ? t('weeklyCompletedText') : isZero ? t('zeroCompletedText') : isMalaria ? t('malariaCompletedText') : (lang === 'en' ? s.ien : s.ilo), restartAction = isPdo3DA ? 'startPdo3AnalysisLesson()' : isDeliveryDA ? 'startDeliveryAnalysisLesson()' : isDataApproval ? 'startMchDataApprovalLesson()' : isAncDA ? 'startAncAnalysisLesson()' : isDeliveryMother ? 'startDeliveryMotherLesson()' : isDeliveryInfant ? 'startDeliveryInfantLesson()' : isAnc ? 'startAncLesson()' : isWeekly ? 'startWeeklyReportLesson()' : isZero ? 'startZeroCaseLesson()' : isMalaria ? 'startMalariaLesson()' : isAnalysis ? 'startAnalysisLesson()' : isReport ? 'startReportLesson()' : 'startLesson()', restartLabel = isPdoDA ? (lang === 'lo' ? PDO3_LAO.restart : DA_T.en.startAnalysisAgain) : isDeliveryDA ? DA_T[lang].startAnalysisAgain : isDataApproval ? t('restartMchDataApproval') : isAncDA ? t('ancDaAgain') : isDeliveryMother ? t('restartDeliveryMother') : isDeliveryInfant ? t('restartDeliveryInfant') : isAnc ? t('restartAnc') : isWeekly ? t('restartWeekly') : isZero ? t('restartZero') : isMalaria ? t('restartMalaria') : isAnalysis ? DA_T[lang].startAnalysisAgain : isReport ? SR_T[lang].startReportAgain : t('restart'), backAction = isDeliveryDA || isAncDA || isPdoDA ? 'showMchDataAnalysisModules()' : isDeliveryMother || isDeliveryInfant ? 'showMchDeliveryModules()' : isDataApproval ? 'showMchAreas()' : isAnc ? 'showMchDataEntryModules()' : isEntry ? 'showDataEntryModules()' : 'showAreas()';
-        const completionExtra = isPdo3DA ? renderPdo3Completion() : summary;
+        const completeTitle = isDeliveryDA || isPdoDA ? t('lessonCompleted') : isDataApproval ? t('mchDataApprovalCompletedTitle') : isAncDA ? t('ancDaCompletedTitle') : isDeliveryMother ? t('mchDeliveryCompletedTitle') : isDeliveryInfant ? t('mchInfantCompletedTitle') : isAnc ? t('ancCompletedTitle') : isWeekly ? t('weeklyCompletedTitle') : isZero ? t('zeroCompletedTitle') : isMalaria ? t('malariaCompletedTitle') : t('completedTitle'), completeText = isDeliveryDA ? s.ien : isPdoDA ? instruction(s) : isDataApproval ? t('mchDataApprovalCompletedText') : isAncDA ? t('ancDaCompletedText') : isDeliveryMother ? t('mchDeliveryCompletedText') : isDeliveryInfant ? t('mchInfantCompletedText') : isAnc ? t('ancCompletedText') : isAnalysis ? DA_T[lang].completedText : isReport ? SR_T[lang].completedText : isWeekly ? t('weeklyCompletedText') : isZero ? t('zeroCompletedText') : isMalaria ? t('malariaCompletedText') : (lang === 'en' ? s.ien : s.ilo), restartAction = isPdo4DA ? 'startPdo4AnalysisLesson()' : isPdo3DA ? 'startPdo3AnalysisLesson()' : isDeliveryDA ? 'startDeliveryAnalysisLesson()' : isDataApproval ? 'startMchDataApprovalLesson()' : isAncDA ? 'startAncAnalysisLesson()' : isDeliveryMother ? 'startDeliveryMotherLesson()' : isDeliveryInfant ? 'startDeliveryInfantLesson()' : isAnc ? 'startAncLesson()' : isWeekly ? 'startWeeklyReportLesson()' : isZero ? 'startZeroCaseLesson()' : isMalaria ? 'startMalariaLesson()' : isAnalysis ? 'startAnalysisLesson()' : isReport ? 'startReportLesson()' : 'startLesson()', restartLabel = isPdo4DA ? (lang === 'lo' ? PDO4_LAO.restart : DA_T.en.startAnalysisAgain) : isPdo3DA ? (lang === 'lo' ? PDO3_LAO.restart : DA_T.en.startAnalysisAgain) : isDeliveryDA ? DA_T[lang].startAnalysisAgain : isDataApproval ? t('restartMchDataApproval') : isAncDA ? t('ancDaAgain') : isDeliveryMother ? t('restartDeliveryMother') : isDeliveryInfant ? t('restartDeliveryInfant') : isAnc ? t('restartAnc') : isWeekly ? t('restartWeekly') : isZero ? t('restartZero') : isMalaria ? t('restartMalaria') : isAnalysis ? DA_T[lang].startAnalysisAgain : isReport ? SR_T[lang].startReportAgain : t('restart'), backAction = isDeliveryDA || isAncDA ? 'showMchDataAnalysisModules()' : isPdoDA ? 'showMchResultFrameworkDashboard()' : isDeliveryMother || isDeliveryInfant ? 'showMchDeliveryModules()' : isDataApproval ? 'showMchAreas()' : isAnc ? 'showMchDataEntryModules()' : isEntry ? 'showDataEntryModules()' : 'showAreas()';
+        const completionExtra = isPdo4DA ? renderPdo4Completion() : isPdo3DA ? renderPdo3Completion() : summary;
         c.innerHTML = `<div class="completion"><div class="check">✓</div><h3>${completeTitle}</h3><p>${completeText}</p>${completionExtra}<button class="btn primary" onclick="${restartAction}">${restartLabel}</button><button class="btn" style="margin-left:8px" onclick="${backAction}">${t('backProgram')}</button></div>`;
     }
     else {
@@ -4078,8 +4268,12 @@ function renderLesson() {
         if (isPdo3DA && current === 'MCH-PDO3-DA-015') extra = renderPdo3PracticeActivity();
         if (isPdo3DA && current === 'MCH-PDO3-DA-016') extra = renderPdo3SharingChecklist();
         if (isPdo3DA && current === 'MCH-PDO3-DA-017') extra = renderPdo3OptionalNotice();
-        const imgHtml = s.image ? `<div class="image-wrap" onclick="openLightbox('${s.id}')" title="${t('clickToEnlarge')}"><img src="${s.image}" alt="${title(s)}" onerror="imgFail(this)"><span class="zoom-hint">${t('clickToEnlarge')}</span></div>` : isPdo3DA ? '' : `<div class="image-wrap"><div class="no-image">${t('noImage')}</div></div>`;
-        const backAction = isDeliveryDA || isAncDA || isPdoDA ? 'showMchDataAnalysisModules()' : isDeliveryMother || isDeliveryInfant ? 'showMchDeliveryModules()' : isDataApproval ? 'showMchAreas()' : isAnc ? 'showMchDataEntryModules()' : isEntry ? 'showDataEntryModules()' : 'showAreas()';
+        if (isPdo4DA && current === 'MCH-PDO4-DA-011') extra = renderPdo4Checkpoint();
+        if (isPdo4DA && current === 'MCH-PDO4-DA-014') extra = renderPdo4Practice();
+        if (isPdo4DA && current === 'MCH-PDO4-DA-015') extra = renderPdo4Followup();
+        if (isPdo4DA && current === 'MCH-PDO4-DA-016') extra = renderPdo4ReviewPoints();
+        const imgHtml = s.image ? `<div class="image-wrap" onclick="openLightbox('${s.id}')" title="${t('clickToEnlarge')}"><img src="${s.image}" alt="${title(s)}" onerror="imgFail(this)"><span class="zoom-hint">${t('clickToEnlarge')}</span></div>` : isPdoDA ? '' : `<div class="image-wrap"><div class="no-image">${t('noImage')}</div></div>`;
+        const backAction = isDeliveryDA || isAncDA ? 'showMchDataAnalysisModules()' : isPdoDA ? 'showMchResultFrameworkDashboard()' : isDeliveryMother || isDeliveryInfant ? 'showMchDeliveryModules()' : isDataApproval ? 'showMchAreas()' : isAnc ? 'showMchDataEntryModules()' : isEntry ? 'showDataEntryModules()' : 'showAreas()';
         const indicatorButton = isAncDA || isDeliveryDA ? `<button class="btn indicator-inline-link" type="button" onclick="showMchIndicatorCatalog('${isDeliveryDA ? 'delivery' : 'anc'}', true)">${MCH_INDICATOR_UI[lang === 'lo' ? 'lo' : 'en'].viewIndicators}</button>` : '';
         c.innerHTML = `<div class="content-head"><h2>${title(s)}</h2><p>${instruction(s)}</p>${indicatorButton}</div>${extra}${imgHtml}<div class="actionbar"><div class="left"><button class="btn" id="backBtn">${t('previous')}</button><button class="btn" onclick="${backAction}">${t('backProgram')}</button></div><div class="right"><button class="btn primary" id="nextBtn">${t('next')}</button></div></div>`;
         document.getElementById('backBtn').onclick = prev;
@@ -4180,6 +4374,7 @@ function prev(){const seq=visibleSequence(),i=seq.indexOf(current);if(i>0){curre
     'anc-analysis': { lesson: 'analysis', analysis: 'anc' },
     'delivery-analysis': { lesson: 'analysis', analysis: 'delivery' },
     'pdo3': { lesson: 'analysis', analysis: 'pdo3' },
+    'pdo4': { lesson: 'analysis', analysis: 'pdo4' },
         'report':       { lesson: 'report' }
   };
 
@@ -4200,7 +4395,7 @@ function prev(){const seq=visibleSequence(),i=seq.indexOf(current);if(i>0){curre
   function currentHash() {
     if (document.querySelector('.lesson-layout')) {
       const key = lessonKey();
-      if (key === 'pdo3') return '#/mch-analysis/pdo3/' + encodeURIComponent(current);
+      if (key === 'pdo3' || key === 'pdo4') return '#/mch-analysis/' + key + '/' + encodeURIComponent(current);
       return '#/lesson/' + key + '/' + encodeURIComponent(current) + (activePath ? '/' + activePath : '');
     }
     const view = window.currentView || 'home';
@@ -4257,6 +4452,7 @@ function prev(){const seq=visibleSequence(),i=seq.indexOf(current);if(i>0){curre
       const ok = name === 'lesson' ? openLesson(parts[1], parts[2], parts[3])
         : name === 'mch-analysis' && parts[1] === 'result-framework-dashboard' ? (showMchResultFrameworkDashboard(), true)
         : name === 'mch-analysis' && parts[1] === 'pdo3' ? openLesson('pdo3', parts[2] || 'MCH-PDO3-DA-001')
+        : name === 'mch-analysis' && parts[1] === 'pdo4' ? openLesson('pdo4', parts[2] || 'MCH-PDO4-DA-001')
         : own(VIEWS, name) ? openView(VIEWS[name], parts[1])
         : false;
       if (!ok) showHome();
