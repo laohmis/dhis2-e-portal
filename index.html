@@ -4324,8 +4324,72 @@ function prev(){const seq=visibleSequence(),i=seq.indexOf(current);if(i>0){curre
      #/lesson/<lesson>/<stepId>[/<A|B>]        e.g.  #/lesson/comm/SUR-DE-003/A
    The existing navigation functions (and their onclick handlers) are unchanged. They are wrapped here so that,
    after rendering, they record the new screen in the URL. A popstate/hashchange handler replays the URL.
-   Anything read back from the URL is validated against known IDs before it is used. */
+   Anything read back from the URL is validated against known IDs before it is used.
+
+   HMIS embed handoff:
+     - This frame reports its current route to https://hmis.gov.la using postMessage.
+     - The HMIS page can send { source: 'hmis-dashboard', type: 'navigate', hash: '#/mch-indicators/anc' }
+       back to this frame when a visitor opens a direct HMIS learning link.
+     - The HMIS page must map its own paths (for example /data/learning/mch/data-analysis/anc) to
+       these portal hashes and update its browser history when it receives a route-change message.
+   Example portal hashes are exposed as window.DHIS2_ERESOURCES_EMBED_ROUTES below.
+
+   HMIS-side example (adapt the iframe selector and path map to the HMIS page):
+     const frame = document.querySelector('#eresources-frame');
+     const portalOrigin = 'https://laohmis.github.io';
+     const pathToPortalHash = {
+       '/data/learning/mch/data-analysis': '#/mch-analysis',
+       '/data/learning/mch/data-analysis/anc': '#/mch-indicators/anc',
+       '/data/learning/mch/data-analysis/pdo3': '#/mch-analysis/pdo3/MCH-PDO3-DA-001'
+     };
+     const portalHashToPath = Object.fromEntries(
+       Object.entries(pathToPortalHash).map(([path, hash]) => [hash, path])
+     );
+     function sendHmisPathToPortal() {
+       const hash = pathToPortalHash[location.pathname];
+       if (hash) frame.contentWindow.postMessage(
+         { source: 'hmis-dashboard', type: 'navigate', hash }, portalOrigin
+       );
+     }
+     frame.addEventListener('load', sendHmisPathToPortal);
+     window.addEventListener('popstate', sendHmisPathToPortal);
+     window.addEventListener('message', event => {
+       if (event.origin !== portalOrigin || event.source !== frame.contentWindow) return;
+       const msg = event.data;
+       if (msg?.source !== 'dhis2-eresources' || msg.type !== 'route-change') return;
+       const path = portalHashToPath[msg.hash];
+       if (path && location.pathname !== path) {
+         history[msg.historyMode === 'push' ? 'pushState' : 'replaceState'](null, '', path);
+       }
+     });
+   The parent page still needs to handle direct paths and browser Back/Forward itself. */
 (() => {
+  const HMIS_ORIGIN = 'https://hmis.gov.la';
+  const EMBED_ROUTES = Object.freeze({
+    home: '#/home',
+    mch: '#/mch',
+    mchDataEntry: '#/mch-entry',
+    mchDataAnalysis: '#/mch-analysis',
+    ancIndicators: '#/mch-indicators/anc',
+    deliveryIndicators: '#/mch-indicators/delivery',
+    ancAnalysisLesson: '#/lesson/anc-analysis/MCH-ANC-DA-001',
+    deliveryAnalysisLesson: '#/lesson/delivery-analysis/MCH-DR-DA-001',
+    pdo3Lesson: '#/mch-analysis/pdo3/MCH-PDO3-DA-001',
+    pdo4Lesson: '#/mch-analysis/pdo4/MCH-PDO4-DA-001',
+    mchDataApprovalLesson: '#/lesson/mch-data-approval/MCH-DAPR-001'
+  });
+  window.DHIS2_ERESOURCES_EMBED_ROUTES = EMBED_ROUTES;
+
+  function notifyHmis(hash, historyMode = 'replace') {
+    if (window.parent === window) return;
+    window.parent.postMessage({
+      source: 'dhis2-eresources',
+      type: 'route-change',
+      hash,
+      historyMode
+    }, HMIS_ORIGIN);
+  }
+
   const VIEWS = {
     'home':           { fn: 'showHome',                   view: 'home' },
     'about':          { fn: 'showAbout',                  view: 'about' },
@@ -4412,6 +4476,7 @@ function prev(){const seq=visibleSequence(),i=seq.indexOf(current);if(i>0){curre
     if (hash === lastHash) return;
     history.pushState(null, '', hash);
     lastHash = hash;
+    notifyHmis(hash, 'push');
   }
 
   function openView(v, arg) {
@@ -4461,6 +4526,7 @@ function prev(){const seq=visibleSequence(),i=seq.indexOf(current);if(i>0){curre
     }
     lastHash = currentHash();
     if (location.hash !== lastHash) history.replaceState(null, '', lastHash);
+    notifyHmis(lastHash);
   }
 
   Object.values(VIEWS).forEach(({ fn }) => {
@@ -4473,6 +4539,19 @@ function prev(){const seq=visibleSequence(),i=seq.indexOf(current);if(i>0){curre
   const onNavigate = () => { if (location.hash !== lastHash) { route(location.hash); window.scrollTo(0, 0); } };
   window.addEventListener('popstate', onNavigate);
   window.addEventListener('hashchange', onNavigate);
+
+  window.addEventListener('message', event => {
+    if (event.origin !== HMIS_ORIGIN || event.source !== window.parent) return;
+    const message = event.data;
+    if (!message || message.source !== 'hmis-dashboard' || message.type !== 'navigate') return;
+    const hash = typeof message.hash === 'string' ? message.hash : '';
+    if (!hash.startsWith('#/')) return;
+    if (hash !== location.hash) {
+      history.replaceState(null, '', hash);
+      route(hash);
+      window.scrollTo(0, 0);
+    }
+  });
 
   window.startRouter = () => route(initialHash);
 })();
